@@ -1,0 +1,476 @@
+openapi: 3.0.2
+info:
+  title: HostServiceApi
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /authenticate:
+    post:
+      operationId: AuthenticatePairingCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthenticatePairingCodeRequestContent"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticatePairingCodeResponseContent"
+          description: AuthenticatePairingCode 200 response
+  /internal/deprovision:
+    post:
+      operationId: DeprovisionDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeprovisionDeviceRequestContent"
+      responses:
+        "200":
+          description: DeprovisionDevice 200 response
+  /internal/host-config:
+    get:
+      operationId: GetHostConfig
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetHostConfigResponseContent"
+          description: GetHostConfig 200 response
+  /internal/log:
+    post:
+      operationId: RequestLog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RequestLogRequestContent"
+      responses:
+        "200":
+          description: RequestLog 200 response
+  /internal/rotate-certs:
+    post:
+      operationId: RotateCertificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RotateCertificatesRequestContent"
+        required: true
+      responses:
+        "200":
+          description: RotateCertificates 200 response
+  /internal/thumbnail:
+    post:
+      operationId: RequestThumbnail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RequestThumbnailRequestContent"
+        required: true
+      responses:
+        "200":
+          description: RequestThumbnail 200 response
+  /internal/version:
+    get:
+      operationId: GetVersion
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetVersionResponseContent"
+          description: GetVersion 200 response
+  /pair:
+    post:
+      operationId: CreatePairingCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePairingCodeRequestContent"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreatePairingCodeResponseContent"
+          description: CreatePairingCode 200 response
+components:
+  schemas:
+    AuthStatus:
+      enum:
+      - STANDBY
+      - CLAIMED
+      type: string
+    AuthenticatePairingCodeRequestContent:
+      example:
+        accessCode: accessCode
+        deviceId: deviceId
+        pairingCode: pairingCode
+      properties:
+        deviceId:
+          type: string
+        pairingCode:
+          type: string
+        accessCode:
+          type: string
+      required:
+      - accessCode
+      - deviceId
+      - pairingCode
+      type: object
+    AuthenticatePairingCodeResponseContent:
+      example:
+        regionName: regionName
+        hostSettings:
+          pairingTimeoutSeconds: 0.8008281904610115
+          subUpdateTopic: subUpdateTopic
+          pubReportStatusTopic: pubReportStatusTopic
+          minIntervalPubSeconds: 6.027456183070403
+          subUpdateCertsTopic: subUpdateCertsTopic
+          pubReportRegistrationTopic: pubReportRegistrationTopic
+          pubDeprovisionTopic: pubDeprovisionTopic
+          subDeprovisionTopic: subDeprovisionTopic
+          pubReportSchemaTopic: pubReportSchemaTopic
+          subUpdateThumbnailSubscriptionTopic: subUpdateThumbnailSubscriptionTopic
+          subUpdateLogSubscriptionTopic: subUpdateLogSubscriptionTopic
+          iotProtocolName: iotProtocolName
+          mqttKeepaliveSeconds: 1.4658129805029452
+          pubReportActualConfigurationTopic: pubReportActualConfigurationTopic
+        mqttUri: mqttUri
+        caCertificate: caCertificate
+        deviceCertificate: deviceCertificate
+        status: STANDBY
+      properties:
+        status:
+          $ref: "#/components/schemas/AuthStatus"
+        caCertificate:
+          type: string
+        deviceCertificate:
+          type: string
+        mqttUri:
+          type: string
+        regionName:
+          type: string
+        hostSettings:
+          $ref: "#/components/schemas/HostSettings"
+      required:
+      - status
+      type: object
+    CreatePairingCodeFailureData:
+      properties:
+        reason:
+          $ref: "#/components/schemas/CreatePairingCodeFailureReason"
+      required:
+      - reason
+      type: object
+    CreatePairingCodeFailureReason:
+      enum:
+      - HOST_ID_MISMATCH
+      - VERSION_NOT_SUPPORTED
+      - DEVICE_TYPE_NOT_SUPPORTED
+      type: string
+    CreatePairingCodeRequestContent:
+      example:
+        deviceType: deviceType
+        certificateSigningRequest: certificateSigningRequest
+        hostId: hostId
+        version: version
+      properties:
+        deviceType:
+          type: string
+        hostId:
+          type: string
+        certificateSigningRequest:
+          type: string
+        version:
+          type: string
+      required:
+      - certificateSigningRequest
+      - deviceType
+      - hostId
+      - version
+      type: object
+    CreatePairingCodeResponseContent:
+      example:
+        result:
+          success:
+            pairingTimeoutSeconds: 0.8008281904610115
+            accessCode: accessCode
+            deviceId: deviceId
+            pairingCode: pairingCode
+      properties:
+        result:
+          $ref: "#/components/schemas/CreatePairingCodeResult"
+      required:
+      - result
+      type: object
+    CreatePairingCodeResult:
+      oneOf:
+      - $ref: "#/components/schemas/success"
+      - $ref: "#/components/schemas/failure"
+    CreatePairingCodeSuccessData:
+      example:
+        pairingTimeoutSeconds: 0.8008281904610115
+        accessCode: accessCode
+        deviceId: deviceId
+        pairingCode: pairingCode
+      properties:
+        deviceId:
+          type: string
+        pairingCode:
+          type: string
+        accessCode:
+          type: string
+        pairingTimeoutSeconds:
+          type: number
+      required:
+      - accessCode
+      - deviceId
+      - pairingCode
+      - pairingTimeoutSeconds
+      type: object
+    DeprovisionDeviceRequestContent:
+      example:
+        reason: DEPROVISIONED
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        reason:
+          $ref: "#/components/schemas/DeprovisionReason"
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    DeprovisionReason:
+      enum:
+      - DEPROVISIONED
+      - EXPIRED
+      - UNKNOWN
+      type: string
+    GetHostConfigResponseContent:
+      example:
+        authenticatePairingCodeUrl: authenticatePairingCodeUrl
+        deviceTypes:
+        - deviceTypes
+        - deviceTypes
+        thumbnailMaxSizeKB: 0.8008281904610115
+        logFileMaxSizeKB: 6.027456183070403
+        createPairingCodeUrl: createPairingCodeUrl
+        serviceId: serviceId
+        serviceName: serviceName
+      properties:
+        serviceId:
+          type: string
+        serviceName:
+          type: string
+        deviceTypes:
+          items:
+            type: string
+          type: array
+        thumbnailMaxSizeKB:
+          type: number
+        logFileMaxSizeKB:
+          type: number
+        createPairingCodeUrl:
+          type: string
+        authenticatePairingCodeUrl:
+          type: string
+      required:
+      - authenticatePairingCodeUrl
+      - createPairingCodeUrl
+      - deviceTypes
+      - logFileMaxSizeKB
+      - serviceId
+      - serviceName
+      - thumbnailMaxSizeKB
+      type: object
+    GetVersionResponseContent:
+      example:
+        version:
+          version: 1.0.2
+      properties:
+        version:
+          $ref: "#/components/schemas/ProtocolVersion"
+      required:
+      - version
+      type: object
+    HostSettings:
+      example:
+        pairingTimeoutSeconds: 0.8008281904610115
+        subUpdateTopic: subUpdateTopic
+        pubReportStatusTopic: pubReportStatusTopic
+        minIntervalPubSeconds: 6.027456183070403
+        subUpdateCertsTopic: subUpdateCertsTopic
+        pubReportRegistrationTopic: pubReportRegistrationTopic
+        pubDeprovisionTopic: pubDeprovisionTopic
+        subDeprovisionTopic: subDeprovisionTopic
+        pubReportSchemaTopic: pubReportSchemaTopic
+        subUpdateThumbnailSubscriptionTopic: subUpdateThumbnailSubscriptionTopic
+        subUpdateLogSubscriptionTopic: subUpdateLogSubscriptionTopic
+        iotProtocolName: iotProtocolName
+        mqttKeepaliveSeconds: 1.4658129805029452
+        pubReportActualConfigurationTopic: pubReportActualConfigurationTopic
+      properties:
+        iotProtocolName:
+          type: string
+        pairingTimeoutSeconds:
+          type: number
+        minIntervalPubSeconds:
+          type: number
+        mqttKeepaliveSeconds:
+          type: number
+        subUpdateTopic:
+          type: string
+        subUpdateThumbnailSubscriptionTopic:
+          type: string
+        pubReportSchemaTopic:
+          type: string
+        pubReportRegistrationTopic:
+          type: string
+        pubReportStatusTopic:
+          type: string
+        pubReportActualConfigurationTopic:
+          type: string
+        subUpdateCertsTopic:
+          type: string
+        pubDeprovisionTopic:
+          type: string
+        subDeprovisionTopic:
+          type: string
+        subUpdateLogSubscriptionTopic:
+          type: string
+      required:
+      - iotProtocolName
+      - minIntervalPubSeconds
+      - mqttKeepaliveSeconds
+      - pairingTimeoutSeconds
+      - pubDeprovisionTopic
+      - pubReportActualConfigurationTopic
+      - pubReportRegistrationTopic
+      - pubReportSchemaTopic
+      - pubReportStatusTopic
+      - subDeprovisionTopic
+      - subUpdateCertsTopic
+      - subUpdateLogSubscriptionTopic
+      - subUpdateThumbnailSubscriptionTopic
+      - subUpdateTopic
+      type: object
+    ProtocolVersion:
+      example:
+        version: 1.0.2
+      properties:
+        version:
+          default: 1.0.2
+          type: string
+      type: object
+    RequestLogRequestContent:
+      example:
+        remotePath: remotePath
+        expiresTimestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        expiresTimestamp:
+          format: date-time
+          type: string
+        remotePath:
+          type: string
+      type: object
+    RequestThumbnailRequestContent:
+      example:
+        requests:
+          key:
+            headers:
+              key: headers
+            remotePath: remotePath
+            localPath: localPath
+            periodSeconds: 0.8008281904610115
+            expiresTimestamp: 2000-01-23T04:56:07.000+00:00
+            maxSizeKilobyte: 6.027456183070403
+      properties:
+        requests:
+          additionalProperties:
+            $ref: "#/components/schemas/ThumbnailRequest"
+          type: object
+      required:
+      - requests
+      type: object
+    RotateCertificatesRequestContent:
+      example:
+        regionName: regionName
+        mqttUri: mqttUri
+        deviceCertificate: deviceCertificate
+      properties:
+        mqttUri:
+          type: string
+        deviceCertificate:
+          type: string
+        regionName:
+          type: string
+      required:
+      - deviceCertificate
+      - mqttUri
+      - regionName
+      type: object
+    StringMap:
+      additionalProperties:
+        type: string
+      type: object
+    ThumbnailRequest:
+      example:
+        headers:
+          key: headers
+        remotePath: remotePath
+        localPath: localPath
+        periodSeconds: 0.8008281904610115
+        expiresTimestamp: 2000-01-23T04:56:07.000+00:00
+        maxSizeKilobyte: 6.027456183070403
+      properties:
+        periodSeconds:
+          type: number
+        expiresTimestamp:
+          format: date-time
+          type: string
+        maxSizeKilobyte:
+          type: number
+        localPath:
+          type: string
+        remotePath:
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    ThumbnailRequestMap:
+      additionalProperties:
+        $ref: "#/components/schemas/ThumbnailRequest"
+      type: object
+    success:
+      example:
+        success:
+          pairingTimeoutSeconds: 0.8008281904610115
+          accessCode: accessCode
+          deviceId: deviceId
+          pairingCode: pairingCode
+      properties:
+        success:
+          $ref: "#/components/schemas/CreatePairingCodeSuccessData"
+      required:
+      - success
+      title: success
+      type: object
+    failure:
+      properties:
+        failure:
+          $ref: "#/components/schemas/CreatePairingCodeFailureData"
+      required:
+      - failure
+      title: failure
+      type: object
