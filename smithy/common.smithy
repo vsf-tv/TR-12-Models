@@ -3,7 +3,7 @@ $version: "2"
 namespace com.example.cdd.common
 
 structure ProtocolVersion {
-    @default("1.0.1")
+    @default("1.0.2")
     version: String
 }
 
@@ -164,13 +164,11 @@ structure DeprovisionRequest {
 
 structure ThumbnailRequest {
     periodSeconds: Integer
-    // Unix epoch seconds at which the subscription expires
-    expiresAtEpochSeconds: Integer
+    @timestampFormat("date-time")
+    expiresTimestamp: Timestamp
     maxSizeKilobyte: Integer
     localPath: String
     remotePath: String
-    // HTTP headers to include when uploading thumbnails — required for non-AWS
-    // storage backends that need authentication or content-type headers
     headers: StringMap
 }
 
@@ -190,10 +188,10 @@ map ThumbnailRequestMap {
 }
 
 // All fields are optional — a partial LogRequest instructs the device to upload
-// any available logs to the provided remotePath before expiresAtEpochSeconds.
+// any available logs to the provided remotePath before expiresTimestamp.
 structure LogRequest {
-    // Unix epoch seconds at which this upload request expires
-    expiresAtEpochSeconds: Integer
+    @timestampFormat("date-time")
+    expiresTimestamp: Timestamp
     remotePath: String
 }
 
