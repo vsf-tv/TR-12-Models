@@ -40,7 +40,6 @@ structure IdAndValue {
     value: String
 }
 
-//TODO: make this a map
 list IdAndValueList {
     member: IdAndValue
 }
@@ -51,8 +50,6 @@ list StringList {
 
 structure HostSettings {
     @required
-    // TODO: should this be an enum?
-    // TODO: Do we want to expose iot or keep that as an implementation detail?
     iotProtocolName: String
     @required
     pairingTimeoutSeconds: Integer
@@ -161,8 +158,8 @@ enum DeprovisionReason {
 
 structure DeprovisionRequest {
     reason: DeprovisionReason
-    //TODO: use timestamp instead?
-    time: Integer
+    @timestampFormat("date-time")
+    timestamp: Timestamp
 }
 
 structure ThumbnailRequest {
