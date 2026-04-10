@@ -29,6 +29,8 @@ enum SupportedProtocol {
     ZIXI_CALLER
     RIST_CALLER
     RIST_LISTENER
+    RTP
+    WEBRTC
 }
 
 structure IdAndValue {
@@ -80,29 +82,29 @@ structure HostSettings {
     subUpdateLogSubscriptionTopic: String
 }
 
-structure PairRequest {
+structure CreatePairingCodeRequest {
     @required
     deviceType: String
     @required
     hostId: String
     @required
-    csr: String
+    certificateSigningRequest: String
     @required
     version: String
 }
 
-enum PairFailureReason {
+enum CreatePairingCodeFailureReason {
     HOST_ID_MISMATCH
     VERSION_NOT_SUPPORTED
     DEVICE_TYPE_NOT_SUPPORTED
 }
 
-union PairResult {
-    success: PairSuccessData
-    failure: PairFailureData
+union CreatePairingCodeResult {
+    success: CreatePairingCodeSuccessData
+    failure: CreatePairingCodeFailureData
 }
 
-structure PairSuccessData {
+structure CreatePairingCodeSuccessData {
     @required
     deviceId: String
     @required
@@ -113,17 +115,17 @@ structure PairSuccessData {
     pairingTimeoutSeconds: Integer
 }
 
-structure PairFailureData {
+structure CreatePairingCodeFailureData {
     @required
-    reason: PairFailureReason
+    reason: CreatePairingCodeFailureReason
 }
 
-structure PairResponse {
+structure CreatePairingCodeResponse {
     @required
-    result: PairResult
+    result: CreatePairingCodeResult
 }
 
-structure AuthRequest {
+structure AuthenticatePairingCodeRequest {
     @required
     deviceId: String
     @required
@@ -132,32 +134,23 @@ structure AuthRequest {
     accessCode: String
 }
 
-structure AuthResponse {
+structure AuthenticatePairingCodeResponse {
     @required
     status: AuthStatus
-    caCert: String
-    deviceCert: String
+    caCertificate: String
+    deviceCertificate: String
     mqttUri: String
-    region: String
+    regionName: String
     hostSettings: HostSettings
 }
 
-structure ConnectionSettings {
-    @required
-    deviceId: String
-    @required
-    uri: String
-    @required
-    region: String
-}
-
-structure CertRotate {
+structure RotateCertificatesRequest {
     @required
     mqttUri: String
     @required
-    deviceCert: String
+    deviceCertificate: String
     @required
-    region: String
+    regionName: String
 }
 
 enum DeprovisionReason {
@@ -166,18 +159,27 @@ enum DeprovisionReason {
     UNKNOWN
 }
 
-structure DeprovisionMessage {
+structure DeprovisionRequest {
     reason: DeprovisionReason
     //TODO: use timestamp instead?
     time: Integer
 }
 
 structure ThumbnailRequest {
-    period: Integer
-    expires: Integer
+    periodSeconds: Integer
+    // Unix epoch seconds at which the subscription expires
+    expiresAtEpochSeconds: Integer
     maxSizeKilobyte: Integer
     localPath: String
     remotePath: String
+    // HTTP headers to include when uploading thumbnails — required for non-AWS
+    // storage backends that need authentication or content-type headers
+    headers: StringMap
+}
+
+map StringMap {
+    key: String
+    value: String
 }
 
 structure ThumbnailSubscription {
@@ -190,15 +192,12 @@ map ThumbnailRequestMap {
     value: ThumbnailRequest
 }
 
+// All fields are optional — a partial LogRequest instructs the device to upload
+// any available logs to the provided remotePath before expiresAtEpochSeconds.
 structure LogRequest {
-    // TODO: use timestamp?
-    expires: Integer
+    // Unix epoch seconds at which this upload request expires
+    expiresAtEpochSeconds: Integer
     remotePath: String
-}
-
-structure ReportMessage {
-    @required
-    message: Document
 }
 
 structure HostConfig {
@@ -213,28 +212,46 @@ structure HostConfig {
     @required
     logFileMaxSizeKB: Integer
     @required
-    pairingUrl: String
+    createPairingCodeUrl: String
     @required
-    authUrl: String
+    authenticatePairingCodeUrl: String
 }
 
-structure Health {
+union Health {
+    healthy: HealthyState
+    degraded: DegradedState
+    critical: CriticalState
+}
+
+/// Healthy state — only the state indicator, no additional fields needed.
+structure HealthyState {}
+
+/// Degraded or critical state — all diagnostic fields required.
+structure DegradedState {
     @required
-    state: healthLevel
-    @required
-    message: String
+    messages: StringList
     @required
     @timestampFormat("date-time")
     timestamp: Timestamp
+    @required
     componentName: String
 }
 
-enum healthLevel {
-    HEALTHY,
-    DEGRADED,
-    CRITICAL
+structure CriticalState {
+    @required
+    messages: StringList
+    @required
+    @timestampFormat("date-time")
+    timestamp: Timestamp
+    @required
+    componentName: String
 }
 
+enum HealthLevel {
+    HEALTHY
+    DEGRADED
+    CRITICAL
+}
 
 structure VersionResponse {
     @required

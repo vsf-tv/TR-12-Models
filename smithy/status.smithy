@@ -15,9 +15,9 @@ list ChannelStatusList {
 
 structure ChannelStatus {
     @required
-    id: String,
+    id: String
     @required
-    state: ChannelState,
+    state: ChannelState
     @required
     status: StatusValueList
 }
@@ -28,9 +28,9 @@ list StatusValueList {
 
 structure StatusValue {
     @required
-    name: String,
+    name: String
     @required
-    info: String,
+    info: String
     @required
     value: String
 }

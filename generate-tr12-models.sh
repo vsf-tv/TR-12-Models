@@ -10,7 +10,7 @@ cd "$SCRIPT_DIR"
 INTERNAL_SERVICE="HostServiceApi"
 INTERNAL_SPEC="build/smithy/source/openapi/${INTERNAL_SERVICE}.openapi.json"
 OUTPUT_DIR="./generated/tr12"
-LANGUAGES=("cpp-restsdk" "python" "typescript" "cpp-tiny" "cpp-oatpp-client" "golang")
+LANGUAGES=("cpp-restsdk" "python" "typescript" "cpp-tiny" "cpp-oatpp-client" "go")
 
 # Check arguments
 if [ $# -ne 1 ]; then
@@ -38,8 +38,14 @@ if [ ! -f "$INTERNAL_SPEC" ]; then
     exit 1
 fi
 
-# 3. Generate TR12 models
+# 3. Clean previous generated output for this language
 OUTPUT_PATH="${OUTPUT_DIR}${LANG}"
+if [ -d "$OUTPUT_PATH" ]; then
+    echo "🧹 Cleaning previous generated output: $OUTPUT_PATH"
+    rm -rf "$OUTPUT_PATH"
+fi
+
+# 4. Generate TR12 models
 echo "📦 Generating TR12 models..."
 if [ "$LANG" = "python" ]; then
     openapi-generator generate \

@@ -20,10 +20,10 @@ structure Channel {
     @required
     name: String
     @required
-    id: String,
-    channelType: ChannelType,
-    simpleSettings: SettingsList,
-    profiles: ProfileList,
+    id: String
+    channelType: ChannelType
+    simpleSettings: SettingsList
+    profiles: ProfileList
     connectionProtocols: ProtocolList
 }
 
