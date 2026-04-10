@@ -3,7 +3,7 @@ $version: "2"
 namespace com.example.cdd.common
 
 structure ProtocolVersion {
-    @default("1.0.0")
+    @default("1.0.1")
     version: String
 }
 
