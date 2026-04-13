@@ -29,6 +29,9 @@ Use `generate-tr12-models.sh` to generate client SDKs from the OpenAPI spec prod
 Supported languages: `go`, `python`, `typescript`, `typescript-fetch`, `cpp-restsdk`, `cpp-tiny`, `cpp-oatpp-client`
 
 ## Reference
+- [TR-12 Client and Server SDK] (https://github.com/vsf-tv/TR-12-Client-and-Host-Go)
+
+Updated:  This Go-based client and server was publically release April 13, 2026.  References TR-12-Models v1.0.2
 
 - [TR-12 Draft Specification (PDF)](VSF_TR-12-ClientDeviceDiscoveryDraft.pdf)
 - [VSF TR-12 Working Group](https://www.vsf.tv)
