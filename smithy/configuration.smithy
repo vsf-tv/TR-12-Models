@@ -5,13 +5,14 @@ use com.example.cdd.common#ChannelState
 use com.example.cdd.common#Health
 use com.example.cdd.common#IdAndValueList
 use com.example.cdd.common#StringList
+use com.example.cdd.common#SensitiveString
 
 structure DeviceConfiguration {
     @required
     configurationId: String
     @required
     channels: ChannelConfigurationList
-    simpleSettings: IdAndValueList
+    standardSettings: IdAndValueList
     health: Health
 }
 
@@ -32,8 +33,8 @@ structure ChannelConfiguration {
 }
 
 union SettingsChoice {
-    simpleSettings: IdAndValueList
-    profile: SettingProfile
+    standardSettings: IdAndValueList
+    profile: ChannelProfile
 }
 
 union RistStreamIdentifier {
@@ -41,7 +42,7 @@ union RistStreamIdentifier {
     streamId: String
 }
 
-structure SettingProfile {
+structure ChannelProfile {
     @required
     id: String
 }
@@ -62,12 +63,12 @@ string Hex64
 
 structure EncryptionAes128 {
     @required
-    passcode: Hex32
+    passphrase: SensitiveString
 }
 
 structure EncryptionAes256 {
     @required
-    passcode: Hex64
+    passphrase: SensitiveString
 }
 
 union EncryptionAes {
@@ -80,19 +81,20 @@ union TransportProtocol {
     srtCaller: SrtCallerTransportProtocol
     ristListener: RistListenerTransportProtocol
     ristCaller: RistCallerTransportProtocol
-    zixiListener: ZixiListenerTransportProtocol
-    zixiCaller: ZixiCallerTransportProtocol
+    zixiPush: ZixiPushTransportProtocol
+    zixiPull: ZixiPullTransportProtocol
     rtp: RtpTransportProtocol
-    webRtc: WebRtcTransportProtocol
 }
 
 structure SrtListenerTransportProtocol {
     streamId: String
+    // 1024 is the floor — ports 0–1023 are well-known/system ports that require
+    // root/admin privileges to bind on Linux/macOS. Device firmware typically runs
+    // as a non-privileged user and cannot bind below 1024.
     @required
     @range(min: 1024, max: 65535)
     port: Integer
-    @required
-    @default(3000)
+    @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: EncryptionAes
     interface: String
@@ -101,22 +103,24 @@ structure SrtListenerTransportProtocol {
 structure SrtCallerTransportProtocol {
     streamId: String
     @required
-    ip: String
+    address: String
+    // No lower bound restriction — the caller connects to a remote port, not binding locally.
+    // Well-known ports (e.g. 443, 80) are valid targets for firewall traversal.
     @required
     @range(min: 1, max: 65535)
     port: Integer
-    @required
-    @default(3000)
+    @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: EncryptionAes
 }
 
 structure RistListenerTransportProtocol {
     streamId: RistStreamIdentifier
+    // 1024 is the floor — ports 0–1023 require root/admin to bind locally.
     @required
+    @range(min: 1024, max: 65535)
     port: Integer
-    @required
-    @default(3000)
+    @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: EncryptionAes
     interface: String
@@ -125,54 +129,60 @@ structure RistListenerTransportProtocol {
 structure RistCallerTransportProtocol {
     streamId: RistStreamIdentifier
     @required
-    ip: String
+    address: String
+    // No lower bound restriction — connecting to a remote port, not binding locally.
     @required
+    @range(min: 1, max: 65535)
     port: Integer
-    @required
-    @default(3000)
+    @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: EncryptionAes
 }
 
-structure ZixiListenerTransportProtocol {
-    @required
+// Zixi Push — sender initiates connection to the receiver's address:port.
+// streamId identifies the stream on the receiver; optional if receiver accepts any stream.
+// Default port 2088 is the Zixi industry standard used by AWS MediaConnect and all major Zixi deployments.
+structure ZixiPushTransportProtocol {
     streamId: String
     @required
+    address: String
+    // No lower bound restriction — connecting to a remote receiver, not binding locally.
+    @default(2088)
+    @range(min: 1, max: 65535)
     port: Integer
-    @required
-    @default(3000)
+    @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: EncryptionAes
-    interface: String
 }
 
-structure ZixiCallerTransportProtocol {
-    @required
+// Zixi Pull — receiver initiates connection to pull from the sender's address:port.
+// streamId selects a specific stream from the sender; optional if sender has only one.
+// Default port 2088 is the Zixi industry standard used by AWS MediaConnect and all major Zixi deployments.
+structure ZixiPullTransportProtocol {
     streamId: String
     @required
-    ip: String
-    @required
+    address: String
+    // 1024 is the floor — the receiving device binds a local port for incoming media,
+    // which requires root/admin for ports below 1024.
+    @default(2088)
+    @range(min: 1024, max: 65535)
     port: Integer
-    @required
-    @default(3000)
+    @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: EncryptionAes
 }
 
 // RTP transport — covers unicast and multicast RTP streams including
 // SMPTE ST 2022 multicast with optional SMPTE ST 2022-5 FEC.
-// Also used when TR-12 is orchestrating an NMOS IS-05 device, since
-// NMOS connection management ultimately configures RTP streams described
-// by these same SDP parameters.
 structure RtpTransportProtocol {
-    // Maps to the SDP 'c=' line (Connection Data) — unicast or multicast IP
+    // Maps to the SDP 'c=' line (Connection Data) — unicast or multicast IP/address
     @required
-    ip: String
+    address: String
     // Maps to the SDP 'm=' line (Media Description) port
     @required
     port: Integer
     // Maps to 'a=source-filter' (IGMPv3 SSM source-specific multicast)
-    sourceIpFilter: String
+    sourceAddressFilter: String
     // Maps to the RTP/AVP payload type value in the SDP 'm=' line
     rtpPayloadType: Integer
     // Optional SMPTE ST 2022-5 FEC configuration
@@ -180,11 +190,9 @@ structure RtpTransportProtocol {
 }
 
 // SMPTE ST 2022-5 FEC stream descriptor.
-// FEC is transmitted out-of-band as a separate parallel multicast stream —
-// it never shares a port with the primary media stream.
 structure RtpFecStreamConfig {
-    // Multicast IP for the out-of-band FEC stream
-    ip: String
+    // Multicast address for the out-of-band FEC stream
+    address: String
     // UDP port for the out-of-band FEC stream
     port: Integer
     // RTP payload type for this FEC stream
@@ -202,86 +210,4 @@ structure RtpFecConfiguration {
     matrixColumns: Integer
     // FEC matrix row dimension (D)
     matrixRows: Integer
-}
-
-// WebRTC transport — peer-to-peer media using ICE/DTLS/SRTP.
-// Carries the explicit signaling parameters needed to establish the connection
-// without requiring a full SDP exchange out of band.
-structure WebRtcTransportProtocol {
-    // Defines who initiates the DTLS handshake (maps to 'a=setup')
-    @required
-    dtlsSetupRole: DtlsSetupRole
-    // ICE credentials for this session
-    @required
-    iceParameters: IceParameters
-    // DTLS certificate fingerprints (one per certificate)
-    @required
-    dtlsFingerprints: DtlsFingerprintList
-    // STUN/TURN servers — only needed when forcing traffic through a relay
-    iceServers: IceServerList
-    // Optional in-band FEC configuration
-    fecConfig: WebRtcFecConfig
-    // Flexible key/value escape hatch for media payload negotiation
-    // (codec, payload types, extensions, etc.)
-    simpleSettings: IdAndValueList
-}
-
-// DTLS setup role — maps to the SDP 'a=setup' line
-enum DtlsSetupRole {
-    ACTPASS
-    DTLS_ACTIVE
-    DTLS_PASSIVE
-}
-
-// FEC mechanism for WebRTC in-band network protection
-enum WebRtcFecMechanism {
-    ULPFEC
-    RED
-    FLEXFEC
-}
-
-// ICE parameters for session authentication
-// Maps to the 'a=ice-ufrag' and 'a=ice-pwd' SDP lines
-structure IceParameters {
-    @required
-    usernameFragment: String
-    @required
-    password: String
-}
-
-// DTLS certificate fingerprint for encryption
-// Maps to the 'a=fingerprint' SDP line
-structure DtlsFingerprint {
-    @required
-    algorithm: String
-    @required
-    value: String
-}
-
-list DtlsFingerprintList {
-    member: DtlsFingerprint
-}
-
-// STUN/TURN server for ICE NAT traversal
-structure IceServer {
-    @required
-    urls: StringList
-    username: String
-    credential: String
-}
-
-list IceServerList {
-    member: IceServer
-}
-
-// WebRTC in-band FEC configuration
-structure WebRtcFecConfig {
-    @required
-    fecMechanism: WebRtcFecMechanism
-    // RTP payload type for RED (a=rtpmap:<pt> red/90000)
-    redPayloadType: Integer
-    // RTP payload type for ULPFEC (a=rtpmap:<pt> ulpfec/90000)
-    ulpfecPayloadType: Integer
-    // Target FEC overhead as a percentage of media bitrate
-    targetOverheadPercentage: Integer
 }

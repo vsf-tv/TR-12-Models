@@ -21,8 +21,8 @@ var _ MappedNullable = &ThumbnailRequest{}
 // ThumbnailRequest struct for ThumbnailRequest
 type ThumbnailRequest struct {
 	PeriodSeconds *float32 `json:"periodSeconds,omitempty"`
-	ExpiresTimestamp *time.Time `json:"expiresTimestamp,omitempty"`
-	MaxSizeKilobyte *float32 `json:"maxSizeKilobyte,omitempty"`
+	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
+	MaxSizeKB *float32 `json:"maxSizeKB,omitempty"`
 	LocalPath *string `json:"localPath,omitempty"`
 	RemotePath *string `json:"remotePath,omitempty"`
 	Headers *map[string]string `json:"headers,omitempty"`
@@ -77,68 +77,68 @@ func (o *ThumbnailRequest) SetPeriodSeconds(v float32) {
 	o.PeriodSeconds = &v
 }
 
-// GetExpiresTimestamp returns the ExpiresTimestamp field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetExpiresTimestamp() time.Time {
-	if o == nil || IsNil(o.ExpiresTimestamp) {
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *ThumbnailRequest) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
-	return *o.ExpiresTimestamp
+	return *o.ExpiresAt
 }
 
-// GetExpiresTimestampOk returns a tuple with the ExpiresTimestamp field value if set, nil otherwise
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetExpiresTimestampOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ExpiresTimestamp) {
+func (o *ThumbnailRequest) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
-	return o.ExpiresTimestamp, true
+	return o.ExpiresAt, true
 }
 
-// HasExpiresTimestamp returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasExpiresTimestamp() bool {
-	if o != nil && !IsNil(o.ExpiresTimestamp) {
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *ThumbnailRequest) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetExpiresTimestamp gets a reference to the given time.Time and assigns it to the ExpiresTimestamp field.
-func (o *ThumbnailRequest) SetExpiresTimestamp(v time.Time) {
-	o.ExpiresTimestamp = &v
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *ThumbnailRequest) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
 }
 
-// GetMaxSizeKilobyte returns the MaxSizeKilobyte field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetMaxSizeKilobyte() float32 {
-	if o == nil || IsNil(o.MaxSizeKilobyte) {
+// GetMaxSizeKB returns the MaxSizeKB field value if set, zero value otherwise.
+func (o *ThumbnailRequest) GetMaxSizeKB() float32 {
+	if o == nil || IsNil(o.MaxSizeKB) {
 		var ret float32
 		return ret
 	}
-	return *o.MaxSizeKilobyte
+	return *o.MaxSizeKB
 }
 
-// GetMaxSizeKilobyteOk returns a tuple with the MaxSizeKilobyte field value if set, nil otherwise
+// GetMaxSizeKBOk returns a tuple with the MaxSizeKB field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetMaxSizeKilobyteOk() (*float32, bool) {
-	if o == nil || IsNil(o.MaxSizeKilobyte) {
+func (o *ThumbnailRequest) GetMaxSizeKBOk() (*float32, bool) {
+	if o == nil || IsNil(o.MaxSizeKB) {
 		return nil, false
 	}
-	return o.MaxSizeKilobyte, true
+	return o.MaxSizeKB, true
 }
 
-// HasMaxSizeKilobyte returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasMaxSizeKilobyte() bool {
-	if o != nil && !IsNil(o.MaxSizeKilobyte) {
+// HasMaxSizeKB returns a boolean if a field has been set.
+func (o *ThumbnailRequest) HasMaxSizeKB() bool {
+	if o != nil && !IsNil(o.MaxSizeKB) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaxSizeKilobyte gets a reference to the given float32 and assigns it to the MaxSizeKilobyte field.
-func (o *ThumbnailRequest) SetMaxSizeKilobyte(v float32) {
-	o.MaxSizeKilobyte = &v
+// SetMaxSizeKB gets a reference to the given float32 and assigns it to the MaxSizeKB field.
+func (o *ThumbnailRequest) SetMaxSizeKB(v float32) {
+	o.MaxSizeKB = &v
 }
 
 // GetLocalPath returns the LocalPath field value if set, zero value otherwise.
@@ -250,11 +250,11 @@ func (o ThumbnailRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PeriodSeconds) {
 		toSerialize["periodSeconds"] = o.PeriodSeconds
 	}
-	if !IsNil(o.ExpiresTimestamp) {
-		toSerialize["expiresTimestamp"] = o.ExpiresTimestamp
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expiresAt"] = o.ExpiresAt
 	}
-	if !IsNil(o.MaxSizeKilobyte) {
-		toSerialize["maxSizeKilobyte"] = o.MaxSizeKilobyte
+	if !IsNil(o.MaxSizeKB) {
+		toSerialize["maxSizeKB"] = o.MaxSizeKB
 	}
 	if !IsNil(o.LocalPath) {
 		toSerialize["localPath"] = o.LocalPath

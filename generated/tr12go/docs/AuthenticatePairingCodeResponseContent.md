@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | [**AuthStatus**](AuthStatus.md) |  | 
+**Status** | [**PairingCodeAuthorizedStatus**](PairingCodeAuthorizedStatus.md) |  | 
 **CaCertificate** | Pointer to **string** |  | [optional] 
 **DeviceCertificate** | Pointer to **string** |  | [optional] 
 **MqttUri** | Pointer to **string** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewAuthenticatePairingCodeResponseContent
 
-`func NewAuthenticatePairingCodeResponseContent(status AuthStatus, ) *AuthenticatePairingCodeResponseContent`
+`func NewAuthenticatePairingCodeResponseContent(status PairingCodeAuthorizedStatus, ) *AuthenticatePairingCodeResponseContent`
 
 NewAuthenticatePairingCodeResponseContent instantiates a new AuthenticatePairingCodeResponseContent object
 This constructor will assign default values to properties that have it defined,
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetStatus
 
-`func (o *AuthenticatePairingCodeResponseContent) GetStatus() AuthStatus`
+`func (o *AuthenticatePairingCodeResponseContent) GetStatus() PairingCodeAuthorizedStatus`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *AuthenticatePairingCodeResponseContent) GetStatusOk() (*AuthStatus, bool)`
+`func (o *AuthenticatePairingCodeResponseContent) GetStatusOk() (*PairingCodeAuthorizedStatus, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *AuthenticatePairingCodeResponseContent) SetStatus(v AuthStatus)`
+`func (o *AuthenticatePairingCodeResponseContent) SetStatus(v PairingCodeAuthorizedStatus)`
 
 SetStatus sets Status field to given value.
 

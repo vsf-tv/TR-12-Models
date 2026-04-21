@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ServiceId** | **string** |  | 
 **ServiceName** | **string** |  | 
-**DeviceTypes** | **[]string** |  | 
-**ThumbnailMaxSizeKB** | **float32** |  | 
-**LogFileMaxSizeKB** | **float32** |  | 
+**DeviceTypes** | [**[]DeviceType**](DeviceType.md) |  | 
+**ThumbnailMaximumSizeKB** | **float32** |  | 
+**LogFileMaximumSizeKB** | **float32** |  | 
 **CreatePairingCodeUrl** | **string** |  | 
 **AuthenticatePairingCodeUrl** | **string** |  | 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewGetHostConfigResponseContent
 
-`func NewGetHostConfigResponseContent(serviceId string, serviceName string, deviceTypes []string, thumbnailMaxSizeKB float32, logFileMaxSizeKB float32, createPairingCodeUrl string, authenticatePairingCodeUrl string, ) *GetHostConfigResponseContent`
+`func NewGetHostConfigResponseContent(serviceId string, serviceName string, deviceTypes []DeviceType, thumbnailMaximumSizeKB float32, logFileMaximumSizeKB float32, createPairingCodeUrl string, authenticatePairingCodeUrl string, ) *GetHostConfigResponseContent`
 
 NewGetHostConfigResponseContent instantiates a new GetHostConfigResponseContent object
 This constructor will assign default values to properties that have it defined,
@@ -73,62 +73,62 @@ SetServiceName sets ServiceName field to given value.
 
 ### GetDeviceTypes
 
-`func (o *GetHostConfigResponseContent) GetDeviceTypes() []string`
+`func (o *GetHostConfigResponseContent) GetDeviceTypes() []DeviceType`
 
 GetDeviceTypes returns the DeviceTypes field if non-nil, zero value otherwise.
 
 ### GetDeviceTypesOk
 
-`func (o *GetHostConfigResponseContent) GetDeviceTypesOk() (*[]string, bool)`
+`func (o *GetHostConfigResponseContent) GetDeviceTypesOk() (*[]DeviceType, bool)`
 
 GetDeviceTypesOk returns a tuple with the DeviceTypes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeviceTypes
 
-`func (o *GetHostConfigResponseContent) SetDeviceTypes(v []string)`
+`func (o *GetHostConfigResponseContent) SetDeviceTypes(v []DeviceType)`
 
 SetDeviceTypes sets DeviceTypes field to given value.
 
 
-### GetThumbnailMaxSizeKB
+### GetThumbnailMaximumSizeKB
 
-`func (o *GetHostConfigResponseContent) GetThumbnailMaxSizeKB() float32`
+`func (o *GetHostConfigResponseContent) GetThumbnailMaximumSizeKB() float32`
 
-GetThumbnailMaxSizeKB returns the ThumbnailMaxSizeKB field if non-nil, zero value otherwise.
+GetThumbnailMaximumSizeKB returns the ThumbnailMaximumSizeKB field if non-nil, zero value otherwise.
 
-### GetThumbnailMaxSizeKBOk
+### GetThumbnailMaximumSizeKBOk
 
-`func (o *GetHostConfigResponseContent) GetThumbnailMaxSizeKBOk() (*float32, bool)`
+`func (o *GetHostConfigResponseContent) GetThumbnailMaximumSizeKBOk() (*float32, bool)`
 
-GetThumbnailMaxSizeKBOk returns a tuple with the ThumbnailMaxSizeKB field if it's non-nil, zero value otherwise
+GetThumbnailMaximumSizeKBOk returns a tuple with the ThumbnailMaximumSizeKB field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetThumbnailMaxSizeKB
+### SetThumbnailMaximumSizeKB
 
-`func (o *GetHostConfigResponseContent) SetThumbnailMaxSizeKB(v float32)`
+`func (o *GetHostConfigResponseContent) SetThumbnailMaximumSizeKB(v float32)`
 
-SetThumbnailMaxSizeKB sets ThumbnailMaxSizeKB field to given value.
+SetThumbnailMaximumSizeKB sets ThumbnailMaximumSizeKB field to given value.
 
 
-### GetLogFileMaxSizeKB
+### GetLogFileMaximumSizeKB
 
-`func (o *GetHostConfigResponseContent) GetLogFileMaxSizeKB() float32`
+`func (o *GetHostConfigResponseContent) GetLogFileMaximumSizeKB() float32`
 
-GetLogFileMaxSizeKB returns the LogFileMaxSizeKB field if non-nil, zero value otherwise.
+GetLogFileMaximumSizeKB returns the LogFileMaximumSizeKB field if non-nil, zero value otherwise.
 
-### GetLogFileMaxSizeKBOk
+### GetLogFileMaximumSizeKBOk
 
-`func (o *GetHostConfigResponseContent) GetLogFileMaxSizeKBOk() (*float32, bool)`
+`func (o *GetHostConfigResponseContent) GetLogFileMaximumSizeKBOk() (*float32, bool)`
 
-GetLogFileMaxSizeKBOk returns a tuple with the LogFileMaxSizeKB field if it's non-nil, zero value otherwise
+GetLogFileMaximumSizeKBOk returns a tuple with the LogFileMaximumSizeKB field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLogFileMaxSizeKB
+### SetLogFileMaximumSizeKB
 
-`func (o *GetHostConfigResponseContent) SetLogFileMaxSizeKB(v float32)`
+`func (o *GetHostConfigResponseContent) SetLogFileMaximumSizeKB(v float32)`
 
-SetLogFileMaxSizeKB sets LogFileMaxSizeKB field to given value.
+SetLogFileMaximumSizeKB sets LogFileMaximumSizeKB field to given value.
 
 
 ### GetCreatePairingCodeUrl

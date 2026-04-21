@@ -90,7 +90,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AuthStatus](docs/AuthStatus.md)
  - [AuthenticatePairingCodeRequestContent](docs/AuthenticatePairingCodeRequestContent.md)
  - [AuthenticatePairingCodeResponseContent](docs/AuthenticatePairingCodeResponseContent.md)
  - [CreatePairingCodeFailureData](docs/CreatePairingCodeFailureData.md)
@@ -101,10 +100,12 @@ Class | Method | HTTP request | Description
  - [CreatePairingCodeSuccessData](docs/CreatePairingCodeSuccessData.md)
  - [DeprovisionDeviceRequestContent](docs/DeprovisionDeviceRequestContent.md)
  - [DeprovisionReason](docs/DeprovisionReason.md)
+ - [DeviceType](docs/DeviceType.md)
  - [Failure](docs/Failure.md)
  - [GetHostConfigResponseContent](docs/GetHostConfigResponseContent.md)
  - [GetVersionResponseContent](docs/GetVersionResponseContent.md)
  - [HostSettings](docs/HostSettings.md)
+ - [PairingCodeAuthorizedStatus](docs/PairingCodeAuthorizedStatus.md)
  - [ProtocolVersion](docs/ProtocolVersion.md)
  - [RequestLogRequestContent](docs/RequestLogRequestContent.md)
  - [RequestThumbnailRequestContent](docs/RequestThumbnailRequestContent.md)

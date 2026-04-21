@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MqttUri** | **string** |  | 
 **DeviceCertificate** | **string** |  | 
-**RegionName** | **string** |  | 
+**RegionName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewRotateCertificatesRequestContent
 
-`func NewRotateCertificatesRequestContent(mqttUri string, deviceCertificate string, regionName string, ) *RotateCertificatesRequestContent`
+`func NewRotateCertificatesRequestContent(mqttUri string, deviceCertificate string, ) *RotateCertificatesRequestContent`
 
 NewRotateCertificatesRequestContent instantiates a new RotateCertificatesRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -86,6 +86,11 @@ and a boolean to check if the value has been set.
 
 SetRegionName sets RegionName field to given value.
 
+### HasRegionName
+
+`func (o *RotateCertificatesRequestContent) HasRegionName() bool`
+
+HasRegionName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

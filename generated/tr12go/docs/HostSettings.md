@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IotProtocolName** | **string** |  | 
+**MqttAlpnProtocol** | **string** |  | 
 **PairingTimeoutSeconds** | **float32** |  | 
-**MinIntervalPubSeconds** | **float32** |  | 
+**MinimumIntervalPublishSeconds** | **float32** |  | 
 **MqttKeepaliveSeconds** | **float32** |  | 
 **SubUpdateTopic** | **string** |  | 
 **SubUpdateThumbnailSubscriptionTopic** | **string** |  | 
-**PubReportSchemaTopic** | **string** |  | 
-**PubReportRegistrationTopic** | **string** |  | 
-**PubReportStatusTopic** | **string** |  | 
-**PubReportActualConfigurationTopic** | **string** |  | 
+**PublishReportSchemaTopic** | **string** |  | 
+**PublishReportRegistrationTopic** | **string** |  | 
+**PublishReportStatusTopic** | **string** |  | 
+**PublishReportActualConfigurationTopic** | **string** |  | 
 **SubUpdateCertsTopic** | **string** |  | 
-**PubDeprovisionTopic** | **string** |  | 
+**PublishDeprovisionTopic** | **string** |  | 
 **SubDeprovisionTopic** | **string** |  | 
 **SubUpdateLogSubscriptionTopic** | **string** |  | 
 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewHostSettings
 
-`func NewHostSettings(iotProtocolName string, pairingTimeoutSeconds float32, minIntervalPubSeconds float32, mqttKeepaliveSeconds float32, subUpdateTopic string, subUpdateThumbnailSubscriptionTopic string, pubReportSchemaTopic string, pubReportRegistrationTopic string, pubReportStatusTopic string, pubReportActualConfigurationTopic string, subUpdateCertsTopic string, pubDeprovisionTopic string, subDeprovisionTopic string, subUpdateLogSubscriptionTopic string, ) *HostSettings`
+`func NewHostSettings(mqttAlpnProtocol string, pairingTimeoutSeconds float32, minimumIntervalPublishSeconds float32, mqttKeepaliveSeconds float32, subUpdateTopic string, subUpdateThumbnailSubscriptionTopic string, publishReportSchemaTopic string, publishReportRegistrationTopic string, publishReportStatusTopic string, publishReportActualConfigurationTopic string, subUpdateCertsTopic string, publishDeprovisionTopic string, subDeprovisionTopic string, subUpdateLogSubscriptionTopic string, ) *HostSettings`
 
 NewHostSettings instantiates a new HostSettings object
 This constructor will assign default values to properties that have it defined,
@@ -38,24 +38,24 @@ NewHostSettingsWithDefaults instantiates a new HostSettings object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetIotProtocolName
+### GetMqttAlpnProtocol
 
-`func (o *HostSettings) GetIotProtocolName() string`
+`func (o *HostSettings) GetMqttAlpnProtocol() string`
 
-GetIotProtocolName returns the IotProtocolName field if non-nil, zero value otherwise.
+GetMqttAlpnProtocol returns the MqttAlpnProtocol field if non-nil, zero value otherwise.
 
-### GetIotProtocolNameOk
+### GetMqttAlpnProtocolOk
 
-`func (o *HostSettings) GetIotProtocolNameOk() (*string, bool)`
+`func (o *HostSettings) GetMqttAlpnProtocolOk() (*string, bool)`
 
-GetIotProtocolNameOk returns a tuple with the IotProtocolName field if it's non-nil, zero value otherwise
+GetMqttAlpnProtocolOk returns a tuple with the MqttAlpnProtocol field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIotProtocolName
+### SetMqttAlpnProtocol
 
-`func (o *HostSettings) SetIotProtocolName(v string)`
+`func (o *HostSettings) SetMqttAlpnProtocol(v string)`
 
-SetIotProtocolName sets IotProtocolName field to given value.
+SetMqttAlpnProtocol sets MqttAlpnProtocol field to given value.
 
 
 ### GetPairingTimeoutSeconds
@@ -78,24 +78,24 @@ and a boolean to check if the value has been set.
 SetPairingTimeoutSeconds sets PairingTimeoutSeconds field to given value.
 
 
-### GetMinIntervalPubSeconds
+### GetMinimumIntervalPublishSeconds
 
-`func (o *HostSettings) GetMinIntervalPubSeconds() float32`
+`func (o *HostSettings) GetMinimumIntervalPublishSeconds() float32`
 
-GetMinIntervalPubSeconds returns the MinIntervalPubSeconds field if non-nil, zero value otherwise.
+GetMinimumIntervalPublishSeconds returns the MinimumIntervalPublishSeconds field if non-nil, zero value otherwise.
 
-### GetMinIntervalPubSecondsOk
+### GetMinimumIntervalPublishSecondsOk
 
-`func (o *HostSettings) GetMinIntervalPubSecondsOk() (*float32, bool)`
+`func (o *HostSettings) GetMinimumIntervalPublishSecondsOk() (*float32, bool)`
 
-GetMinIntervalPubSecondsOk returns a tuple with the MinIntervalPubSeconds field if it's non-nil, zero value otherwise
+GetMinimumIntervalPublishSecondsOk returns a tuple with the MinimumIntervalPublishSeconds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMinIntervalPubSeconds
+### SetMinimumIntervalPublishSeconds
 
-`func (o *HostSettings) SetMinIntervalPubSeconds(v float32)`
+`func (o *HostSettings) SetMinimumIntervalPublishSeconds(v float32)`
 
-SetMinIntervalPubSeconds sets MinIntervalPubSeconds field to given value.
+SetMinimumIntervalPublishSeconds sets MinimumIntervalPublishSeconds field to given value.
 
 
 ### GetMqttKeepaliveSeconds
@@ -158,84 +158,84 @@ and a boolean to check if the value has been set.
 SetSubUpdateThumbnailSubscriptionTopic sets SubUpdateThumbnailSubscriptionTopic field to given value.
 
 
-### GetPubReportSchemaTopic
+### GetPublishReportSchemaTopic
 
-`func (o *HostSettings) GetPubReportSchemaTopic() string`
+`func (o *HostSettings) GetPublishReportSchemaTopic() string`
 
-GetPubReportSchemaTopic returns the PubReportSchemaTopic field if non-nil, zero value otherwise.
+GetPublishReportSchemaTopic returns the PublishReportSchemaTopic field if non-nil, zero value otherwise.
 
-### GetPubReportSchemaTopicOk
+### GetPublishReportSchemaTopicOk
 
-`func (o *HostSettings) GetPubReportSchemaTopicOk() (*string, bool)`
+`func (o *HostSettings) GetPublishReportSchemaTopicOk() (*string, bool)`
 
-GetPubReportSchemaTopicOk returns a tuple with the PubReportSchemaTopic field if it's non-nil, zero value otherwise
+GetPublishReportSchemaTopicOk returns a tuple with the PublishReportSchemaTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPubReportSchemaTopic
+### SetPublishReportSchemaTopic
 
-`func (o *HostSettings) SetPubReportSchemaTopic(v string)`
+`func (o *HostSettings) SetPublishReportSchemaTopic(v string)`
 
-SetPubReportSchemaTopic sets PubReportSchemaTopic field to given value.
+SetPublishReportSchemaTopic sets PublishReportSchemaTopic field to given value.
 
 
-### GetPubReportRegistrationTopic
+### GetPublishReportRegistrationTopic
 
-`func (o *HostSettings) GetPubReportRegistrationTopic() string`
+`func (o *HostSettings) GetPublishReportRegistrationTopic() string`
 
-GetPubReportRegistrationTopic returns the PubReportRegistrationTopic field if non-nil, zero value otherwise.
+GetPublishReportRegistrationTopic returns the PublishReportRegistrationTopic field if non-nil, zero value otherwise.
 
-### GetPubReportRegistrationTopicOk
+### GetPublishReportRegistrationTopicOk
 
-`func (o *HostSettings) GetPubReportRegistrationTopicOk() (*string, bool)`
+`func (o *HostSettings) GetPublishReportRegistrationTopicOk() (*string, bool)`
 
-GetPubReportRegistrationTopicOk returns a tuple with the PubReportRegistrationTopic field if it's non-nil, zero value otherwise
+GetPublishReportRegistrationTopicOk returns a tuple with the PublishReportRegistrationTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPubReportRegistrationTopic
+### SetPublishReportRegistrationTopic
 
-`func (o *HostSettings) SetPubReportRegistrationTopic(v string)`
+`func (o *HostSettings) SetPublishReportRegistrationTopic(v string)`
 
-SetPubReportRegistrationTopic sets PubReportRegistrationTopic field to given value.
+SetPublishReportRegistrationTopic sets PublishReportRegistrationTopic field to given value.
 
 
-### GetPubReportStatusTopic
+### GetPublishReportStatusTopic
 
-`func (o *HostSettings) GetPubReportStatusTopic() string`
+`func (o *HostSettings) GetPublishReportStatusTopic() string`
 
-GetPubReportStatusTopic returns the PubReportStatusTopic field if non-nil, zero value otherwise.
+GetPublishReportStatusTopic returns the PublishReportStatusTopic field if non-nil, zero value otherwise.
 
-### GetPubReportStatusTopicOk
+### GetPublishReportStatusTopicOk
 
-`func (o *HostSettings) GetPubReportStatusTopicOk() (*string, bool)`
+`func (o *HostSettings) GetPublishReportStatusTopicOk() (*string, bool)`
 
-GetPubReportStatusTopicOk returns a tuple with the PubReportStatusTopic field if it's non-nil, zero value otherwise
+GetPublishReportStatusTopicOk returns a tuple with the PublishReportStatusTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPubReportStatusTopic
+### SetPublishReportStatusTopic
 
-`func (o *HostSettings) SetPubReportStatusTopic(v string)`
+`func (o *HostSettings) SetPublishReportStatusTopic(v string)`
 
-SetPubReportStatusTopic sets PubReportStatusTopic field to given value.
+SetPublishReportStatusTopic sets PublishReportStatusTopic field to given value.
 
 
-### GetPubReportActualConfigurationTopic
+### GetPublishReportActualConfigurationTopic
 
-`func (o *HostSettings) GetPubReportActualConfigurationTopic() string`
+`func (o *HostSettings) GetPublishReportActualConfigurationTopic() string`
 
-GetPubReportActualConfigurationTopic returns the PubReportActualConfigurationTopic field if non-nil, zero value otherwise.
+GetPublishReportActualConfigurationTopic returns the PublishReportActualConfigurationTopic field if non-nil, zero value otherwise.
 
-### GetPubReportActualConfigurationTopicOk
+### GetPublishReportActualConfigurationTopicOk
 
-`func (o *HostSettings) GetPubReportActualConfigurationTopicOk() (*string, bool)`
+`func (o *HostSettings) GetPublishReportActualConfigurationTopicOk() (*string, bool)`
 
-GetPubReportActualConfigurationTopicOk returns a tuple with the PubReportActualConfigurationTopic field if it's non-nil, zero value otherwise
+GetPublishReportActualConfigurationTopicOk returns a tuple with the PublishReportActualConfigurationTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPubReportActualConfigurationTopic
+### SetPublishReportActualConfigurationTopic
 
-`func (o *HostSettings) SetPubReportActualConfigurationTopic(v string)`
+`func (o *HostSettings) SetPublishReportActualConfigurationTopic(v string)`
 
-SetPubReportActualConfigurationTopic sets PubReportActualConfigurationTopic field to given value.
+SetPublishReportActualConfigurationTopic sets PublishReportActualConfigurationTopic field to given value.
 
 
 ### GetSubUpdateCertsTopic
@@ -258,24 +258,24 @@ and a boolean to check if the value has been set.
 SetSubUpdateCertsTopic sets SubUpdateCertsTopic field to given value.
 
 
-### GetPubDeprovisionTopic
+### GetPublishDeprovisionTopic
 
-`func (o *HostSettings) GetPubDeprovisionTopic() string`
+`func (o *HostSettings) GetPublishDeprovisionTopic() string`
 
-GetPubDeprovisionTopic returns the PubDeprovisionTopic field if non-nil, zero value otherwise.
+GetPublishDeprovisionTopic returns the PublishDeprovisionTopic field if non-nil, zero value otherwise.
 
-### GetPubDeprovisionTopicOk
+### GetPublishDeprovisionTopicOk
 
-`func (o *HostSettings) GetPubDeprovisionTopicOk() (*string, bool)`
+`func (o *HostSettings) GetPublishDeprovisionTopicOk() (*string, bool)`
 
-GetPubDeprovisionTopicOk returns a tuple with the PubDeprovisionTopic field if it's non-nil, zero value otherwise
+GetPublishDeprovisionTopicOk returns a tuple with the PublishDeprovisionTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPubDeprovisionTopic
+### SetPublishDeprovisionTopic
 
-`func (o *HostSettings) SetPubDeprovisionTopic(v string)`
+`func (o *HostSettings) SetPublishDeprovisionTopic(v string)`
 
-SetPubDeprovisionTopic sets PubDeprovisionTopic field to given value.
+SetPublishDeprovisionTopic sets PublishDeprovisionTopic field to given value.
 
 
 ### GetSubDeprovisionTopic

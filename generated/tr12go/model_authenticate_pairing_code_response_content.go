@@ -21,7 +21,7 @@ var _ MappedNullable = &AuthenticatePairingCodeResponseContent{}
 
 // AuthenticatePairingCodeResponseContent struct for AuthenticatePairingCodeResponseContent
 type AuthenticatePairingCodeResponseContent struct {
-	Status AuthStatus `json:"status"`
+	Status PairingCodeAuthorizedStatus `json:"status"`
 	CaCertificate *string `json:"caCertificate,omitempty"`
 	DeviceCertificate *string `json:"deviceCertificate,omitempty"`
 	MqttUri *string `json:"mqttUri,omitempty"`
@@ -35,7 +35,7 @@ type _AuthenticatePairingCodeResponseContent AuthenticatePairingCodeResponseCont
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticatePairingCodeResponseContent(status AuthStatus) *AuthenticatePairingCodeResponseContent {
+func NewAuthenticatePairingCodeResponseContent(status PairingCodeAuthorizedStatus) *AuthenticatePairingCodeResponseContent {
 	this := AuthenticatePairingCodeResponseContent{}
 	this.Status = status
 	return &this
@@ -50,9 +50,9 @@ func NewAuthenticatePairingCodeResponseContentWithDefaults() *AuthenticatePairin
 }
 
 // GetStatus returns the Status field value
-func (o *AuthenticatePairingCodeResponseContent) GetStatus() AuthStatus {
+func (o *AuthenticatePairingCodeResponseContent) GetStatus() PairingCodeAuthorizedStatus {
 	if o == nil {
-		var ret AuthStatus
+		var ret PairingCodeAuthorizedStatus
 		return ret
 	}
 
@@ -61,7 +61,7 @@ func (o *AuthenticatePairingCodeResponseContent) GetStatus() AuthStatus {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *AuthenticatePairingCodeResponseContent) GetStatusOk() (*AuthStatus, bool) {
+func (o *AuthenticatePairingCodeResponseContent) GetStatusOk() (*PairingCodeAuthorizedStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *AuthenticatePairingCodeResponseContent) GetStatusOk() (*AuthStatus, boo
 }
 
 // SetStatus sets field value
-func (o *AuthenticatePairingCodeResponseContent) SetStatus(v AuthStatus) {
+func (o *AuthenticatePairingCodeResponseContent) SetStatus(v PairingCodeAuthorizedStatus) {
 	o.Status = v
 }
 

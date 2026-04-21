@@ -6,7 +6,6 @@ api/openapi.yaml
 api_default.go
 client.go
 configuration.go
-docs/AuthStatus.md
 docs/AuthenticatePairingCodeRequestContent.md
 docs/AuthenticatePairingCodeResponseContent.md
 docs/CreatePairingCodeFailureData.md
@@ -18,10 +17,12 @@ docs/CreatePairingCodeSuccessData.md
 docs/DefaultAPI.md
 docs/DeprovisionDeviceRequestContent.md
 docs/DeprovisionReason.md
+docs/DeviceType.md
 docs/Failure.md
 docs/GetHostConfigResponseContent.md
 docs/GetVersionResponseContent.md
 docs/HostSettings.md
+docs/PairingCodeAuthorizedStatus.md
 docs/ProtocolVersion.md
 docs/RequestLogRequestContent.md
 docs/RequestThumbnailRequestContent.md
@@ -31,7 +32,6 @@ docs/ThumbnailRequest.md
 git_push.sh
 go.mod
 go.sum
-model_auth_status.go
 model_authenticate_pairing_code_request_content.go
 model_authenticate_pairing_code_response_content.go
 model_create_pairing_code_failure_data.go
@@ -42,10 +42,12 @@ model_create_pairing_code_result.go
 model_create_pairing_code_success_data.go
 model_deprovision_device_request_content.go
 model_deprovision_reason.go
+model_device_type.go
 model_failure.go
 model_get_host_config_response_content.go
 model_get_version_response_content.go
 model_host_settings.go
+model_pairing_code_authorized_status.go
 model_protocol_version.go
 model_request_log_request_content.go
 model_request_thumbnail_request_content.go

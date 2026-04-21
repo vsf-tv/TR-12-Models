@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpiresTimestamp** | Pointer to **time.Time** |  | [optional] 
+**ExpiresAt** | Pointer to **time.Time** |  | [optional] 
 **RemotePath** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -26,30 +26,30 @@ NewRequestLogRequestContentWithDefaults instantiates a new RequestLogRequestCont
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetExpiresTimestamp
+### GetExpiresAt
 
-`func (o *RequestLogRequestContent) GetExpiresTimestamp() time.Time`
+`func (o *RequestLogRequestContent) GetExpiresAt() time.Time`
 
-GetExpiresTimestamp returns the ExpiresTimestamp field if non-nil, zero value otherwise.
+GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
-### GetExpiresTimestampOk
+### GetExpiresAtOk
 
-`func (o *RequestLogRequestContent) GetExpiresTimestampOk() (*time.Time, bool)`
+`func (o *RequestLogRequestContent) GetExpiresAtOk() (*time.Time, bool)`
 
-GetExpiresTimestampOk returns a tuple with the ExpiresTimestamp field if it's non-nil, zero value otherwise
+GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetExpiresTimestamp
+### SetExpiresAt
 
-`func (o *RequestLogRequestContent) SetExpiresTimestamp(v time.Time)`
+`func (o *RequestLogRequestContent) SetExpiresAt(v time.Time)`
 
-SetExpiresTimestamp sets ExpiresTimestamp field to given value.
+SetExpiresAt sets ExpiresAt field to given value.
 
-### HasExpiresTimestamp
+### HasExpiresAt
 
-`func (o *RequestLogRequestContent) HasExpiresTimestamp() bool`
+`func (o *RequestLogRequestContent) HasExpiresAt() bool`
 
-HasExpiresTimestamp returns a boolean if a field has been set.
+HasExpiresAt returns a boolean if a field has been set.
 
 ### GetRemotePath
 

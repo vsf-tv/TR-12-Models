@@ -23,7 +23,7 @@ var _ MappedNullable = &RotateCertificatesRequestContent{}
 type RotateCertificatesRequestContent struct {
 	MqttUri string `json:"mqttUri"`
 	DeviceCertificate string `json:"deviceCertificate"`
-	RegionName string `json:"regionName"`
+	RegionName *string `json:"regionName,omitempty"`
 }
 
 type _RotateCertificatesRequestContent RotateCertificatesRequestContent
@@ -32,11 +32,10 @@ type _RotateCertificatesRequestContent RotateCertificatesRequestContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRotateCertificatesRequestContent(mqttUri string, deviceCertificate string, regionName string) *RotateCertificatesRequestContent {
+func NewRotateCertificatesRequestContent(mqttUri string, deviceCertificate string) *RotateCertificatesRequestContent {
 	this := RotateCertificatesRequestContent{}
 	this.MqttUri = mqttUri
 	this.DeviceCertificate = deviceCertificate
-	this.RegionName = regionName
 	return &this
 }
 
@@ -96,28 +95,36 @@ func (o *RotateCertificatesRequestContent) SetDeviceCertificate(v string) {
 	o.DeviceCertificate = v
 }
 
-// GetRegionName returns the RegionName field value
+// GetRegionName returns the RegionName field value if set, zero value otherwise.
 func (o *RotateCertificatesRequestContent) GetRegionName() string {
-	if o == nil {
+	if o == nil || IsNil(o.RegionName) {
 		var ret string
 		return ret
 	}
-
-	return o.RegionName
+	return *o.RegionName
 }
 
-// GetRegionNameOk returns a tuple with the RegionName field value
+// GetRegionNameOk returns a tuple with the RegionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RotateCertificatesRequestContent) GetRegionNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RegionName) {
 		return nil, false
 	}
-	return &o.RegionName, true
+	return o.RegionName, true
 }
 
-// SetRegionName sets field value
+// HasRegionName returns a boolean if a field has been set.
+func (o *RotateCertificatesRequestContent) HasRegionName() bool {
+	if o != nil && !IsNil(o.RegionName) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegionName gets a reference to the given string and assigns it to the RegionName field.
 func (o *RotateCertificatesRequestContent) SetRegionName(v string) {
-	o.RegionName = v
+	o.RegionName = &v
 }
 
 func (o RotateCertificatesRequestContent) MarshalJSON() ([]byte, error) {
@@ -132,7 +139,9 @@ func (o RotateCertificatesRequestContent) ToMap() (map[string]interface{}, error
 	toSerialize := map[string]interface{}{}
 	toSerialize["mqttUri"] = o.MqttUri
 	toSerialize["deviceCertificate"] = o.DeviceCertificate
-	toSerialize["regionName"] = o.RegionName
+	if !IsNil(o.RegionName) {
+		toSerialize["regionName"] = o.RegionName
+	}
 	return toSerialize, nil
 }
 
@@ -143,7 +152,6 @@ func (o *RotateCertificatesRequestContent) UnmarshalJSON(data []byte) (err error
 	requiredProperties := []string{
 		"mqttUri",
 		"deviceCertificate",
-		"regionName",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -1,11 +1,13 @@
-# AuthStatus
+# DeviceType
 
 ## Enum
 
 
-* `STANDBY` (value: `"STANDBY"`)
+* `SOURCE` (value: `"SOURCE"`)
 
-* `CLAIMED` (value: `"CLAIMED"`)
+* `DESTINATION` (value: `"DESTINATION"`)
+
+* `BOTH` (value: `"BOTH"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -466,7 +466,7 @@ import (
 )
 
 func main() {
-	rotateCertificatesRequestContent := *openapiclient.NewRotateCertificatesRequestContent("MqttUri_example", "DeviceCertificate_example", "RegionName_example") // RotateCertificatesRequestContent | 
+	rotateCertificatesRequestContent := *openapiclient.NewRotateCertificatesRequestContent("MqttUri_example", "DeviceCertificate_example") // RotateCertificatesRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

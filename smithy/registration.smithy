@@ -2,13 +2,13 @@ $version: "2"
 
 namespace com.example.cdd.registration
 use com.example.cdd.common#ChannelType
-use com.example.cdd.common#SupportedProtocol
+use com.example.cdd.common#TransportProtocolName
 use com.example.cdd.common#StringList
 
 structure DeviceRegistration {
     @required
     channels: ChannelList
-    simpleSettings: SettingsList
+    standardSettings: SettingsList
     thumbnails: ThumbnailList
 }
 
@@ -22,7 +22,7 @@ structure Channel {
     @required
     id: String
     channelType: ChannelType
-    simpleSettings: SettingsList
+    standardSettings: SettingsList
     profiles: ProfileList
     connectionProtocols: ProtocolList
 }
@@ -37,7 +37,7 @@ structure Setting {
     @required
     name: String
     @required
-    info: String
+    description: String
     enums: EnumValues
     ranges: RangeValues
 }
@@ -51,9 +51,9 @@ structure EnumValues {
 
 structure RangeValues {
     @required
-    min: Float
+    minimum: Float
     @required
-    max: Float
+    maximum: Float
     @required
     defaultValue: Float
 }
@@ -68,11 +68,11 @@ structure ProfileDefinition {
     @required
     id: String
     @required
-    info: String
+    description: String
 }
 
 list ProtocolList {
-    member: SupportedProtocol
+    member: TransportProtocolName
 }
 
 list ThumbnailList {

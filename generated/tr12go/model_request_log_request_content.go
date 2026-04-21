@@ -20,7 +20,7 @@ var _ MappedNullable = &RequestLogRequestContent{}
 
 // RequestLogRequestContent struct for RequestLogRequestContent
 type RequestLogRequestContent struct {
-	ExpiresTimestamp *time.Time `json:"expiresTimestamp,omitempty"`
+	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	RemotePath *string `json:"remotePath,omitempty"`
 }
 
@@ -41,36 +41,36 @@ func NewRequestLogRequestContentWithDefaults() *RequestLogRequestContent {
 	return &this
 }
 
-// GetExpiresTimestamp returns the ExpiresTimestamp field value if set, zero value otherwise.
-func (o *RequestLogRequestContent) GetExpiresTimestamp() time.Time {
-	if o == nil || IsNil(o.ExpiresTimestamp) {
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *RequestLogRequestContent) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
-	return *o.ExpiresTimestamp
+	return *o.ExpiresAt
 }
 
-// GetExpiresTimestampOk returns a tuple with the ExpiresTimestamp field value if set, nil otherwise
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RequestLogRequestContent) GetExpiresTimestampOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ExpiresTimestamp) {
+func (o *RequestLogRequestContent) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
-	return o.ExpiresTimestamp, true
+	return o.ExpiresAt, true
 }
 
-// HasExpiresTimestamp returns a boolean if a field has been set.
-func (o *RequestLogRequestContent) HasExpiresTimestamp() bool {
-	if o != nil && !IsNil(o.ExpiresTimestamp) {
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *RequestLogRequestContent) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetExpiresTimestamp gets a reference to the given time.Time and assigns it to the ExpiresTimestamp field.
-func (o *RequestLogRequestContent) SetExpiresTimestamp(v time.Time) {
-	o.ExpiresTimestamp = &v
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *RequestLogRequestContent) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
 }
 
 // GetRemotePath returns the RemotePath field value if set, zero value otherwise.
@@ -115,8 +115,8 @@ func (o RequestLogRequestContent) MarshalJSON() ([]byte, error) {
 
 func (o RequestLogRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ExpiresTimestamp) {
-		toSerialize["expiresTimestamp"] = o.ExpiresTimestamp
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expiresAt"] = o.ExpiresAt
 	}
 	if !IsNil(o.RemotePath) {
 		toSerialize["remotePath"] = o.RemotePath

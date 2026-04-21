@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PeriodSeconds** | Pointer to **float32** |  | [optional] 
-**ExpiresTimestamp** | Pointer to **time.Time** |  | [optional] 
-**MaxSizeKilobyte** | Pointer to **float32** |  | [optional] 
+**ExpiresAt** | Pointer to **time.Time** |  | [optional] 
+**MaxSizeKB** | Pointer to **float32** |  | [optional] 
 **LocalPath** | Pointer to **string** |  | [optional] 
 **RemotePath** | Pointer to **string** |  | [optional] 
 **Headers** | Pointer to **map[string]string** |  | [optional] 
@@ -55,55 +55,55 @@ SetPeriodSeconds sets PeriodSeconds field to given value.
 
 HasPeriodSeconds returns a boolean if a field has been set.
 
-### GetExpiresTimestamp
+### GetExpiresAt
 
-`func (o *ThumbnailRequest) GetExpiresTimestamp() time.Time`
+`func (o *ThumbnailRequest) GetExpiresAt() time.Time`
 
-GetExpiresTimestamp returns the ExpiresTimestamp field if non-nil, zero value otherwise.
+GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
-### GetExpiresTimestampOk
+### GetExpiresAtOk
 
-`func (o *ThumbnailRequest) GetExpiresTimestampOk() (*time.Time, bool)`
+`func (o *ThumbnailRequest) GetExpiresAtOk() (*time.Time, bool)`
 
-GetExpiresTimestampOk returns a tuple with the ExpiresTimestamp field if it's non-nil, zero value otherwise
+GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetExpiresTimestamp
+### SetExpiresAt
 
-`func (o *ThumbnailRequest) SetExpiresTimestamp(v time.Time)`
+`func (o *ThumbnailRequest) SetExpiresAt(v time.Time)`
 
-SetExpiresTimestamp sets ExpiresTimestamp field to given value.
+SetExpiresAt sets ExpiresAt field to given value.
 
-### HasExpiresTimestamp
+### HasExpiresAt
 
-`func (o *ThumbnailRequest) HasExpiresTimestamp() bool`
+`func (o *ThumbnailRequest) HasExpiresAt() bool`
 
-HasExpiresTimestamp returns a boolean if a field has been set.
+HasExpiresAt returns a boolean if a field has been set.
 
-### GetMaxSizeKilobyte
+### GetMaxSizeKB
 
-`func (o *ThumbnailRequest) GetMaxSizeKilobyte() float32`
+`func (o *ThumbnailRequest) GetMaxSizeKB() float32`
 
-GetMaxSizeKilobyte returns the MaxSizeKilobyte field if non-nil, zero value otherwise.
+GetMaxSizeKB returns the MaxSizeKB field if non-nil, zero value otherwise.
 
-### GetMaxSizeKilobyteOk
+### GetMaxSizeKBOk
 
-`func (o *ThumbnailRequest) GetMaxSizeKilobyteOk() (*float32, bool)`
+`func (o *ThumbnailRequest) GetMaxSizeKBOk() (*float32, bool)`
 
-GetMaxSizeKilobyteOk returns a tuple with the MaxSizeKilobyte field if it's non-nil, zero value otherwise
+GetMaxSizeKBOk returns a tuple with the MaxSizeKB field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMaxSizeKilobyte
+### SetMaxSizeKB
 
-`func (o *ThumbnailRequest) SetMaxSizeKilobyte(v float32)`
+`func (o *ThumbnailRequest) SetMaxSizeKB(v float32)`
 
-SetMaxSizeKilobyte sets MaxSizeKilobyte field to given value.
+SetMaxSizeKB sets MaxSizeKB field to given value.
 
-### HasMaxSizeKilobyte
+### HasMaxSizeKB
 
-`func (o *ThumbnailRequest) HasMaxSizeKilobyte() bool`
+`func (o *ThumbnailRequest) HasMaxSizeKB() bool`
 
-HasMaxSizeKilobyte returns a boolean if a field has been set.
+HasMaxSizeKB returns a boolean if a field has been set.
 
 ### GetLocalPath
 

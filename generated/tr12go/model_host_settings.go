@@ -21,18 +21,18 @@ var _ MappedNullable = &HostSettings{}
 
 // HostSettings struct for HostSettings
 type HostSettings struct {
-	IotProtocolName string `json:"iotProtocolName"`
+	MqttAlpnProtocol string `json:"mqttAlpnProtocol"`
 	PairingTimeoutSeconds float32 `json:"pairingTimeoutSeconds"`
-	MinIntervalPubSeconds float32 `json:"minIntervalPubSeconds"`
+	MinimumIntervalPublishSeconds float32 `json:"minimumIntervalPublishSeconds"`
 	MqttKeepaliveSeconds float32 `json:"mqttKeepaliveSeconds"`
 	SubUpdateTopic string `json:"subUpdateTopic"`
 	SubUpdateThumbnailSubscriptionTopic string `json:"subUpdateThumbnailSubscriptionTopic"`
-	PubReportSchemaTopic string `json:"pubReportSchemaTopic"`
-	PubReportRegistrationTopic string `json:"pubReportRegistrationTopic"`
-	PubReportStatusTopic string `json:"pubReportStatusTopic"`
-	PubReportActualConfigurationTopic string `json:"pubReportActualConfigurationTopic"`
+	PublishReportSchemaTopic string `json:"publishReportSchemaTopic"`
+	PublishReportRegistrationTopic string `json:"publishReportRegistrationTopic"`
+	PublishReportStatusTopic string `json:"publishReportStatusTopic"`
+	PublishReportActualConfigurationTopic string `json:"publishReportActualConfigurationTopic"`
 	SubUpdateCertsTopic string `json:"subUpdateCertsTopic"`
-	PubDeprovisionTopic string `json:"pubDeprovisionTopic"`
+	PublishDeprovisionTopic string `json:"publishDeprovisionTopic"`
 	SubDeprovisionTopic string `json:"subDeprovisionTopic"`
 	SubUpdateLogSubscriptionTopic string `json:"subUpdateLogSubscriptionTopic"`
 }
@@ -43,20 +43,20 @@ type _HostSettings HostSettings
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHostSettings(iotProtocolName string, pairingTimeoutSeconds float32, minIntervalPubSeconds float32, mqttKeepaliveSeconds float32, subUpdateTopic string, subUpdateThumbnailSubscriptionTopic string, pubReportSchemaTopic string, pubReportRegistrationTopic string, pubReportStatusTopic string, pubReportActualConfigurationTopic string, subUpdateCertsTopic string, pubDeprovisionTopic string, subDeprovisionTopic string, subUpdateLogSubscriptionTopic string) *HostSettings {
+func NewHostSettings(mqttAlpnProtocol string, pairingTimeoutSeconds float32, minimumIntervalPublishSeconds float32, mqttKeepaliveSeconds float32, subUpdateTopic string, subUpdateThumbnailSubscriptionTopic string, publishReportSchemaTopic string, publishReportRegistrationTopic string, publishReportStatusTopic string, publishReportActualConfigurationTopic string, subUpdateCertsTopic string, publishDeprovisionTopic string, subDeprovisionTopic string, subUpdateLogSubscriptionTopic string) *HostSettings {
 	this := HostSettings{}
-	this.IotProtocolName = iotProtocolName
+	this.MqttAlpnProtocol = mqttAlpnProtocol
 	this.PairingTimeoutSeconds = pairingTimeoutSeconds
-	this.MinIntervalPubSeconds = minIntervalPubSeconds
+	this.MinimumIntervalPublishSeconds = minimumIntervalPublishSeconds
 	this.MqttKeepaliveSeconds = mqttKeepaliveSeconds
 	this.SubUpdateTopic = subUpdateTopic
 	this.SubUpdateThumbnailSubscriptionTopic = subUpdateThumbnailSubscriptionTopic
-	this.PubReportSchemaTopic = pubReportSchemaTopic
-	this.PubReportRegistrationTopic = pubReportRegistrationTopic
-	this.PubReportStatusTopic = pubReportStatusTopic
-	this.PubReportActualConfigurationTopic = pubReportActualConfigurationTopic
+	this.PublishReportSchemaTopic = publishReportSchemaTopic
+	this.PublishReportRegistrationTopic = publishReportRegistrationTopic
+	this.PublishReportStatusTopic = publishReportStatusTopic
+	this.PublishReportActualConfigurationTopic = publishReportActualConfigurationTopic
 	this.SubUpdateCertsTopic = subUpdateCertsTopic
-	this.PubDeprovisionTopic = pubDeprovisionTopic
+	this.PublishDeprovisionTopic = publishDeprovisionTopic
 	this.SubDeprovisionTopic = subDeprovisionTopic
 	this.SubUpdateLogSubscriptionTopic = subUpdateLogSubscriptionTopic
 	return &this
@@ -70,28 +70,28 @@ func NewHostSettingsWithDefaults() *HostSettings {
 	return &this
 }
 
-// GetIotProtocolName returns the IotProtocolName field value
-func (o *HostSettings) GetIotProtocolName() string {
+// GetMqttAlpnProtocol returns the MqttAlpnProtocol field value
+func (o *HostSettings) GetMqttAlpnProtocol() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.IotProtocolName
+	return o.MqttAlpnProtocol
 }
 
-// GetIotProtocolNameOk returns a tuple with the IotProtocolName field value
+// GetMqttAlpnProtocolOk returns a tuple with the MqttAlpnProtocol field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetIotProtocolNameOk() (*string, bool) {
+func (o *HostSettings) GetMqttAlpnProtocolOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IotProtocolName, true
+	return &o.MqttAlpnProtocol, true
 }
 
-// SetIotProtocolName sets field value
-func (o *HostSettings) SetIotProtocolName(v string) {
-	o.IotProtocolName = v
+// SetMqttAlpnProtocol sets field value
+func (o *HostSettings) SetMqttAlpnProtocol(v string) {
+	o.MqttAlpnProtocol = v
 }
 
 // GetPairingTimeoutSeconds returns the PairingTimeoutSeconds field value
@@ -118,28 +118,28 @@ func (o *HostSettings) SetPairingTimeoutSeconds(v float32) {
 	o.PairingTimeoutSeconds = v
 }
 
-// GetMinIntervalPubSeconds returns the MinIntervalPubSeconds field value
-func (o *HostSettings) GetMinIntervalPubSeconds() float32 {
+// GetMinimumIntervalPublishSeconds returns the MinimumIntervalPublishSeconds field value
+func (o *HostSettings) GetMinimumIntervalPublishSeconds() float32 {
 	if o == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.MinIntervalPubSeconds
+	return o.MinimumIntervalPublishSeconds
 }
 
-// GetMinIntervalPubSecondsOk returns a tuple with the MinIntervalPubSeconds field value
+// GetMinimumIntervalPublishSecondsOk returns a tuple with the MinimumIntervalPublishSeconds field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetMinIntervalPubSecondsOk() (*float32, bool) {
+func (o *HostSettings) GetMinimumIntervalPublishSecondsOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MinIntervalPubSeconds, true
+	return &o.MinimumIntervalPublishSeconds, true
 }
 
-// SetMinIntervalPubSeconds sets field value
-func (o *HostSettings) SetMinIntervalPubSeconds(v float32) {
-	o.MinIntervalPubSeconds = v
+// SetMinimumIntervalPublishSeconds sets field value
+func (o *HostSettings) SetMinimumIntervalPublishSeconds(v float32) {
+	o.MinimumIntervalPublishSeconds = v
 }
 
 // GetMqttKeepaliveSeconds returns the MqttKeepaliveSeconds field value
@@ -214,100 +214,100 @@ func (o *HostSettings) SetSubUpdateThumbnailSubscriptionTopic(v string) {
 	o.SubUpdateThumbnailSubscriptionTopic = v
 }
 
-// GetPubReportSchemaTopic returns the PubReportSchemaTopic field value
-func (o *HostSettings) GetPubReportSchemaTopic() string {
+// GetPublishReportSchemaTopic returns the PublishReportSchemaTopic field value
+func (o *HostSettings) GetPublishReportSchemaTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PubReportSchemaTopic
+	return o.PublishReportSchemaTopic
 }
 
-// GetPubReportSchemaTopicOk returns a tuple with the PubReportSchemaTopic field value
+// GetPublishReportSchemaTopicOk returns a tuple with the PublishReportSchemaTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPubReportSchemaTopicOk() (*string, bool) {
+func (o *HostSettings) GetPublishReportSchemaTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PubReportSchemaTopic, true
+	return &o.PublishReportSchemaTopic, true
 }
 
-// SetPubReportSchemaTopic sets field value
-func (o *HostSettings) SetPubReportSchemaTopic(v string) {
-	o.PubReportSchemaTopic = v
+// SetPublishReportSchemaTopic sets field value
+func (o *HostSettings) SetPublishReportSchemaTopic(v string) {
+	o.PublishReportSchemaTopic = v
 }
 
-// GetPubReportRegistrationTopic returns the PubReportRegistrationTopic field value
-func (o *HostSettings) GetPubReportRegistrationTopic() string {
+// GetPublishReportRegistrationTopic returns the PublishReportRegistrationTopic field value
+func (o *HostSettings) GetPublishReportRegistrationTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PubReportRegistrationTopic
+	return o.PublishReportRegistrationTopic
 }
 
-// GetPubReportRegistrationTopicOk returns a tuple with the PubReportRegistrationTopic field value
+// GetPublishReportRegistrationTopicOk returns a tuple with the PublishReportRegistrationTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPubReportRegistrationTopicOk() (*string, bool) {
+func (o *HostSettings) GetPublishReportRegistrationTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PubReportRegistrationTopic, true
+	return &o.PublishReportRegistrationTopic, true
 }
 
-// SetPubReportRegistrationTopic sets field value
-func (o *HostSettings) SetPubReportRegistrationTopic(v string) {
-	o.PubReportRegistrationTopic = v
+// SetPublishReportRegistrationTopic sets field value
+func (o *HostSettings) SetPublishReportRegistrationTopic(v string) {
+	o.PublishReportRegistrationTopic = v
 }
 
-// GetPubReportStatusTopic returns the PubReportStatusTopic field value
-func (o *HostSettings) GetPubReportStatusTopic() string {
+// GetPublishReportStatusTopic returns the PublishReportStatusTopic field value
+func (o *HostSettings) GetPublishReportStatusTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PubReportStatusTopic
+	return o.PublishReportStatusTopic
 }
 
-// GetPubReportStatusTopicOk returns a tuple with the PubReportStatusTopic field value
+// GetPublishReportStatusTopicOk returns a tuple with the PublishReportStatusTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPubReportStatusTopicOk() (*string, bool) {
+func (o *HostSettings) GetPublishReportStatusTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PubReportStatusTopic, true
+	return &o.PublishReportStatusTopic, true
 }
 
-// SetPubReportStatusTopic sets field value
-func (o *HostSettings) SetPubReportStatusTopic(v string) {
-	o.PubReportStatusTopic = v
+// SetPublishReportStatusTopic sets field value
+func (o *HostSettings) SetPublishReportStatusTopic(v string) {
+	o.PublishReportStatusTopic = v
 }
 
-// GetPubReportActualConfigurationTopic returns the PubReportActualConfigurationTopic field value
-func (o *HostSettings) GetPubReportActualConfigurationTopic() string {
+// GetPublishReportActualConfigurationTopic returns the PublishReportActualConfigurationTopic field value
+func (o *HostSettings) GetPublishReportActualConfigurationTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PubReportActualConfigurationTopic
+	return o.PublishReportActualConfigurationTopic
 }
 
-// GetPubReportActualConfigurationTopicOk returns a tuple with the PubReportActualConfigurationTopic field value
+// GetPublishReportActualConfigurationTopicOk returns a tuple with the PublishReportActualConfigurationTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPubReportActualConfigurationTopicOk() (*string, bool) {
+func (o *HostSettings) GetPublishReportActualConfigurationTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PubReportActualConfigurationTopic, true
+	return &o.PublishReportActualConfigurationTopic, true
 }
 
-// SetPubReportActualConfigurationTopic sets field value
-func (o *HostSettings) SetPubReportActualConfigurationTopic(v string) {
-	o.PubReportActualConfigurationTopic = v
+// SetPublishReportActualConfigurationTopic sets field value
+func (o *HostSettings) SetPublishReportActualConfigurationTopic(v string) {
+	o.PublishReportActualConfigurationTopic = v
 }
 
 // GetSubUpdateCertsTopic returns the SubUpdateCertsTopic field value
@@ -334,28 +334,28 @@ func (o *HostSettings) SetSubUpdateCertsTopic(v string) {
 	o.SubUpdateCertsTopic = v
 }
 
-// GetPubDeprovisionTopic returns the PubDeprovisionTopic field value
-func (o *HostSettings) GetPubDeprovisionTopic() string {
+// GetPublishDeprovisionTopic returns the PublishDeprovisionTopic field value
+func (o *HostSettings) GetPublishDeprovisionTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PubDeprovisionTopic
+	return o.PublishDeprovisionTopic
 }
 
-// GetPubDeprovisionTopicOk returns a tuple with the PubDeprovisionTopic field value
+// GetPublishDeprovisionTopicOk returns a tuple with the PublishDeprovisionTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPubDeprovisionTopicOk() (*string, bool) {
+func (o *HostSettings) GetPublishDeprovisionTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PubDeprovisionTopic, true
+	return &o.PublishDeprovisionTopic, true
 }
 
-// SetPubDeprovisionTopic sets field value
-func (o *HostSettings) SetPubDeprovisionTopic(v string) {
-	o.PubDeprovisionTopic = v
+// SetPublishDeprovisionTopic sets field value
+func (o *HostSettings) SetPublishDeprovisionTopic(v string) {
+	o.PublishDeprovisionTopic = v
 }
 
 // GetSubDeprovisionTopic returns the SubDeprovisionTopic field value
@@ -416,18 +416,18 @@ func (o HostSettings) MarshalJSON() ([]byte, error) {
 
 func (o HostSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["iotProtocolName"] = o.IotProtocolName
+	toSerialize["mqttAlpnProtocol"] = o.MqttAlpnProtocol
 	toSerialize["pairingTimeoutSeconds"] = o.PairingTimeoutSeconds
-	toSerialize["minIntervalPubSeconds"] = o.MinIntervalPubSeconds
+	toSerialize["minimumIntervalPublishSeconds"] = o.MinimumIntervalPublishSeconds
 	toSerialize["mqttKeepaliveSeconds"] = o.MqttKeepaliveSeconds
 	toSerialize["subUpdateTopic"] = o.SubUpdateTopic
 	toSerialize["subUpdateThumbnailSubscriptionTopic"] = o.SubUpdateThumbnailSubscriptionTopic
-	toSerialize["pubReportSchemaTopic"] = o.PubReportSchemaTopic
-	toSerialize["pubReportRegistrationTopic"] = o.PubReportRegistrationTopic
-	toSerialize["pubReportStatusTopic"] = o.PubReportStatusTopic
-	toSerialize["pubReportActualConfigurationTopic"] = o.PubReportActualConfigurationTopic
+	toSerialize["publishReportSchemaTopic"] = o.PublishReportSchemaTopic
+	toSerialize["publishReportRegistrationTopic"] = o.PublishReportRegistrationTopic
+	toSerialize["publishReportStatusTopic"] = o.PublishReportStatusTopic
+	toSerialize["publishReportActualConfigurationTopic"] = o.PublishReportActualConfigurationTopic
 	toSerialize["subUpdateCertsTopic"] = o.SubUpdateCertsTopic
-	toSerialize["pubDeprovisionTopic"] = o.PubDeprovisionTopic
+	toSerialize["publishDeprovisionTopic"] = o.PublishDeprovisionTopic
 	toSerialize["subDeprovisionTopic"] = o.SubDeprovisionTopic
 	toSerialize["subUpdateLogSubscriptionTopic"] = o.SubUpdateLogSubscriptionTopic
 	return toSerialize, nil
@@ -438,18 +438,18 @@ func (o *HostSettings) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"iotProtocolName",
+		"mqttAlpnProtocol",
 		"pairingTimeoutSeconds",
-		"minIntervalPubSeconds",
+		"minimumIntervalPublishSeconds",
 		"mqttKeepaliveSeconds",
 		"subUpdateTopic",
 		"subUpdateThumbnailSubscriptionTopic",
-		"pubReportSchemaTopic",
-		"pubReportRegistrationTopic",
-		"pubReportStatusTopic",
-		"pubReportActualConfigurationTopic",
+		"publishReportSchemaTopic",
+		"publishReportRegistrationTopic",
+		"publishReportStatusTopic",
+		"publishReportActualConfigurationTopic",
 		"subUpdateCertsTopic",
-		"pubDeprovisionTopic",
+		"publishDeprovisionTopic",
 		"subDeprovisionTopic",
 		"subUpdateLogSubscriptionTopic",
 	}

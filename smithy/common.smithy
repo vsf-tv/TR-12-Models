@@ -2,8 +2,18 @@ $version: "2"
 
 namespace com.example.cdd.common
 
+// Protocol version follows semantic versioning (MAJOR.MINOR.PATCH):
+//   MAJOR — breaking change: removed/renamed field, type change, removed enum value,
+//            new required field, handshake change. Old clients/servers will fail.
+//   MINOR — additive, backwards compatible: new optional field, new enum value,
+//            new operation, new transport protocol variant. Old code ignores unknowns.
+//   PATCH — no wire format change: documentation, comments, shape renames only.
+//
+// The host rejects pairing if the device MAJOR or MINOR version exceeds the host's.
+// Locking the model at Final is the most important compatibility gate — every change
+// after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("1.0.2")
+    @default("2.0.0")
     version: String
 }
 
@@ -17,20 +27,29 @@ enum ChannelType {
     DESTINATION
 }
 
-enum AuthStatus {
+enum DeviceType {
+    SOURCE
+    DESTINATION
+    BOTH
+}
+
+list DeviceTypeList {
+    member: DeviceType
+}
+
+enum PairingCodeAuthorizedStatus {
     STANDBY
     CLAIMED
 }
 
-enum SupportedProtocol {
+enum TransportProtocolName {
     SRT_LISTENER
     SRT_CALLER
-    ZIXI_LISTENER
-    ZIXI_CALLER
+    ZIXI_PUSH
+    ZIXI_PULL
     RIST_CALLER
     RIST_LISTENER
     RTP
-    WEBRTC
 }
 
 structure IdAndValue {
@@ -48,13 +67,32 @@ list StringList {
     member: String
 }
 
+@sensitive
+string SensitiveString
+
+// The TLS ALPN (Application Layer Protocol Negotiation) protocol name the device sends
+// in the TLS ClientHello when connecting to the MQTT broker on port 443. The host sets
+// this field and the device passes it through verbatim — the device has no knowledge of
+// the broker implementation.
+//
+// Different brokers have different requirements:
+//   "x-amzn-mqtt-ca" — Required by AWS IoT Core to select MQTT with X.509 cert auth on
+//                      port 443. IoT Core uses ALPN to disambiguate multiple auth modes
+//                      on the same port. Also accepted by other brokers (e.g. Mochi MQTT)
+//                      that don't enforce ALPN but tolerate any value.
+//   "mqtt"           — Standard ALPN name used by HiveMQ, EMQX, VerneMQ and other brokers
+//                      for MQTT over port 443.
+//   (broker-specific) — Azure IoT Hub and others may require their own ALPN strings.
+//
+// For connections on port 8883, no ALPN extension is needed and this field is ignored.
+
 structure HostSettings {
     @required
-    iotProtocolName: String
+    mqttAlpnProtocol: String
     @required
     pairingTimeoutSeconds: Integer
     @required
-    minIntervalPubSeconds: Integer
+    minimumIntervalPublishSeconds: Integer
     @required
     mqttKeepaliveSeconds: Integer
     @required
@@ -62,17 +100,17 @@ structure HostSettings {
     @required
     subUpdateThumbnailSubscriptionTopic: String
     @required
-    pubReportSchemaTopic: String
+    publishReportSchemaTopic: String
     @required
-    pubReportRegistrationTopic: String
+    publishReportRegistrationTopic: String
     @required
-    pubReportStatusTopic: String
+    publishReportStatusTopic: String
     @required
-    pubReportActualConfigurationTopic: String
+    publishReportActualConfigurationTopic: String
     @required
     subUpdateCertsTopic: String
     @required
-    pubDeprovisionTopic: String
+    publishDeprovisionTopic: String
     @required
     subDeprovisionTopic: String
     @required
@@ -105,9 +143,9 @@ structure CreatePairingCodeSuccessData {
     @required
     deviceId: String
     @required
-    pairingCode: String
+    pairingCode: SensitiveString
     @required
-    accessCode: String
+    accessCode: SensitiveString
     @required
     pairingTimeoutSeconds: Integer
 }
@@ -126,14 +164,14 @@ structure AuthenticatePairingCodeRequest {
     @required
     deviceId: String
     @required
-    pairingCode: String
+    pairingCode: SensitiveString
     @required
-    accessCode: String
+    accessCode: SensitiveString
 }
 
 structure AuthenticatePairingCodeResponse {
     @required
-    status: AuthStatus
+    status: PairingCodeAuthorizedStatus
     caCertificate: String
     deviceCertificate: String
     mqttUri: String
@@ -146,7 +184,6 @@ structure RotateCertificatesRequest {
     mqttUri: String
     @required
     deviceCertificate: String
-    @required
     regionName: String
 }
 
@@ -165,8 +202,8 @@ structure DeprovisionRequest {
 structure ThumbnailRequest {
     periodSeconds: Integer
     @timestampFormat("date-time")
-    expiresTimestamp: Timestamp
-    maxSizeKilobyte: Integer
+    expiresAt: Timestamp
+    maxSizeKB: Integer
     localPath: String
     remotePath: String
     headers: StringMap
@@ -188,10 +225,10 @@ map ThumbnailRequestMap {
 }
 
 // All fields are optional — a partial LogRequest instructs the device to upload
-// any available logs to the provided remotePath before expiresTimestamp.
+// any available logs to the provided remotePath before expiresAt.
 structure LogRequest {
     @timestampFormat("date-time")
-    expiresTimestamp: Timestamp
+    expiresAt: Timestamp
     remotePath: String
 }
 
@@ -201,11 +238,11 @@ structure HostConfig {
     @required
     serviceName: String
     @required
-    deviceTypes: StringList
+    deviceTypes: DeviceTypeList
     @required
-    thumbnailMaxSizeKB: Integer
+    thumbnailMaximumSizeKB: Integer
     @required
-    logFileMaxSizeKB: Integer
+    logFileMaximumSizeKB: Integer
     @required
     createPairingCodeUrl: String
     @required
@@ -214,25 +251,15 @@ structure HostConfig {
 
 union Health {
     healthy: HealthyState
-    degraded: DegradedState
-    critical: CriticalState
+    degraded: UnhealthyStateDescription
+    critical: UnhealthyStateDescription
 }
 
-/// Healthy state — only the state indicator, no additional fields needed.
+/// Healthy state — no additional fields needed.
 structure HealthyState {}
 
-/// Degraded or critical state — all diagnostic fields required.
-structure DegradedState {
-    @required
-    messages: StringList
-    @required
-    @timestampFormat("date-time")
-    timestamp: Timestamp
-    @required
-    componentName: String
-}
-
-structure CriticalState {
+/// Shared description for degraded and critical states.
+structure UnhealthyStateDescription {
     @required
     messages: StringList
     @required

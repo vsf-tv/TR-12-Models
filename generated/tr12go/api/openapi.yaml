@@ -105,11 +105,6 @@ paths:
           description: CreatePairingCode 200 response
 components:
   schemas:
-    AuthStatus:
-      enum:
-      - STANDBY
-      - CLAIMED
-      type: string
     AuthenticatePairingCodeRequestContent:
       example:
         accessCode: accessCode
@@ -119,8 +114,10 @@ components:
         deviceId:
           type: string
         pairingCode:
+          format: password
           type: string
         accessCode:
+          format: password
           type: string
       required:
       - accessCode
@@ -132,26 +129,26 @@ components:
         regionName: regionName
         hostSettings:
           pairingTimeoutSeconds: 0.8008281904610115
+          publishReportSchemaTopic: publishReportSchemaTopic
+          publishDeprovisionTopic: publishDeprovisionTopic
           subUpdateTopic: subUpdateTopic
-          pubReportStatusTopic: pubReportStatusTopic
-          minIntervalPubSeconds: 6.027456183070403
           subUpdateCertsTopic: subUpdateCertsTopic
-          pubReportRegistrationTopic: pubReportRegistrationTopic
-          pubDeprovisionTopic: pubDeprovisionTopic
+          minimumIntervalPublishSeconds: 6.027456183070403
           subDeprovisionTopic: subDeprovisionTopic
-          pubReportSchemaTopic: pubReportSchemaTopic
           subUpdateThumbnailSubscriptionTopic: subUpdateThumbnailSubscriptionTopic
+          publishReportActualConfigurationTopic: publishReportActualConfigurationTopic
           subUpdateLogSubscriptionTopic: subUpdateLogSubscriptionTopic
-          iotProtocolName: iotProtocolName
           mqttKeepaliveSeconds: 1.4658129805029452
-          pubReportActualConfigurationTopic: pubReportActualConfigurationTopic
+          publishReportRegistrationTopic: publishReportRegistrationTopic
+          mqttAlpnProtocol: mqttAlpnProtocol
+          publishReportStatusTopic: publishReportStatusTopic
         mqttUri: mqttUri
         caCertificate: caCertificate
         deviceCertificate: deviceCertificate
         status: STANDBY
       properties:
         status:
-          $ref: "#/components/schemas/AuthStatus"
+          $ref: "#/components/schemas/PairingCodeAuthorizedStatus"
         caCertificate:
           type: string
         deviceCertificate:
@@ -227,8 +224,10 @@ components:
         deviceId:
           type: string
         pairingCode:
+          format: password
           type: string
         accessCode:
+          format: password
           type: string
         pairingTimeoutSeconds:
           type: number
@@ -255,15 +254,21 @@ components:
       - EXPIRED
       - UNKNOWN
       type: string
+    DeviceType:
+      enum:
+      - SOURCE
+      - DESTINATION
+      - BOTH
+      type: string
     GetHostConfigResponseContent:
       example:
+        thumbnailMaximumSizeKB: 0.8008281904610115
         authenticatePairingCodeUrl: authenticatePairingCodeUrl
         deviceTypes:
-        - deviceTypes
-        - deviceTypes
-        thumbnailMaxSizeKB: 0.8008281904610115
-        logFileMaxSizeKB: 6.027456183070403
+        - SOURCE
+        - SOURCE
         createPairingCodeUrl: createPairingCodeUrl
+        logFileMaximumSizeKB: 6.027456183070403
         serviceId: serviceId
         serviceName: serviceName
       properties:
@@ -273,11 +278,11 @@ components:
           type: string
         deviceTypes:
           items:
-            type: string
+            $ref: "#/components/schemas/DeviceType"
           type: array
-        thumbnailMaxSizeKB:
+        thumbnailMaximumSizeKB:
           type: number
-        logFileMaxSizeKB:
+        logFileMaximumSizeKB:
           type: number
         createPairingCodeUrl:
           type: string
@@ -287,10 +292,10 @@ components:
       - authenticatePairingCodeUrl
       - createPairingCodeUrl
       - deviceTypes
-      - logFileMaxSizeKB
+      - logFileMaximumSizeKB
       - serviceId
       - serviceName
-      - thumbnailMaxSizeKB
+      - thumbnailMaximumSizeKB
       type: object
     GetVersionResponseContent:
       example:
@@ -305,25 +310,25 @@ components:
     HostSettings:
       example:
         pairingTimeoutSeconds: 0.8008281904610115
+        publishReportSchemaTopic: publishReportSchemaTopic
+        publishDeprovisionTopic: publishDeprovisionTopic
         subUpdateTopic: subUpdateTopic
-        pubReportStatusTopic: pubReportStatusTopic
-        minIntervalPubSeconds: 6.027456183070403
         subUpdateCertsTopic: subUpdateCertsTopic
-        pubReportRegistrationTopic: pubReportRegistrationTopic
-        pubDeprovisionTopic: pubDeprovisionTopic
+        minimumIntervalPublishSeconds: 6.027456183070403
         subDeprovisionTopic: subDeprovisionTopic
-        pubReportSchemaTopic: pubReportSchemaTopic
         subUpdateThumbnailSubscriptionTopic: subUpdateThumbnailSubscriptionTopic
+        publishReportActualConfigurationTopic: publishReportActualConfigurationTopic
         subUpdateLogSubscriptionTopic: subUpdateLogSubscriptionTopic
-        iotProtocolName: iotProtocolName
         mqttKeepaliveSeconds: 1.4658129805029452
-        pubReportActualConfigurationTopic: pubReportActualConfigurationTopic
+        publishReportRegistrationTopic: publishReportRegistrationTopic
+        mqttAlpnProtocol: mqttAlpnProtocol
+        publishReportStatusTopic: publishReportStatusTopic
       properties:
-        iotProtocolName:
+        mqttAlpnProtocol:
           type: string
         pairingTimeoutSeconds:
           type: number
-        minIntervalPubSeconds:
+        minimumIntervalPublishSeconds:
           type: number
         mqttKeepaliveSeconds:
           type: number
@@ -331,38 +336,43 @@ components:
           type: string
         subUpdateThumbnailSubscriptionTopic:
           type: string
-        pubReportSchemaTopic:
+        publishReportSchemaTopic:
           type: string
-        pubReportRegistrationTopic:
+        publishReportRegistrationTopic:
           type: string
-        pubReportStatusTopic:
+        publishReportStatusTopic:
           type: string
-        pubReportActualConfigurationTopic:
+        publishReportActualConfigurationTopic:
           type: string
         subUpdateCertsTopic:
           type: string
-        pubDeprovisionTopic:
+        publishDeprovisionTopic:
           type: string
         subDeprovisionTopic:
           type: string
         subUpdateLogSubscriptionTopic:
           type: string
       required:
-      - iotProtocolName
-      - minIntervalPubSeconds
+      - minimumIntervalPublishSeconds
+      - mqttAlpnProtocol
       - mqttKeepaliveSeconds
       - pairingTimeoutSeconds
-      - pubDeprovisionTopic
-      - pubReportActualConfigurationTopic
-      - pubReportRegistrationTopic
-      - pubReportSchemaTopic
-      - pubReportStatusTopic
+      - publishDeprovisionTopic
+      - publishReportActualConfigurationTopic
+      - publishReportRegistrationTopic
+      - publishReportSchemaTopic
+      - publishReportStatusTopic
       - subDeprovisionTopic
       - subUpdateCertsTopic
       - subUpdateLogSubscriptionTopic
       - subUpdateThumbnailSubscriptionTopic
       - subUpdateTopic
       type: object
+    PairingCodeAuthorizedStatus:
+      enum:
+      - STANDBY
+      - CLAIMED
+      type: string
     ProtocolVersion:
       example:
         version: 1.0.2
@@ -374,9 +384,9 @@ components:
     RequestLogRequestContent:
       example:
         remotePath: remotePath
-        expiresTimestamp: 2000-01-23T04:56:07.000+00:00
+        expiresAt: 2000-01-23T04:56:07.000+00:00
       properties:
-        expiresTimestamp:
+        expiresAt:
           format: date-time
           type: string
         remotePath:
@@ -391,8 +401,8 @@ components:
             remotePath: remotePath
             localPath: localPath
             periodSeconds: 0.8008281904610115
-            expiresTimestamp: 2000-01-23T04:56:07.000+00:00
-            maxSizeKilobyte: 6.027456183070403
+            expiresAt: 2000-01-23T04:56:07.000+00:00
+            maxSizeKB: 6.027456183070403
       properties:
         requests:
           additionalProperties:
@@ -416,7 +426,6 @@ components:
       required:
       - deviceCertificate
       - mqttUri
-      - regionName
       type: object
     StringMap:
       additionalProperties:
@@ -429,15 +438,15 @@ components:
         remotePath: remotePath
         localPath: localPath
         periodSeconds: 0.8008281904610115
-        expiresTimestamp: 2000-01-23T04:56:07.000+00:00
-        maxSizeKilobyte: 6.027456183070403
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+        maxSizeKB: 6.027456183070403
       properties:
         periodSeconds:
           type: number
-        expiresTimestamp:
+        expiresAt:
           format: date-time
           type: string
-        maxSizeKilobyte:
+        maxSizeKB:
           type: number
         localPath:
           type: string

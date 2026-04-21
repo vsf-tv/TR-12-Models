@@ -23,9 +23,9 @@ var _ MappedNullable = &GetHostConfigResponseContent{}
 type GetHostConfigResponseContent struct {
 	ServiceId string `json:"serviceId"`
 	ServiceName string `json:"serviceName"`
-	DeviceTypes []string `json:"deviceTypes"`
-	ThumbnailMaxSizeKB float32 `json:"thumbnailMaxSizeKB"`
-	LogFileMaxSizeKB float32 `json:"logFileMaxSizeKB"`
+	DeviceTypes []DeviceType `json:"deviceTypes"`
+	ThumbnailMaximumSizeKB float32 `json:"thumbnailMaximumSizeKB"`
+	LogFileMaximumSizeKB float32 `json:"logFileMaximumSizeKB"`
 	CreatePairingCodeUrl string `json:"createPairingCodeUrl"`
 	AuthenticatePairingCodeUrl string `json:"authenticatePairingCodeUrl"`
 }
@@ -36,13 +36,13 @@ type _GetHostConfigResponseContent GetHostConfigResponseContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetHostConfigResponseContent(serviceId string, serviceName string, deviceTypes []string, thumbnailMaxSizeKB float32, logFileMaxSizeKB float32, createPairingCodeUrl string, authenticatePairingCodeUrl string) *GetHostConfigResponseContent {
+func NewGetHostConfigResponseContent(serviceId string, serviceName string, deviceTypes []DeviceType, thumbnailMaximumSizeKB float32, logFileMaximumSizeKB float32, createPairingCodeUrl string, authenticatePairingCodeUrl string) *GetHostConfigResponseContent {
 	this := GetHostConfigResponseContent{}
 	this.ServiceId = serviceId
 	this.ServiceName = serviceName
 	this.DeviceTypes = deviceTypes
-	this.ThumbnailMaxSizeKB = thumbnailMaxSizeKB
-	this.LogFileMaxSizeKB = logFileMaxSizeKB
+	this.ThumbnailMaximumSizeKB = thumbnailMaximumSizeKB
+	this.LogFileMaximumSizeKB = logFileMaximumSizeKB
 	this.CreatePairingCodeUrl = createPairingCodeUrl
 	this.AuthenticatePairingCodeUrl = authenticatePairingCodeUrl
 	return &this
@@ -105,9 +105,9 @@ func (o *GetHostConfigResponseContent) SetServiceName(v string) {
 }
 
 // GetDeviceTypes returns the DeviceTypes field value
-func (o *GetHostConfigResponseContent) GetDeviceTypes() []string {
+func (o *GetHostConfigResponseContent) GetDeviceTypes() []DeviceType {
 	if o == nil {
-		var ret []string
+		var ret []DeviceType
 		return ret
 	}
 
@@ -116,7 +116,7 @@ func (o *GetHostConfigResponseContent) GetDeviceTypes() []string {
 
 // GetDeviceTypesOk returns a tuple with the DeviceTypes field value
 // and a boolean to check if the value has been set.
-func (o *GetHostConfigResponseContent) GetDeviceTypesOk() ([]string, bool) {
+func (o *GetHostConfigResponseContent) GetDeviceTypesOk() ([]DeviceType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -124,56 +124,56 @@ func (o *GetHostConfigResponseContent) GetDeviceTypesOk() ([]string, bool) {
 }
 
 // SetDeviceTypes sets field value
-func (o *GetHostConfigResponseContent) SetDeviceTypes(v []string) {
+func (o *GetHostConfigResponseContent) SetDeviceTypes(v []DeviceType) {
 	o.DeviceTypes = v
 }
 
-// GetThumbnailMaxSizeKB returns the ThumbnailMaxSizeKB field value
-func (o *GetHostConfigResponseContent) GetThumbnailMaxSizeKB() float32 {
+// GetThumbnailMaximumSizeKB returns the ThumbnailMaximumSizeKB field value
+func (o *GetHostConfigResponseContent) GetThumbnailMaximumSizeKB() float32 {
 	if o == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.ThumbnailMaxSizeKB
+	return o.ThumbnailMaximumSizeKB
 }
 
-// GetThumbnailMaxSizeKBOk returns a tuple with the ThumbnailMaxSizeKB field value
+// GetThumbnailMaximumSizeKBOk returns a tuple with the ThumbnailMaximumSizeKB field value
 // and a boolean to check if the value has been set.
-func (o *GetHostConfigResponseContent) GetThumbnailMaxSizeKBOk() (*float32, bool) {
+func (o *GetHostConfigResponseContent) GetThumbnailMaximumSizeKBOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ThumbnailMaxSizeKB, true
+	return &o.ThumbnailMaximumSizeKB, true
 }
 
-// SetThumbnailMaxSizeKB sets field value
-func (o *GetHostConfigResponseContent) SetThumbnailMaxSizeKB(v float32) {
-	o.ThumbnailMaxSizeKB = v
+// SetThumbnailMaximumSizeKB sets field value
+func (o *GetHostConfigResponseContent) SetThumbnailMaximumSizeKB(v float32) {
+	o.ThumbnailMaximumSizeKB = v
 }
 
-// GetLogFileMaxSizeKB returns the LogFileMaxSizeKB field value
-func (o *GetHostConfigResponseContent) GetLogFileMaxSizeKB() float32 {
+// GetLogFileMaximumSizeKB returns the LogFileMaximumSizeKB field value
+func (o *GetHostConfigResponseContent) GetLogFileMaximumSizeKB() float32 {
 	if o == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.LogFileMaxSizeKB
+	return o.LogFileMaximumSizeKB
 }
 
-// GetLogFileMaxSizeKBOk returns a tuple with the LogFileMaxSizeKB field value
+// GetLogFileMaximumSizeKBOk returns a tuple with the LogFileMaximumSizeKB field value
 // and a boolean to check if the value has been set.
-func (o *GetHostConfigResponseContent) GetLogFileMaxSizeKBOk() (*float32, bool) {
+func (o *GetHostConfigResponseContent) GetLogFileMaximumSizeKBOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.LogFileMaxSizeKB, true
+	return &o.LogFileMaximumSizeKB, true
 }
 
-// SetLogFileMaxSizeKB sets field value
-func (o *GetHostConfigResponseContent) SetLogFileMaxSizeKB(v float32) {
-	o.LogFileMaxSizeKB = v
+// SetLogFileMaximumSizeKB sets field value
+func (o *GetHostConfigResponseContent) SetLogFileMaximumSizeKB(v float32) {
+	o.LogFileMaximumSizeKB = v
 }
 
 // GetCreatePairingCodeUrl returns the CreatePairingCodeUrl field value
@@ -237,8 +237,8 @@ func (o GetHostConfigResponseContent) ToMap() (map[string]interface{}, error) {
 	toSerialize["serviceId"] = o.ServiceId
 	toSerialize["serviceName"] = o.ServiceName
 	toSerialize["deviceTypes"] = o.DeviceTypes
-	toSerialize["thumbnailMaxSizeKB"] = o.ThumbnailMaxSizeKB
-	toSerialize["logFileMaxSizeKB"] = o.LogFileMaxSizeKB
+	toSerialize["thumbnailMaximumSizeKB"] = o.ThumbnailMaximumSizeKB
+	toSerialize["logFileMaximumSizeKB"] = o.LogFileMaximumSizeKB
 	toSerialize["createPairingCodeUrl"] = o.CreatePairingCodeUrl
 	toSerialize["authenticatePairingCodeUrl"] = o.AuthenticatePairingCodeUrl
 	return toSerialize, nil
@@ -252,8 +252,8 @@ func (o *GetHostConfigResponseContent) UnmarshalJSON(data []byte) (err error) {
 		"serviceId",
 		"serviceName",
 		"deviceTypes",
-		"thumbnailMaxSizeKB",
-		"logFileMaxSizeKB",
+		"thumbnailMaximumSizeKB",
+		"logFileMaximumSizeKB",
 		"createPairingCodeUrl",
 		"authenticatePairingCodeUrl",
 	}
