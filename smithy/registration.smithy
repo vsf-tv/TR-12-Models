@@ -1,9 +1,9 @@
 $version: "2"
 
-namespace com.example.cdd.registration
-use com.example.cdd.common#ChannelType
-use com.example.cdd.common#TransportProtocolName
-use com.example.cdd.common#StringList
+namespace com.cdd.registration
+use com.cdd.common#ChannelType
+use com.cdd.common#TransportProtocolName
+use com.cdd.common#StringList
 
 structure DeviceRegistration {
     @required
@@ -21,6 +21,7 @@ structure Channel {
     name: String
     @required
     id: String
+    @required
     channelType: ChannelType
     standardSettings: SettingsList
     profiles: ProfileList

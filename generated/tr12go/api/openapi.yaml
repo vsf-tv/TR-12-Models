@@ -29,6 +29,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/DeprovisionDeviceRequestContent"
+        required: true
       responses:
         "200":
           description: DeprovisionDevice 200 response
@@ -150,8 +151,10 @@ components:
         status:
           $ref: "#/components/schemas/PairingCodeAuthorizedStatus"
         caCertificate:
+          format: password
           type: string
         deviceCertificate:
+          format: password
           type: string
         mqttUri:
           type: string
@@ -177,19 +180,22 @@ components:
       type: string
     CreatePairingCodeRequestContent:
       example:
-        deviceType: deviceType
+        deviceType: SOURCE
         certificateSigningRequest: certificateSigningRequest
         hostId: hostId
-        version: version
+        version:
+          version: 2.0.0
       properties:
         deviceType:
-          type: string
+          $ref: "#/components/schemas/DeviceType"
         hostId:
           type: string
         certificateSigningRequest:
+          description: A PEM-encoded certificate signing request. Treated as sensitive.
+          format: password
           type: string
         version:
-          type: string
+          $ref: "#/components/schemas/ProtocolVersion"
       required:
       - certificateSigningRequest
       - deviceType
@@ -247,6 +253,8 @@ components:
         timestamp:
           format: date-time
           type: string
+      required:
+      - timestamp
       type: object
     DeprovisionReason:
       enum:
@@ -300,7 +308,7 @@ components:
     GetVersionResponseContent:
       example:
         version:
-          version: 1.0.2
+          version: 2.0.0
       properties:
         version:
           $ref: "#/components/schemas/ProtocolVersion"
@@ -375,10 +383,10 @@ components:
       type: string
     ProtocolVersion:
       example:
-        version: 1.0.2
+        version: 2.0.0
       properties:
         version:
-          default: 1.0.2
+          default: 2.0.0
           type: string
       type: object
     RequestLogRequestContent:
@@ -420,6 +428,7 @@ components:
         mqttUri:
           type: string
         deviceCertificate:
+          format: password
           type: string
         regionName:
           type: string

@@ -21,10 +21,11 @@ var _ MappedNullable = &CreatePairingCodeRequestContent{}
 
 // CreatePairingCodeRequestContent struct for CreatePairingCodeRequestContent
 type CreatePairingCodeRequestContent struct {
-	DeviceType string `json:"deviceType"`
+	DeviceType DeviceType `json:"deviceType"`
 	HostId string `json:"hostId"`
+	// A PEM-encoded certificate signing request. Treated as sensitive.
 	CertificateSigningRequest string `json:"certificateSigningRequest"`
-	Version string `json:"version"`
+	Version ProtocolVersion `json:"version"`
 }
 
 type _CreatePairingCodeRequestContent CreatePairingCodeRequestContent
@@ -33,7 +34,7 @@ type _CreatePairingCodeRequestContent CreatePairingCodeRequestContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePairingCodeRequestContent(deviceType string, hostId string, certificateSigningRequest string, version string) *CreatePairingCodeRequestContent {
+func NewCreatePairingCodeRequestContent(deviceType DeviceType, hostId string, certificateSigningRequest string, version ProtocolVersion) *CreatePairingCodeRequestContent {
 	this := CreatePairingCodeRequestContent{}
 	this.DeviceType = deviceType
 	this.HostId = hostId
@@ -51,9 +52,9 @@ func NewCreatePairingCodeRequestContentWithDefaults() *CreatePairingCodeRequestC
 }
 
 // GetDeviceType returns the DeviceType field value
-func (o *CreatePairingCodeRequestContent) GetDeviceType() string {
+func (o *CreatePairingCodeRequestContent) GetDeviceType() DeviceType {
 	if o == nil {
-		var ret string
+		var ret DeviceType
 		return ret
 	}
 
@@ -62,7 +63,7 @@ func (o *CreatePairingCodeRequestContent) GetDeviceType() string {
 
 // GetDeviceTypeOk returns a tuple with the DeviceType field value
 // and a boolean to check if the value has been set.
-func (o *CreatePairingCodeRequestContent) GetDeviceTypeOk() (*string, bool) {
+func (o *CreatePairingCodeRequestContent) GetDeviceTypeOk() (*DeviceType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,7 +71,7 @@ func (o *CreatePairingCodeRequestContent) GetDeviceTypeOk() (*string, bool) {
 }
 
 // SetDeviceType sets field value
-func (o *CreatePairingCodeRequestContent) SetDeviceType(v string) {
+func (o *CreatePairingCodeRequestContent) SetDeviceType(v DeviceType) {
 	o.DeviceType = v
 }
 
@@ -123,9 +124,9 @@ func (o *CreatePairingCodeRequestContent) SetCertificateSigningRequest(v string)
 }
 
 // GetVersion returns the Version field value
-func (o *CreatePairingCodeRequestContent) GetVersion() string {
+func (o *CreatePairingCodeRequestContent) GetVersion() ProtocolVersion {
 	if o == nil {
-		var ret string
+		var ret ProtocolVersion
 		return ret
 	}
 
@@ -134,7 +135,7 @@ func (o *CreatePairingCodeRequestContent) GetVersion() string {
 
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *CreatePairingCodeRequestContent) GetVersionOk() (*string, bool) {
+func (o *CreatePairingCodeRequestContent) GetVersionOk() (*ProtocolVersion, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -142,7 +143,7 @@ func (o *CreatePairingCodeRequestContent) GetVersionOk() (*string, bool) {
 }
 
 // SetVersion sets field value
-func (o *CreatePairingCodeRequestContent) SetVersion(v string) {
+func (o *CreatePairingCodeRequestContent) SetVersion(v ProtocolVersion) {
 	o.Version = v
 }
 

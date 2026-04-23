@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeviceType** | **string** |  | 
+**DeviceType** | [**DeviceType**](DeviceType.md) |  | 
 **HostId** | **string** |  | 
-**CertificateSigningRequest** | **string** |  | 
-**Version** | **string** |  | 
+**CertificateSigningRequest** | **string** | A PEM-encoded certificate signing request. Treated as sensitive. | 
+**Version** | [**ProtocolVersion**](ProtocolVersion.md) |  | 
 
 ## Methods
 
 ### NewCreatePairingCodeRequestContent
 
-`func NewCreatePairingCodeRequestContent(deviceType string, hostId string, certificateSigningRequest string, version string, ) *CreatePairingCodeRequestContent`
+`func NewCreatePairingCodeRequestContent(deviceType DeviceType, hostId string, certificateSigningRequest string, version ProtocolVersion, ) *CreatePairingCodeRequestContent`
 
 NewCreatePairingCodeRequestContent instantiates a new CreatePairingCodeRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDeviceType
 
-`func (o *CreatePairingCodeRequestContent) GetDeviceType() string`
+`func (o *CreatePairingCodeRequestContent) GetDeviceType() DeviceType`
 
 GetDeviceType returns the DeviceType field if non-nil, zero value otherwise.
 
 ### GetDeviceTypeOk
 
-`func (o *CreatePairingCodeRequestContent) GetDeviceTypeOk() (*string, bool)`
+`func (o *CreatePairingCodeRequestContent) GetDeviceTypeOk() (*DeviceType, bool)`
 
 GetDeviceTypeOk returns a tuple with the DeviceType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeviceType
 
-`func (o *CreatePairingCodeRequestContent) SetDeviceType(v string)`
+`func (o *CreatePairingCodeRequestContent) SetDeviceType(v DeviceType)`
 
 SetDeviceType sets DeviceType field to given value.
 
@@ -90,20 +90,20 @@ SetCertificateSigningRequest sets CertificateSigningRequest field to given value
 
 ### GetVersion
 
-`func (o *CreatePairingCodeRequestContent) GetVersion() string`
+`func (o *CreatePairingCodeRequestContent) GetVersion() ProtocolVersion`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *CreatePairingCodeRequestContent) GetVersionOk() (*string, bool)`
+`func (o *CreatePairingCodeRequestContent) GetVersionOk() (*ProtocolVersion, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *CreatePairingCodeRequestContent) SetVersion(v string)`
+`func (o *CreatePairingCodeRequestContent) SetVersion(v ProtocolVersion)`
 
 SetVersion sets Version field to given value.
 

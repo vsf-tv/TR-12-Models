@@ -284,6 +284,9 @@ func (a *DefaultAPIService) DeprovisionDeviceExecute(r ApiDeprovisionDeviceReque
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.deprovisionDeviceRequestContent == nil {
+		return nil, reportError("deprovisionDeviceRequestContent is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

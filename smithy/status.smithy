@@ -1,7 +1,7 @@
 $version: "2"
 
-namespace com.example.cdd.status
-use com.example.cdd.common#ChannelState
+namespace com.cdd.status
+use com.cdd.common#ChannelState
 
 structure DeviceStatus {
     @required

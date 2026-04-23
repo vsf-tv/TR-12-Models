@@ -1,14 +1,14 @@
 $version: "2"
 
-namespace com.example.cdd.configuration
-use com.example.cdd.common#ChannelState
-use com.example.cdd.common#Health
-use com.example.cdd.common#IdAndValueList
-use com.example.cdd.common#StringList
-use com.example.cdd.common#SensitiveString
+namespace com.cdd.configuration
+use com.cdd.common#ChannelState
+use com.cdd.common#Health
+use com.cdd.common#IdAndValueList
+use com.cdd.common#StringList
 
 structure DeviceConfiguration {
     @required
+    @length(max: 80)
     configurationId: String
     @required
     channels: ChannelConfigurationList
@@ -24,6 +24,7 @@ structure ChannelConfiguration {
     @required
     id: String
     @required
+    @length(max: 80)
     configurationId: String
     @required
     state: ChannelState
@@ -51,11 +52,13 @@ structure Connection {
     transportProtocol: TransportProtocol
 }
 
+@sensitive
 @length(min: 32, max: 32)
 @pattern("^[a-fA-F0-9]+$")
 @documentation("A 32-character hexadecimal string.")
 string Hex32
 
+@sensitive
 @length(min: 64, max: 64)
 @pattern("^[a-fA-F0-9]+$")
 @documentation("A 64-character hexadecimal string.")
@@ -63,12 +66,12 @@ string Hex64
 
 structure EncryptionAes128 {
     @required
-    passphrase: SensitiveString
+    passphrase: Hex32
 }
 
 structure EncryptionAes256 {
     @required
-    passphrase: SensitiveString
+    passphrase: Hex64
 }
 
 union EncryptionAes {
@@ -164,6 +167,7 @@ structure ZixiPullTransportProtocol {
     address: String
     // 1024 is the floor — the receiving device binds a local port for incoming media,
     // which requires root/admin for ports below 1024.
+    // This prevents a cloud user from prescribing ports the 
     @default(2088)
     @range(min: 1024, max: 65535)
     port: Integer
@@ -178,8 +182,11 @@ structure RtpTransportProtocol {
     // Maps to the SDP 'c=' line (Connection Data) — unicast or multicast IP/address
     @required
     address: String
-    // Maps to the SDP 'm=' line (Media Description) port
+    // Maps to the SDP 'm=' line (Media Description) port.
+    // 1024 is the floor — the device binds this port locally to receive incoming media,
+    // which requires root/admin for ports below 1024.
     @required
+    @range(min: 1024, max: 65535)
     port: Integer
     // Maps to 'a=source-filter' (IGMPv3 SSM source-specific multicast)
     sourceAddressFilter: String
@@ -193,7 +200,9 @@ structure RtpTransportProtocol {
 structure RtpFecStreamConfig {
     // Multicast address for the out-of-band FEC stream
     address: String
-    // UDP port for the out-of-band FEC stream
+    // UDP port for the out-of-band FEC stream.
+    // 1024 is the floor — device binds this port locally to receive FEC packets.
+    @range(min: 1024, max: 65535)
     port: Integer
     // RTP payload type for this FEC stream
     rtpPayloadType: Integer

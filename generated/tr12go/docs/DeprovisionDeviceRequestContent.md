@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Reason** | Pointer to [**DeprovisionReason**](DeprovisionReason.md) |  | [optional] 
-**Timestamp** | Pointer to **time.Time** |  | [optional] 
+**Timestamp** | **time.Time** |  | 
 
 ## Methods
 
 ### NewDeprovisionDeviceRequestContent
 
-`func NewDeprovisionDeviceRequestContent() *DeprovisionDeviceRequestContent`
+`func NewDeprovisionDeviceRequestContent(timestamp time.Time, ) *DeprovisionDeviceRequestContent`
 
 NewDeprovisionDeviceRequestContent instantiates a new DeprovisionDeviceRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetTimestamp sets Timestamp field to given value.
 
-### HasTimestamp
-
-`func (o *DeprovisionDeviceRequestContent) HasTimestamp() bool`
-
-HasTimestamp returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

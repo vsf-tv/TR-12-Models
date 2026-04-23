@@ -98,7 +98,7 @@ import (
 )
 
 func main() {
-	createPairingCodeRequestContent := *openapiclient.NewCreatePairingCodeRequestContent("DeviceType_example", "HostId_example", "CertificateSigningRequest_example", "Version_example") // CreatePairingCodeRequestContent | 
+	createPairingCodeRequestContent := *openapiclient.NewCreatePairingCodeRequestContent(openapiclient.DeviceType("SOURCE"), "HostId_example", "CertificateSigningRequest_example", *openapiclient.NewProtocolVersion()) // CreatePairingCodeRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -158,11 +158,12 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-	deprovisionDeviceRequestContent := *openapiclient.NewDeprovisionDeviceRequestContent() // DeprovisionDeviceRequestContent |  (optional)
+	deprovisionDeviceRequestContent := *openapiclient.NewDeprovisionDeviceRequestContent(time.Now()) // DeprovisionDeviceRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

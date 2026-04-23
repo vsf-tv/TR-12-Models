@@ -13,6 +13,8 @@ package openapi
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the DeprovisionDeviceRequestContent type satisfies the MappedNullable interface at compile time
@@ -21,15 +23,18 @@ var _ MappedNullable = &DeprovisionDeviceRequestContent{}
 // DeprovisionDeviceRequestContent struct for DeprovisionDeviceRequestContent
 type DeprovisionDeviceRequestContent struct {
 	Reason *DeprovisionReason `json:"reason,omitempty"`
-	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Timestamp time.Time `json:"timestamp"`
 }
+
+type _DeprovisionDeviceRequestContent DeprovisionDeviceRequestContent
 
 // NewDeprovisionDeviceRequestContent instantiates a new DeprovisionDeviceRequestContent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeprovisionDeviceRequestContent() *DeprovisionDeviceRequestContent {
+func NewDeprovisionDeviceRequestContent(timestamp time.Time) *DeprovisionDeviceRequestContent {
 	this := DeprovisionDeviceRequestContent{}
+	this.Timestamp = timestamp
 	return &this
 }
 
@@ -73,36 +78,28 @@ func (o *DeprovisionDeviceRequestContent) SetReason(v DeprovisionReason) {
 	o.Reason = &v
 }
 
-// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+// GetTimestamp returns the Timestamp field value
 func (o *DeprovisionDeviceRequestContent) GetTimestamp() time.Time {
-	if o == nil || IsNil(o.Timestamp) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.Timestamp
+
+	return o.Timestamp
 }
 
-// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
+// GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *DeprovisionDeviceRequestContent) GetTimestampOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.Timestamp) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Timestamp, true
+	return &o.Timestamp, true
 }
 
-// HasTimestamp returns a boolean if a field has been set.
-func (o *DeprovisionDeviceRequestContent) HasTimestamp() bool {
-	if o != nil && !IsNil(o.Timestamp) {
-		return true
-	}
-
-	return false
-}
-
-// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
+// SetTimestamp sets field value
 func (o *DeprovisionDeviceRequestContent) SetTimestamp(v time.Time) {
-	o.Timestamp = &v
+	o.Timestamp = v
 }
 
 func (o DeprovisionDeviceRequestContent) MarshalJSON() ([]byte, error) {
@@ -118,10 +115,45 @@ func (o DeprovisionDeviceRequestContent) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
-	if !IsNil(o.Timestamp) {
-		toSerialize["timestamp"] = o.Timestamp
-	}
+	toSerialize["timestamp"] = o.Timestamp
 	return toSerialize, nil
+}
+
+func (o *DeprovisionDeviceRequestContent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeprovisionDeviceRequestContent := _DeprovisionDeviceRequestContent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDeprovisionDeviceRequestContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeprovisionDeviceRequestContent(varDeprovisionDeviceRequestContent)
+
+	return err
 }
 
 type NullableDeprovisionDeviceRequestContent struct {

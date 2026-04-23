@@ -1,19 +1,19 @@
 $version: "2"
 
-namespace com.example.cdd.internal
+namespace com.cdd.internal
 
 use aws.protocols#restJson1
-use com.example.cdd.common#HostSettings
-use com.example.cdd.common#CreatePairingCodeRequest
-use com.example.cdd.common#CreatePairingCodeResponse
-use com.example.cdd.common#AuthenticatePairingCodeRequest
-use com.example.cdd.common#AuthenticatePairingCodeResponse
-use com.example.cdd.common#RotateCertificatesRequest
-use com.example.cdd.common#DeprovisionRequest
-use com.example.cdd.common#ThumbnailSubscription
-use com.example.cdd.common#LogRequest
-use com.example.cdd.common#HostConfig
-use com.example.cdd.common#VersionResponse
+use com.cdd.common#HostSettings
+use com.cdd.common#CreatePairingCodeRequest
+use com.cdd.common#CreatePairingCodeResponse
+use com.cdd.common#AuthenticatePairingCodeRequest
+use com.cdd.common#AuthenticatePairingCodeResponse
+use com.cdd.common#RotateCertificatesRequest
+use com.cdd.common#DeprovisionRequest
+use com.cdd.common#ThumbnailSubscription
+use com.cdd.common#LogRequest
+use com.cdd.common#HostConfig
+use com.cdd.common#VersionResponse
 
 @restJson1
 service HostServiceApi {

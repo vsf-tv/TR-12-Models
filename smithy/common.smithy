@@ -1,6 +1,6 @@
 $version: "2"
 
-namespace com.example.cdd.common
+namespace com.cdd.common
 
 // Protocol version follows semantic versioning (MAJOR.MINOR.PATCH):
 //   MAJOR — breaking change: removed/renamed field, type change, removed enum value,
@@ -13,7 +13,7 @@ namespace com.example.cdd.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("2.0.0")
+    @default("2.0.1")
     version: String
 }
 
@@ -70,6 +70,10 @@ list StringList {
 @sensitive
 string SensitiveString
 
+/// A PEM-encoded certificate signing request. Treated as sensitive.
+@sensitive
+string SensitiveCsr
+
 // The TLS ALPN (Application Layer Protocol Negotiation) protocol name the device sends
 // in the TLS ClientHello when connecting to the MQTT broker on port 443. The host sets
 // this field and the device passes it through verbatim — the device has no knowledge of
@@ -119,13 +123,13 @@ structure HostSettings {
 
 structure CreatePairingCodeRequest {
     @required
-    deviceType: String
+    deviceType: DeviceType
     @required
     hostId: String
     @required
-    certificateSigningRequest: String
+    certificateSigningRequest: SensitiveCsr
     @required
-    version: String
+    version: ProtocolVersion
 }
 
 enum CreatePairingCodeFailureReason {
@@ -172,8 +176,8 @@ structure AuthenticatePairingCodeRequest {
 structure AuthenticatePairingCodeResponse {
     @required
     status: PairingCodeAuthorizedStatus
-    caCertificate: String
-    deviceCertificate: String
+    caCertificate: SensitiveString
+    deviceCertificate: SensitiveString
     mqttUri: String
     regionName: String
     hostSettings: HostSettings
@@ -183,7 +187,7 @@ structure RotateCertificatesRequest {
     @required
     mqttUri: String
     @required
-    deviceCertificate: String
+    deviceCertificate: SensitiveString
     regionName: String
 }
 
@@ -195,6 +199,7 @@ enum DeprovisionReason {
 
 structure DeprovisionRequest {
     reason: DeprovisionReason
+    @required
     @timestampFormat("date-time")
     timestamp: Timestamp
 }
@@ -250,13 +255,13 @@ structure HostConfig {
 }
 
 union Health {
-    healthy: HealthyState
+    healthy: Healthy
     degraded: UnhealthyStateDescription
     critical: UnhealthyStateDescription
 }
 
 /// Healthy state — no additional fields needed.
-structure HealthyState {}
+structure Healthy {}
 
 /// Shared description for degraded and critical states.
 structure UnhealthyStateDescription {
@@ -267,12 +272,6 @@ structure UnhealthyStateDescription {
     timestamp: Timestamp
     @required
     componentName: String
-}
-
-enum HealthLevel {
-    HEALTHY
-    DEGRADED
-    CRITICAL
 }
 
 structure VersionResponse {
