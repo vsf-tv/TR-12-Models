@@ -2,7 +2,6 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration, ConfigurationOptions } from '../configuration'
 import type { Middleware } from '../middleware';
 
-import { AuthStatus } from '../models/AuthStatus';
 import { AuthenticatePairingCodeRequestContent } from '../models/AuthenticatePairingCodeRequestContent';
 import { AuthenticatePairingCodeResponseContent } from '../models/AuthenticatePairingCodeResponseContent';
 import { CreatePairingCodeFailureData } from '../models/CreatePairingCodeFailureData';
@@ -13,10 +12,12 @@ import { CreatePairingCodeResult } from '../models/CreatePairingCodeResult';
 import { CreatePairingCodeSuccessData } from '../models/CreatePairingCodeSuccessData';
 import { DeprovisionDeviceRequestContent } from '../models/DeprovisionDeviceRequestContent';
 import { DeprovisionReason } from '../models/DeprovisionReason';
+import { DeviceType } from '../models/DeviceType';
 import { Failure } from '../models/Failure';
 import { GetHostConfigResponseContent } from '../models/GetHostConfigResponseContent';
 import { GetVersionResponseContent } from '../models/GetVersionResponseContent';
 import { HostSettings } from '../models/HostSettings';
+import { PairingCodeAuthorizedStatus } from '../models/PairingCodeAuthorizedStatus';
 import { ProtocolVersion } from '../models/ProtocolVersion';
 import { RequestLogRequestContent } from '../models/RequestLogRequestContent';
 import { RequestThumbnailRequestContent } from '../models/RequestThumbnailRequestContent';
@@ -51,7 +52,7 @@ export interface DefaultApiDeprovisionDeviceRequest {
      * @type DeprovisionDeviceRequestContent
      * @memberof DefaultApideprovisionDevice
      */
-    deprovisionDeviceRequestContent?: DeprovisionDeviceRequestContent
+    deprovisionDeviceRequestContent: DeprovisionDeviceRequestContent
 }
 
 export interface DefaultApiGetHostConfigRequest {
@@ -125,14 +126,14 @@ export class ObjectDefaultApi {
     /**
      * @param param the request object
      */
-    public deprovisionDeviceWithHttpInfo(param: DefaultApiDeprovisionDeviceRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<void>> {
+    public deprovisionDeviceWithHttpInfo(param: DefaultApiDeprovisionDeviceRequest, options?: ConfigurationOptions): Promise<HttpInfo<void>> {
         return this.api.deprovisionDeviceWithHttpInfo(param.deprovisionDeviceRequestContent,  options).toPromise();
     }
 
     /**
      * @param param the request object
      */
-    public deprovisionDevice(param: DefaultApiDeprovisionDeviceRequest = {}, options?: ConfigurationOptions): Promise<void> {
+    public deprovisionDevice(param: DefaultApiDeprovisionDeviceRequest, options?: ConfigurationOptions): Promise<void> {
         return this.api.deprovisionDevice(param.deprovisionDeviceRequestContent,  options).toPromise();
     }
 

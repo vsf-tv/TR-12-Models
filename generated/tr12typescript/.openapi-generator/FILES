@@ -13,7 +13,6 @@ http/http.ts
 http/isomorphic-fetch.ts
 index.ts
 middleware.ts
-models/AuthStatus.ts
 models/AuthenticatePairingCodeRequestContent.ts
 models/AuthenticatePairingCodeResponseContent.ts
 models/CreatePairingCodeFailureData.ts
@@ -24,11 +23,13 @@ models/CreatePairingCodeResult.ts
 models/CreatePairingCodeSuccessData.ts
 models/DeprovisionDeviceRequestContent.ts
 models/DeprovisionReason.ts
+models/DeviceType.ts
 models/Failure.ts
 models/GetHostConfigResponseContent.ts
 models/GetVersionResponseContent.ts
 models/HostSettings.ts
 models/ObjectSerializer.ts
+models/PairingCodeAuthorizedStatus.ts
 models/ProtocolVersion.ts
 models/RequestLogRequestContent.ts
 models/RequestThumbnailRequestContent.ts

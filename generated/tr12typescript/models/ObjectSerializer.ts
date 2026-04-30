@@ -1,4 +1,3 @@
-export * from '../models/AuthStatus';
 export * from '../models/AuthenticatePairingCodeRequestContent';
 export * from '../models/AuthenticatePairingCodeResponseContent';
 export * from '../models/CreatePairingCodeFailureData';
@@ -9,10 +8,12 @@ export * from '../models/CreatePairingCodeResult';
 export * from '../models/CreatePairingCodeSuccessData';
 export * from '../models/DeprovisionDeviceRequestContent';
 export * from '../models/DeprovisionReason';
+export * from '../models/DeviceType';
 export * from '../models/Failure';
 export * from '../models/GetHostConfigResponseContent';
 export * from '../models/GetVersionResponseContent';
 export * from '../models/HostSettings';
+export * from '../models/PairingCodeAuthorizedStatus';
 export * from '../models/ProtocolVersion';
 export * from '../models/RequestLogRequestContent';
 export * from '../models/RequestThumbnailRequestContent';
@@ -20,21 +21,22 @@ export * from '../models/RotateCertificatesRequestContent';
 export * from '../models/Success';
 export * from '../models/ThumbnailRequest';
 
-import { AuthStatus } from '../models/AuthStatus';
 import { AuthenticatePairingCodeRequestContent } from '../models/AuthenticatePairingCodeRequestContent';
 import { AuthenticatePairingCodeResponseContent       } from '../models/AuthenticatePairingCodeResponseContent';
 import { CreatePairingCodeFailureData  } from '../models/CreatePairingCodeFailureData';
 import { CreatePairingCodeFailureReason } from '../models/CreatePairingCodeFailureReason';
-import { CreatePairingCodeRequestContent } from '../models/CreatePairingCodeRequestContent';
+import { CreatePairingCodeRequestContent     } from '../models/CreatePairingCodeRequestContent';
 import { CreatePairingCodeResponseContent } from '../models/CreatePairingCodeResponseContent';
 import { CreatePairingCodeResultClass } from '../models/CreatePairingCodeResult';
 import { CreatePairingCodeSuccessData } from '../models/CreatePairingCodeSuccessData';
 import { DeprovisionDeviceRequestContent   } from '../models/DeprovisionDeviceRequestContent';
 import { DeprovisionReason } from '../models/DeprovisionReason';
+import { DeviceType } from '../models/DeviceType';
 import { Failure } from '../models/Failure';
 import { GetHostConfigResponseContent } from '../models/GetHostConfigResponseContent';
 import { GetVersionResponseContent } from '../models/GetVersionResponseContent';
 import { HostSettings } from '../models/HostSettings';
+import { PairingCodeAuthorizedStatus } from '../models/PairingCodeAuthorizedStatus';
 import { ProtocolVersion } from '../models/ProtocolVersion';
 import { RequestLogRequestContent } from '../models/RequestLogRequestContent';
 import { RequestThumbnailRequestContent } from '../models/RequestThumbnailRequestContent';
@@ -55,9 +57,10 @@ let primitives = [
                  ];
 
 let enumsMap: Set<string> = new Set<string>([
-    "AuthStatus",
     "CreatePairingCodeFailureReason",
     "DeprovisionReason",
+    "DeviceType",
+    "PairingCodeAuthorizedStatus",
 ]);
 
 let typeMap: {[index: string]: any} = {

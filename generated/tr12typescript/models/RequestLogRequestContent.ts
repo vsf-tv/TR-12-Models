@@ -13,7 +13,7 @@
 import { HttpFile } from '../http/http';
 
 export class RequestLogRequestContent {
-    'expiresAtEpochSeconds'?: number;
+    'expiresAt'?: Date;
     'remotePath'?: string;
 
     static readonly discriminator: string | undefined = undefined;
@@ -22,10 +22,10 @@ export class RequestLogRequestContent {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "expiresAtEpochSeconds",
-            "baseName": "expiresAtEpochSeconds",
-            "type": "number",
-            "format": ""
+            "name": "expiresAt",
+            "baseName": "expiresAt",
+            "type": "Date",
+            "format": "date-time"
         },
         {
             "name": "remotePath",

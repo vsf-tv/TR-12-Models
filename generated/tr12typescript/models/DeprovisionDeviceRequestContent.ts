@@ -15,7 +15,7 @@ import { HttpFile } from '../http/http';
 
 export class DeprovisionDeviceRequestContent {
     'reason'?: DeprovisionReason;
-    'time'?: number;
+    'timestamp': Date;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -29,10 +29,10 @@ export class DeprovisionDeviceRequestContent {
             "format": ""
         },
         {
-            "name": "time",
-            "baseName": "time",
-            "type": "number",
-            "format": ""
+            "name": "timestamp",
+            "baseName": "timestamp",
+            "type": "Date",
+            "format": "date-time"
         }    ];
 
     static getAttributeTypeMap() {

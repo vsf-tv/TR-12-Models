@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Version** | Pointer to **string** |  | [optional] [default to "2.0.0"]
+**Version** | Pointer to **string** |  | [optional] [default to "3.0.0"]
 
 ## Methods
 

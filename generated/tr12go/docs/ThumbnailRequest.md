@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **PeriodSeconds** | Pointer to **float32** |  | [optional] 
 **ExpiresAt** | Pointer to **time.Time** |  | [optional] 
 **MaxSizeKB** | Pointer to **float32** |  | [optional] 
-**LocalPath** | Pointer to **string** |  | [optional] 
 **RemotePath** | Pointer to **string** |  | [optional] 
 **Headers** | Pointer to **map[string]string** |  | [optional] 
 
@@ -104,31 +103,6 @@ SetMaxSizeKB sets MaxSizeKB field to given value.
 `func (o *ThumbnailRequest) HasMaxSizeKB() bool`
 
 HasMaxSizeKB returns a boolean if a field has been set.
-
-### GetLocalPath
-
-`func (o *ThumbnailRequest) GetLocalPath() string`
-
-GetLocalPath returns the LocalPath field if non-nil, zero value otherwise.
-
-### GetLocalPathOk
-
-`func (o *ThumbnailRequest) GetLocalPathOk() (*string, bool)`
-
-GetLocalPathOk returns a tuple with the LocalPath field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLocalPath
-
-`func (o *ThumbnailRequest) SetLocalPath(v string)`
-
-SetLocalPath sets LocalPath field to given value.
-
-### HasLocalPath
-
-`func (o *ThumbnailRequest) HasLocalPath() bool`
-
-HasLocalPath returns a boolean if a field has been set.
 
 ### GetRemotePath
 

@@ -33,13 +33,13 @@ export class CreatePairingCodeSuccessData {
             "name": "pairingCode",
             "baseName": "pairingCode",
             "type": "string",
-            "format": ""
+            "format": "password"
         },
         {
             "name": "accessCode",
             "baseName": "accessCode",
             "type": "string",
-            "format": ""
+            "format": "password"
         },
         {
             "name": "pairingTimeoutSeconds",

@@ -13,7 +13,7 @@ namespace com.cdd.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("2.0.1")
+    @default("3.0.0")
     version: String
 }
 
@@ -209,7 +209,6 @@ structure ThumbnailRequest {
     @timestampFormat("date-time")
     expiresAt: Timestamp
     maxSizeKB: Integer
-    localPath: String
     remotePath: String
     headers: StringMap
 }
@@ -224,8 +223,13 @@ structure ThumbnailSubscription {
     requests: ThumbnailRequestMap
 }
 
+/// Channel identifier (e.g. "CH01", "CH02").
+string ChannelId
+
+/// Map of channelId to ThumbnailRequest. The host subscribes by channel.
+/// The SDK resolves the channel's thumbnail local path from ActualConfiguration.
 map ThumbnailRequestMap {
-    key: String
+    key: ChannelId
     value: ThumbnailRequest
 }
 

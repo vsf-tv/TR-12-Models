@@ -10,14 +10,15 @@
  * Do not edit the class manually.
  */
 
+import { DeviceType } from '../models/DeviceType';
 import { HttpFile } from '../http/http';
 
 export class GetHostConfigResponseContent {
     'serviceId': string;
     'serviceName': string;
-    'deviceTypes': Array<string>;
-    'thumbnailMaxSizeKB': number;
-    'logFileMaxSizeKB': number;
+    'deviceTypes': Array<DeviceType>;
+    'thumbnailMaximumSizeKB': number;
+    'logFileMaximumSizeKB': number;
     'createPairingCodeUrl': string;
     'authenticatePairingCodeUrl': string;
 
@@ -41,18 +42,18 @@ export class GetHostConfigResponseContent {
         {
             "name": "deviceTypes",
             "baseName": "deviceTypes",
-            "type": "Array<string>",
+            "type": "Array<DeviceType>",
             "format": ""
         },
         {
-            "name": "thumbnailMaxSizeKB",
-            "baseName": "thumbnailMaxSizeKB",
+            "name": "thumbnailMaximumSizeKB",
+            "baseName": "thumbnailMaximumSizeKB",
             "type": "number",
             "format": ""
         },
         {
-            "name": "logFileMaxSizeKB",
-            "baseName": "logFileMaxSizeKB",
+            "name": "logFileMaximumSizeKB",
+            "baseName": "logFileMaximumSizeKB",
             "type": "number",
             "format": ""
         },

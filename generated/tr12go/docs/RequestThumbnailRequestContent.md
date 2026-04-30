@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Requests** | [**map[string]ThumbnailRequest**](ThumbnailRequest.md) |  | 
+**Requests** | [**map[string]ThumbnailRequest**](ThumbnailRequest.md) | Map of channelId to ThumbnailRequest. The host subscribes by channel. The SDK resolves the channel&#39;s thumbnail local path from ActualConfiguration. | 
 
 ## Methods
 

@@ -15,7 +15,7 @@ import { HttpFile } from '../http/http';
 export class RotateCertificatesRequestContent {
     'mqttUri': string;
     'deviceCertificate': string;
-    'regionName': string;
+    'regionName'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -32,7 +32,7 @@ export class RotateCertificatesRequestContent {
             "name": "deviceCertificate",
             "baseName": "deviceCertificate",
             "type": "string",
-            "format": ""
+            "format": "password"
         },
         {
             "name": "regionName",

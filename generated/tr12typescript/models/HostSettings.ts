@@ -13,18 +13,18 @@
 import { HttpFile } from '../http/http';
 
 export class HostSettings {
-    'iotProtocolName': string;
+    'mqttAlpnProtocol': string;
     'pairingTimeoutSeconds': number;
-    'minIntervalPubSeconds': number;
+    'minimumIntervalPublishSeconds': number;
     'mqttKeepaliveSeconds': number;
     'subUpdateTopic': string;
     'subUpdateThumbnailSubscriptionTopic': string;
-    'pubReportSchemaTopic': string;
-    'pubReportRegistrationTopic': string;
-    'pubReportStatusTopic': string;
-    'pubReportActualConfigurationTopic': string;
+    'publishReportSchemaTopic': string;
+    'publishReportRegistrationTopic': string;
+    'publishReportStatusTopic': string;
+    'publishReportActualConfigurationTopic': string;
     'subUpdateCertsTopic': string;
-    'pubDeprovisionTopic': string;
+    'publishDeprovisionTopic': string;
     'subDeprovisionTopic': string;
     'subUpdateLogSubscriptionTopic': string;
 
@@ -34,8 +34,8 @@ export class HostSettings {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "iotProtocolName",
-            "baseName": "iotProtocolName",
+            "name": "mqttAlpnProtocol",
+            "baseName": "mqttAlpnProtocol",
             "type": "string",
             "format": ""
         },
@@ -46,8 +46,8 @@ export class HostSettings {
             "format": ""
         },
         {
-            "name": "minIntervalPubSeconds",
-            "baseName": "minIntervalPubSeconds",
+            "name": "minimumIntervalPublishSeconds",
+            "baseName": "minimumIntervalPublishSeconds",
             "type": "number",
             "format": ""
         },
@@ -70,26 +70,26 @@ export class HostSettings {
             "format": ""
         },
         {
-            "name": "pubReportSchemaTopic",
-            "baseName": "pubReportSchemaTopic",
+            "name": "publishReportSchemaTopic",
+            "baseName": "publishReportSchemaTopic",
             "type": "string",
             "format": ""
         },
         {
-            "name": "pubReportRegistrationTopic",
-            "baseName": "pubReportRegistrationTopic",
+            "name": "publishReportRegistrationTopic",
+            "baseName": "publishReportRegistrationTopic",
             "type": "string",
             "format": ""
         },
         {
-            "name": "pubReportStatusTopic",
-            "baseName": "pubReportStatusTopic",
+            "name": "publishReportStatusTopic",
+            "baseName": "publishReportStatusTopic",
             "type": "string",
             "format": ""
         },
         {
-            "name": "pubReportActualConfigurationTopic",
-            "baseName": "pubReportActualConfigurationTopic",
+            "name": "publishReportActualConfigurationTopic",
+            "baseName": "publishReportActualConfigurationTopic",
             "type": "string",
             "format": ""
         },
@@ -100,8 +100,8 @@ export class HostSettings {
             "format": ""
         },
         {
-            "name": "pubDeprovisionTopic",
-            "baseName": "pubDeprovisionTopic",
+            "name": "publishDeprovisionTopic",
+            "baseName": "publishDeprovisionTopic",
             "type": "string",
             "format": ""
         },

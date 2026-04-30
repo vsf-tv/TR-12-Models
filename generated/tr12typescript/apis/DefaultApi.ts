@@ -107,8 +107,13 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param deprovisionDeviceRequestContent 
      */
-    public async deprovisionDevice(deprovisionDeviceRequestContent?: DeprovisionDeviceRequestContent, _options?: Configuration): Promise<RequestContext> {
+    public async deprovisionDevice(deprovisionDeviceRequestContent: DeprovisionDeviceRequestContent, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
+
+        // verify required parameter 'deprovisionDeviceRequestContent' is not null or undefined
+        if (deprovisionDeviceRequestContent === null || deprovisionDeviceRequestContent === undefined) {
+            throw new RequiredError("DefaultApi", "deprovisionDevice", "deprovisionDeviceRequestContent");
+        }
 
 
         // Path Params

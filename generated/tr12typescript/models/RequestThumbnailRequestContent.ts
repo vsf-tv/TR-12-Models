@@ -14,6 +14,9 @@ import { ThumbnailRequest } from '../models/ThumbnailRequest';
 import { HttpFile } from '../http/http';
 
 export class RequestThumbnailRequestContent {
+    /**
+    * Map key is channelId (not thumbnailId). The host subscribes by channel. The SDK resolves the channel\'s thumbnail local path from ActualConfiguration.
+    */
     'requests': { [key: string]: ThumbnailRequest; };
 
     static readonly discriminator: string | undefined = undefined;

@@ -10,13 +10,18 @@
  * Do not edit the class manually.
  */
 
+import { DeviceType } from '../models/DeviceType';
+import { ProtocolVersion } from '../models/ProtocolVersion';
 import { HttpFile } from '../http/http';
 
 export class CreatePairingCodeRequestContent {
-    'deviceType': string;
+    'deviceType': DeviceType;
     'hostId': string;
+    /**
+    * A PEM-encoded certificate signing request. Treated as sensitive.
+    */
     'certificateSigningRequest': string;
-    'version': string;
+    'version': ProtocolVersion;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -26,7 +31,7 @@ export class CreatePairingCodeRequestContent {
         {
             "name": "deviceType",
             "baseName": "deviceType",
-            "type": "string",
+            "type": "DeviceType",
             "format": ""
         },
         {
@@ -39,12 +44,12 @@ export class CreatePairingCodeRequestContent {
             "name": "certificateSigningRequest",
             "baseName": "certificateSigningRequest",
             "type": "string",
-            "format": ""
+            "format": "password"
         },
         {
             "name": "version",
             "baseName": "version",
-            "type": "string",
+            "type": "ProtocolVersion",
             "format": ""
         }    ];
 
@@ -55,3 +60,5 @@ export class CreatePairingCodeRequestContent {
     public constructor() {
     }
 }
+
+

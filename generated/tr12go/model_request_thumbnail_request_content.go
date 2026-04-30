@@ -21,6 +21,7 @@ var _ MappedNullable = &RequestThumbnailRequestContent{}
 
 // RequestThumbnailRequestContent struct for RequestThumbnailRequestContent
 type RequestThumbnailRequestContent struct {
+	// Map of channelId to ThumbnailRequest. The host subscribes by channel. The SDK resolves the channel's thumbnail local path from ActualConfiguration.
 	Requests map[string]ThumbnailRequest `json:"requests"`
 }
 

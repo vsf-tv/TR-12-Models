@@ -14,9 +14,8 @@ import { HttpFile } from '../http/http';
 
 export class ThumbnailRequest {
     'periodSeconds'?: number;
-    'expiresAtEpochSeconds'?: number;
-    'maxSizeKilobyte'?: number;
-    'localPath'?: string;
+    'expiresAt'?: Date;
+    'maxSizeKB'?: number;
     'remotePath'?: string;
     'headers'?: { [key: string]: string; };
 
@@ -32,21 +31,15 @@ export class ThumbnailRequest {
             "format": ""
         },
         {
-            "name": "expiresAtEpochSeconds",
-            "baseName": "expiresAtEpochSeconds",
-            "type": "number",
-            "format": ""
+            "name": "expiresAt",
+            "baseName": "expiresAt",
+            "type": "Date",
+            "format": "date-time"
         },
         {
-            "name": "maxSizeKilobyte",
-            "baseName": "maxSizeKilobyte",
+            "name": "maxSizeKB",
+            "baseName": "maxSizeKB",
             "type": "number",
-            "format": ""
-        },
-        {
-            "name": "localPath",
-            "baseName": "localPath",
-            "type": "string",
             "format": ""
         },
         {

@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-import { AuthStatus } from '../models/AuthStatus';
 import { HostSettings } from '../models/HostSettings';
+import { PairingCodeAuthorizedStatus } from '../models/PairingCodeAuthorizedStatus';
 import { HttpFile } from '../http/http';
 
 export class AuthenticatePairingCodeResponseContent {
-    'status': AuthStatus;
+    'status': PairingCodeAuthorizedStatus;
     'caCertificate'?: string;
     'deviceCertificate'?: string;
     'mqttUri'?: string;
@@ -30,20 +30,20 @@ export class AuthenticatePairingCodeResponseContent {
         {
             "name": "status",
             "baseName": "status",
-            "type": "AuthStatus",
+            "type": "PairingCodeAuthorizedStatus",
             "format": ""
         },
         {
             "name": "caCertificate",
             "baseName": "caCertificate",
             "type": "string",
-            "format": ""
+            "format": "password"
         },
         {
             "name": "deviceCertificate",
             "baseName": "deviceCertificate",
             "type": "string",
-            "format": ""
+            "format": "password"
         },
         {
             "name": "mqttUri",

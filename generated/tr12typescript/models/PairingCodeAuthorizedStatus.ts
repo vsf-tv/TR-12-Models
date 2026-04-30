@@ -12,7 +12,7 @@
 
 import { HttpFile } from '../http/http';
 
-export enum AuthStatus {
+export enum PairingCodeAuthorizedStatus {
     Standby = 'STANDBY',
     Claimed = 'CLAIMED'
 }

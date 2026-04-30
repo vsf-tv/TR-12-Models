@@ -3,7 +3,6 @@ import { Configuration, ConfigurationOptions, mergeConfiguration } from '../conf
 import type { Middleware } from '../middleware';
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
-import { AuthStatus } from '../models/AuthStatus';
 import { AuthenticatePairingCodeRequestContent } from '../models/AuthenticatePairingCodeRequestContent';
 import { AuthenticatePairingCodeResponseContent } from '../models/AuthenticatePairingCodeResponseContent';
 import { CreatePairingCodeFailureData } from '../models/CreatePairingCodeFailureData';
@@ -14,10 +13,12 @@ import { CreatePairingCodeResult } from '../models/CreatePairingCodeResult';
 import { CreatePairingCodeSuccessData } from '../models/CreatePairingCodeSuccessData';
 import { DeprovisionDeviceRequestContent } from '../models/DeprovisionDeviceRequestContent';
 import { DeprovisionReason } from '../models/DeprovisionReason';
+import { DeviceType } from '../models/DeviceType';
 import { Failure } from '../models/Failure';
 import { GetHostConfigResponseContent } from '../models/GetHostConfigResponseContent';
 import { GetVersionResponseContent } from '../models/GetVersionResponseContent';
 import { HostSettings } from '../models/HostSettings';
+import { PairingCodeAuthorizedStatus } from '../models/PairingCodeAuthorizedStatus';
 import { ProtocolVersion } from '../models/ProtocolVersion';
 import { RequestLogRequestContent } from '../models/RequestLogRequestContent';
 import { RequestThumbnailRequestContent } from '../models/RequestThumbnailRequestContent';
@@ -102,9 +103,9 @@ export class ObservableDefaultApi {
     }
 
     /**
-     * @param [deprovisionDeviceRequestContent]
+     * @param deprovisionDeviceRequestContent
      */
-    public deprovisionDeviceWithHttpInfo(deprovisionDeviceRequestContent?: DeprovisionDeviceRequestContent, _options?: ConfigurationOptions): Observable<HttpInfo<void>> {
+    public deprovisionDeviceWithHttpInfo(deprovisionDeviceRequestContent: DeprovisionDeviceRequestContent, _options?: ConfigurationOptions): Observable<HttpInfo<void>> {
         const _config = mergeConfiguration(this.configuration, _options);
 
         const requestContextPromise = this.requestFactory.deprovisionDevice(deprovisionDeviceRequestContent, _config);
@@ -125,9 +126,9 @@ export class ObservableDefaultApi {
     }
 
     /**
-     * @param [deprovisionDeviceRequestContent]
+     * @param deprovisionDeviceRequestContent
      */
-    public deprovisionDevice(deprovisionDeviceRequestContent?: DeprovisionDeviceRequestContent, _options?: ConfigurationOptions): Observable<void> {
+    public deprovisionDevice(deprovisionDeviceRequestContent: DeprovisionDeviceRequestContent, _options?: ConfigurationOptions): Observable<void> {
         return this.deprovisionDeviceWithHttpInfo(deprovisionDeviceRequestContent, _options).pipe(map((apiResponse: HttpInfo<void>) => apiResponse.data));
     }
 

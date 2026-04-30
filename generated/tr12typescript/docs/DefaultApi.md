@@ -87,10 +87,12 @@ const apiInstance = new DefaultApi(configuration);
 const request: DefaultApiCreatePairingCodeRequest = {
   
   createPairingCodeRequestContent: {
-    deviceType: "deviceType_example",
+    deviceType: "SOURCE",
     hostId: "hostId_example",
     certificateSigningRequest: "certificateSigningRequest_example",
-    version: "version_example",
+    version: {
+      version: "2.0.2",
+    },
   },
 };
 
@@ -128,7 +130,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **deprovisionDevice**
-> void deprovisionDevice()
+> void deprovisionDevice(deprovisionDeviceRequestContent)
 
 
 ### Example
@@ -145,7 +147,7 @@ const request: DefaultApiDeprovisionDeviceRequest = {
   
   deprovisionDeviceRequestContent: {
     reason: "DEPROVISIONED",
-    time: 3.14,
+    timestamp: new Date('1970-01-01T00:00:00.00Z'),
   },
 };
 
@@ -289,7 +291,7 @@ const apiInstance = new DefaultApi(configuration);
 const request: DefaultApiRequestLogRequest = {
   
   requestLogRequestContent: {
-    expiresAtEpochSeconds: 3.14,
+    expiresAt: new Date('1970-01-01T00:00:00.00Z'),
     remotePath: "remotePath_example",
   },
 };
@@ -347,9 +349,8 @@ const request: DefaultApiRequestThumbnailRequest = {
     requests: {
       "key": {
         periodSeconds: 3.14,
-        expiresAtEpochSeconds: 3.14,
-        maxSizeKilobyte: 3.14,
-        localPath: "localPath_example",
+        expiresAt: new Date('1970-01-01T00:00:00.00Z'),
+        maxSizeKB: 3.14,
         remotePath: "remotePath_example",
         headers: {
           "key": "key_example",

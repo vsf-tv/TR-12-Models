@@ -9,7 +9,6 @@ structure DeviceRegistration {
     @required
     channels: ChannelList
     standardSettings: SettingsList
-    thumbnails: ThumbnailList
 }
 
 list ChannelList {
@@ -74,17 +73,4 @@ structure ProfileDefinition {
 
 list ProtocolList {
     member: TransportProtocolName
-}
-
-list ThumbnailList {
-    member: Thumbnail
-}
-
-structure Thumbnail {
-    @required
-    name: String
-    @required
-    id: String
-    @required
-    localPath: String
 }

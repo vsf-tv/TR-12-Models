@@ -23,7 +23,6 @@ type ThumbnailRequest struct {
 	PeriodSeconds *float32 `json:"periodSeconds,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	MaxSizeKB *float32 `json:"maxSizeKB,omitempty"`
-	LocalPath *string `json:"localPath,omitempty"`
 	RemotePath *string `json:"remotePath,omitempty"`
 	Headers *map[string]string `json:"headers,omitempty"`
 }
@@ -141,38 +140,6 @@ func (o *ThumbnailRequest) SetMaxSizeKB(v float32) {
 	o.MaxSizeKB = &v
 }
 
-// GetLocalPath returns the LocalPath field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetLocalPath() string {
-	if o == nil || IsNil(o.LocalPath) {
-		var ret string
-		return ret
-	}
-	return *o.LocalPath
-}
-
-// GetLocalPathOk returns a tuple with the LocalPath field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetLocalPathOk() (*string, bool) {
-	if o == nil || IsNil(o.LocalPath) {
-		return nil, false
-	}
-	return o.LocalPath, true
-}
-
-// HasLocalPath returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasLocalPath() bool {
-	if o != nil && !IsNil(o.LocalPath) {
-		return true
-	}
-
-	return false
-}
-
-// SetLocalPath gets a reference to the given string and assigns it to the LocalPath field.
-func (o *ThumbnailRequest) SetLocalPath(v string) {
-	o.LocalPath = &v
-}
-
 // GetRemotePath returns the RemotePath field value if set, zero value otherwise.
 func (o *ThumbnailRequest) GetRemotePath() string {
 	if o == nil || IsNil(o.RemotePath) {
@@ -255,9 +222,6 @@ func (o ThumbnailRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.MaxSizeKB) {
 		toSerialize["maxSizeKB"] = o.MaxSizeKB
-	}
-	if !IsNil(o.LocalPath) {
-		toSerialize["localPath"] = o.LocalPath
 	}
 	if !IsNil(o.RemotePath) {
 		toSerialize["remotePath"] = o.RemotePath
