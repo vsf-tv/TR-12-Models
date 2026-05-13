@@ -25,16 +25,24 @@ type HostSettings struct {
 	PairingTimeoutSeconds float32 `json:"pairingTimeoutSeconds"`
 	MinimumIntervalPublishSeconds float32 `json:"minimumIntervalPublishSeconds"`
 	MqttKeepaliveSeconds float32 `json:"mqttKeepaliveSeconds"`
-	SubUpdateTopic string `json:"subUpdateTopic"`
-	SubUpdateThumbnailSubscriptionTopic string `json:"subUpdateThumbnailSubscriptionTopic"`
-	PublishReportSchemaTopic string `json:"publishReportSchemaTopic"`
-	PublishReportRegistrationTopic string `json:"publishReportRegistrationTopic"`
-	PublishReportStatusTopic string `json:"publishReportStatusTopic"`
-	PublishReportActualConfigurationTopic string `json:"publishReportActualConfigurationTopic"`
-	SubUpdateCertsTopic string `json:"subUpdateCertsTopic"`
-	PublishDeprovisionTopic string `json:"publishDeprovisionTopic"`
-	SubDeprovisionTopic string `json:"subDeprovisionTopic"`
-	SubUpdateLogSubscriptionTopic string `json:"subUpdateLogSubscriptionTopic"`
+	// Device subscribes — host publishes desired configuration to this topic.
+	DeviceSubscribesToDesiredConfigurationTopic string `json:"deviceSubscribesToDesiredConfigurationTopic"`
+	// Device subscribes — host publishes thumbnail subscription requests to this topic.
+	DeviceSubscribesToThumbnailSubscriptionTopic string `json:"deviceSubscribesToThumbnailSubscriptionTopic"`
+	// Device publishes — device reports its registration to this topic on connect.
+	DevicePublishesRegistrationTopic string `json:"devicePublishesRegistrationTopic"`
+	// Device publishes — device reports its current status to this topic.
+	DevicePublishesStatusTopic string `json:"devicePublishesStatusTopic"`
+	// Device publishes — device reports its actual applied configuration to this topic.
+	DevicePublishesActualConfigurationTopic string `json:"devicePublishesActualConfigurationTopic"`
+	// Device subscribes — host publishes new certificates to this topic.
+	DeviceSubscribesToCertificateRotationTopic string `json:"deviceSubscribesToCertificateRotationTopic"`
+	// Device publishes — device acknowledges deprovision by publishing to this topic.
+	DevicePublishesDeprovisionAcknowledgementTopic string `json:"devicePublishesDeprovisionAcknowledgementTopic"`
+	// Device subscribes — host publishes deprovision command to this topic.
+	DeviceSubscribesToDeprovisionTopic string `json:"deviceSubscribesToDeprovisionTopic"`
+	// Device subscribes — host publishes log upload requests to this topic.
+	DeviceSubscribesToLogSubscriptionTopic string `json:"deviceSubscribesToLogSubscriptionTopic"`
 }
 
 type _HostSettings HostSettings
@@ -43,22 +51,21 @@ type _HostSettings HostSettings
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHostSettings(mqttAlpnProtocol string, pairingTimeoutSeconds float32, minimumIntervalPublishSeconds float32, mqttKeepaliveSeconds float32, subUpdateTopic string, subUpdateThumbnailSubscriptionTopic string, publishReportSchemaTopic string, publishReportRegistrationTopic string, publishReportStatusTopic string, publishReportActualConfigurationTopic string, subUpdateCertsTopic string, publishDeprovisionTopic string, subDeprovisionTopic string, subUpdateLogSubscriptionTopic string) *HostSettings {
+func NewHostSettings(mqttAlpnProtocol string, pairingTimeoutSeconds float32, minimumIntervalPublishSeconds float32, mqttKeepaliveSeconds float32, deviceSubscribesToDesiredConfigurationTopic string, deviceSubscribesToThumbnailSubscriptionTopic string, devicePublishesRegistrationTopic string, devicePublishesStatusTopic string, devicePublishesActualConfigurationTopic string, deviceSubscribesToCertificateRotationTopic string, devicePublishesDeprovisionAcknowledgementTopic string, deviceSubscribesToDeprovisionTopic string, deviceSubscribesToLogSubscriptionTopic string) *HostSettings {
 	this := HostSettings{}
 	this.MqttAlpnProtocol = mqttAlpnProtocol
 	this.PairingTimeoutSeconds = pairingTimeoutSeconds
 	this.MinimumIntervalPublishSeconds = minimumIntervalPublishSeconds
 	this.MqttKeepaliveSeconds = mqttKeepaliveSeconds
-	this.SubUpdateTopic = subUpdateTopic
-	this.SubUpdateThumbnailSubscriptionTopic = subUpdateThumbnailSubscriptionTopic
-	this.PublishReportSchemaTopic = publishReportSchemaTopic
-	this.PublishReportRegistrationTopic = publishReportRegistrationTopic
-	this.PublishReportStatusTopic = publishReportStatusTopic
-	this.PublishReportActualConfigurationTopic = publishReportActualConfigurationTopic
-	this.SubUpdateCertsTopic = subUpdateCertsTopic
-	this.PublishDeprovisionTopic = publishDeprovisionTopic
-	this.SubDeprovisionTopic = subDeprovisionTopic
-	this.SubUpdateLogSubscriptionTopic = subUpdateLogSubscriptionTopic
+	this.DeviceSubscribesToDesiredConfigurationTopic = deviceSubscribesToDesiredConfigurationTopic
+	this.DeviceSubscribesToThumbnailSubscriptionTopic = deviceSubscribesToThumbnailSubscriptionTopic
+	this.DevicePublishesRegistrationTopic = devicePublishesRegistrationTopic
+	this.DevicePublishesStatusTopic = devicePublishesStatusTopic
+	this.DevicePublishesActualConfigurationTopic = devicePublishesActualConfigurationTopic
+	this.DeviceSubscribesToCertificateRotationTopic = deviceSubscribesToCertificateRotationTopic
+	this.DevicePublishesDeprovisionAcknowledgementTopic = devicePublishesDeprovisionAcknowledgementTopic
+	this.DeviceSubscribesToDeprovisionTopic = deviceSubscribesToDeprovisionTopic
+	this.DeviceSubscribesToLogSubscriptionTopic = deviceSubscribesToLogSubscriptionTopic
 	return &this
 }
 
@@ -166,244 +173,220 @@ func (o *HostSettings) SetMqttKeepaliveSeconds(v float32) {
 	o.MqttKeepaliveSeconds = v
 }
 
-// GetSubUpdateTopic returns the SubUpdateTopic field value
-func (o *HostSettings) GetSubUpdateTopic() string {
+// GetDeviceSubscribesToDesiredConfigurationTopic returns the DeviceSubscribesToDesiredConfigurationTopic field value
+func (o *HostSettings) GetDeviceSubscribesToDesiredConfigurationTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SubUpdateTopic
+	return o.DeviceSubscribesToDesiredConfigurationTopic
 }
 
-// GetSubUpdateTopicOk returns a tuple with the SubUpdateTopic field value
+// GetDeviceSubscribesToDesiredConfigurationTopicOk returns a tuple with the DeviceSubscribesToDesiredConfigurationTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetSubUpdateTopicOk() (*string, bool) {
+func (o *HostSettings) GetDeviceSubscribesToDesiredConfigurationTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubUpdateTopic, true
+	return &o.DeviceSubscribesToDesiredConfigurationTopic, true
 }
 
-// SetSubUpdateTopic sets field value
-func (o *HostSettings) SetSubUpdateTopic(v string) {
-	o.SubUpdateTopic = v
+// SetDeviceSubscribesToDesiredConfigurationTopic sets field value
+func (o *HostSettings) SetDeviceSubscribesToDesiredConfigurationTopic(v string) {
+	o.DeviceSubscribesToDesiredConfigurationTopic = v
 }
 
-// GetSubUpdateThumbnailSubscriptionTopic returns the SubUpdateThumbnailSubscriptionTopic field value
-func (o *HostSettings) GetSubUpdateThumbnailSubscriptionTopic() string {
+// GetDeviceSubscribesToThumbnailSubscriptionTopic returns the DeviceSubscribesToThumbnailSubscriptionTopic field value
+func (o *HostSettings) GetDeviceSubscribesToThumbnailSubscriptionTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SubUpdateThumbnailSubscriptionTopic
+	return o.DeviceSubscribesToThumbnailSubscriptionTopic
 }
 
-// GetSubUpdateThumbnailSubscriptionTopicOk returns a tuple with the SubUpdateThumbnailSubscriptionTopic field value
+// GetDeviceSubscribesToThumbnailSubscriptionTopicOk returns a tuple with the DeviceSubscribesToThumbnailSubscriptionTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetSubUpdateThumbnailSubscriptionTopicOk() (*string, bool) {
+func (o *HostSettings) GetDeviceSubscribesToThumbnailSubscriptionTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubUpdateThumbnailSubscriptionTopic, true
+	return &o.DeviceSubscribesToThumbnailSubscriptionTopic, true
 }
 
-// SetSubUpdateThumbnailSubscriptionTopic sets field value
-func (o *HostSettings) SetSubUpdateThumbnailSubscriptionTopic(v string) {
-	o.SubUpdateThumbnailSubscriptionTopic = v
+// SetDeviceSubscribesToThumbnailSubscriptionTopic sets field value
+func (o *HostSettings) SetDeviceSubscribesToThumbnailSubscriptionTopic(v string) {
+	o.DeviceSubscribesToThumbnailSubscriptionTopic = v
 }
 
-// GetPublishReportSchemaTopic returns the PublishReportSchemaTopic field value
-func (o *HostSettings) GetPublishReportSchemaTopic() string {
+// GetDevicePublishesRegistrationTopic returns the DevicePublishesRegistrationTopic field value
+func (o *HostSettings) GetDevicePublishesRegistrationTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PublishReportSchemaTopic
+	return o.DevicePublishesRegistrationTopic
 }
 
-// GetPublishReportSchemaTopicOk returns a tuple with the PublishReportSchemaTopic field value
+// GetDevicePublishesRegistrationTopicOk returns a tuple with the DevicePublishesRegistrationTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPublishReportSchemaTopicOk() (*string, bool) {
+func (o *HostSettings) GetDevicePublishesRegistrationTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PublishReportSchemaTopic, true
+	return &o.DevicePublishesRegistrationTopic, true
 }
 
-// SetPublishReportSchemaTopic sets field value
-func (o *HostSettings) SetPublishReportSchemaTopic(v string) {
-	o.PublishReportSchemaTopic = v
+// SetDevicePublishesRegistrationTopic sets field value
+func (o *HostSettings) SetDevicePublishesRegistrationTopic(v string) {
+	o.DevicePublishesRegistrationTopic = v
 }
 
-// GetPublishReportRegistrationTopic returns the PublishReportRegistrationTopic field value
-func (o *HostSettings) GetPublishReportRegistrationTopic() string {
+// GetDevicePublishesStatusTopic returns the DevicePublishesStatusTopic field value
+func (o *HostSettings) GetDevicePublishesStatusTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PublishReportRegistrationTopic
+	return o.DevicePublishesStatusTopic
 }
 
-// GetPublishReportRegistrationTopicOk returns a tuple with the PublishReportRegistrationTopic field value
+// GetDevicePublishesStatusTopicOk returns a tuple with the DevicePublishesStatusTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPublishReportRegistrationTopicOk() (*string, bool) {
+func (o *HostSettings) GetDevicePublishesStatusTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PublishReportRegistrationTopic, true
+	return &o.DevicePublishesStatusTopic, true
 }
 
-// SetPublishReportRegistrationTopic sets field value
-func (o *HostSettings) SetPublishReportRegistrationTopic(v string) {
-	o.PublishReportRegistrationTopic = v
+// SetDevicePublishesStatusTopic sets field value
+func (o *HostSettings) SetDevicePublishesStatusTopic(v string) {
+	o.DevicePublishesStatusTopic = v
 }
 
-// GetPublishReportStatusTopic returns the PublishReportStatusTopic field value
-func (o *HostSettings) GetPublishReportStatusTopic() string {
+// GetDevicePublishesActualConfigurationTopic returns the DevicePublishesActualConfigurationTopic field value
+func (o *HostSettings) GetDevicePublishesActualConfigurationTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PublishReportStatusTopic
+	return o.DevicePublishesActualConfigurationTopic
 }
 
-// GetPublishReportStatusTopicOk returns a tuple with the PublishReportStatusTopic field value
+// GetDevicePublishesActualConfigurationTopicOk returns a tuple with the DevicePublishesActualConfigurationTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPublishReportStatusTopicOk() (*string, bool) {
+func (o *HostSettings) GetDevicePublishesActualConfigurationTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PublishReportStatusTopic, true
+	return &o.DevicePublishesActualConfigurationTopic, true
 }
 
-// SetPublishReportStatusTopic sets field value
-func (o *HostSettings) SetPublishReportStatusTopic(v string) {
-	o.PublishReportStatusTopic = v
+// SetDevicePublishesActualConfigurationTopic sets field value
+func (o *HostSettings) SetDevicePublishesActualConfigurationTopic(v string) {
+	o.DevicePublishesActualConfigurationTopic = v
 }
 
-// GetPublishReportActualConfigurationTopic returns the PublishReportActualConfigurationTopic field value
-func (o *HostSettings) GetPublishReportActualConfigurationTopic() string {
+// GetDeviceSubscribesToCertificateRotationTopic returns the DeviceSubscribesToCertificateRotationTopic field value
+func (o *HostSettings) GetDeviceSubscribesToCertificateRotationTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PublishReportActualConfigurationTopic
+	return o.DeviceSubscribesToCertificateRotationTopic
 }
 
-// GetPublishReportActualConfigurationTopicOk returns a tuple with the PublishReportActualConfigurationTopic field value
+// GetDeviceSubscribesToCertificateRotationTopicOk returns a tuple with the DeviceSubscribesToCertificateRotationTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPublishReportActualConfigurationTopicOk() (*string, bool) {
+func (o *HostSettings) GetDeviceSubscribesToCertificateRotationTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PublishReportActualConfigurationTopic, true
+	return &o.DeviceSubscribesToCertificateRotationTopic, true
 }
 
-// SetPublishReportActualConfigurationTopic sets field value
-func (o *HostSettings) SetPublishReportActualConfigurationTopic(v string) {
-	o.PublishReportActualConfigurationTopic = v
+// SetDeviceSubscribesToCertificateRotationTopic sets field value
+func (o *HostSettings) SetDeviceSubscribesToCertificateRotationTopic(v string) {
+	o.DeviceSubscribesToCertificateRotationTopic = v
 }
 
-// GetSubUpdateCertsTopic returns the SubUpdateCertsTopic field value
-func (o *HostSettings) GetSubUpdateCertsTopic() string {
+// GetDevicePublishesDeprovisionAcknowledgementTopic returns the DevicePublishesDeprovisionAcknowledgementTopic field value
+func (o *HostSettings) GetDevicePublishesDeprovisionAcknowledgementTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SubUpdateCertsTopic
+	return o.DevicePublishesDeprovisionAcknowledgementTopic
 }
 
-// GetSubUpdateCertsTopicOk returns a tuple with the SubUpdateCertsTopic field value
+// GetDevicePublishesDeprovisionAcknowledgementTopicOk returns a tuple with the DevicePublishesDeprovisionAcknowledgementTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetSubUpdateCertsTopicOk() (*string, bool) {
+func (o *HostSettings) GetDevicePublishesDeprovisionAcknowledgementTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubUpdateCertsTopic, true
+	return &o.DevicePublishesDeprovisionAcknowledgementTopic, true
 }
 
-// SetSubUpdateCertsTopic sets field value
-func (o *HostSettings) SetSubUpdateCertsTopic(v string) {
-	o.SubUpdateCertsTopic = v
+// SetDevicePublishesDeprovisionAcknowledgementTopic sets field value
+func (o *HostSettings) SetDevicePublishesDeprovisionAcknowledgementTopic(v string) {
+	o.DevicePublishesDeprovisionAcknowledgementTopic = v
 }
 
-// GetPublishDeprovisionTopic returns the PublishDeprovisionTopic field value
-func (o *HostSettings) GetPublishDeprovisionTopic() string {
+// GetDeviceSubscribesToDeprovisionTopic returns the DeviceSubscribesToDeprovisionTopic field value
+func (o *HostSettings) GetDeviceSubscribesToDeprovisionTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PublishDeprovisionTopic
+	return o.DeviceSubscribesToDeprovisionTopic
 }
 
-// GetPublishDeprovisionTopicOk returns a tuple with the PublishDeprovisionTopic field value
+// GetDeviceSubscribesToDeprovisionTopicOk returns a tuple with the DeviceSubscribesToDeprovisionTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetPublishDeprovisionTopicOk() (*string, bool) {
+func (o *HostSettings) GetDeviceSubscribesToDeprovisionTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PublishDeprovisionTopic, true
+	return &o.DeviceSubscribesToDeprovisionTopic, true
 }
 
-// SetPublishDeprovisionTopic sets field value
-func (o *HostSettings) SetPublishDeprovisionTopic(v string) {
-	o.PublishDeprovisionTopic = v
+// SetDeviceSubscribesToDeprovisionTopic sets field value
+func (o *HostSettings) SetDeviceSubscribesToDeprovisionTopic(v string) {
+	o.DeviceSubscribesToDeprovisionTopic = v
 }
 
-// GetSubDeprovisionTopic returns the SubDeprovisionTopic field value
-func (o *HostSettings) GetSubDeprovisionTopic() string {
+// GetDeviceSubscribesToLogSubscriptionTopic returns the DeviceSubscribesToLogSubscriptionTopic field value
+func (o *HostSettings) GetDeviceSubscribesToLogSubscriptionTopic() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SubDeprovisionTopic
+	return o.DeviceSubscribesToLogSubscriptionTopic
 }
 
-// GetSubDeprovisionTopicOk returns a tuple with the SubDeprovisionTopic field value
+// GetDeviceSubscribesToLogSubscriptionTopicOk returns a tuple with the DeviceSubscribesToLogSubscriptionTopic field value
 // and a boolean to check if the value has been set.
-func (o *HostSettings) GetSubDeprovisionTopicOk() (*string, bool) {
+func (o *HostSettings) GetDeviceSubscribesToLogSubscriptionTopicOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubDeprovisionTopic, true
+	return &o.DeviceSubscribesToLogSubscriptionTopic, true
 }
 
-// SetSubDeprovisionTopic sets field value
-func (o *HostSettings) SetSubDeprovisionTopic(v string) {
-	o.SubDeprovisionTopic = v
-}
-
-// GetSubUpdateLogSubscriptionTopic returns the SubUpdateLogSubscriptionTopic field value
-func (o *HostSettings) GetSubUpdateLogSubscriptionTopic() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SubUpdateLogSubscriptionTopic
-}
-
-// GetSubUpdateLogSubscriptionTopicOk returns a tuple with the SubUpdateLogSubscriptionTopic field value
-// and a boolean to check if the value has been set.
-func (o *HostSettings) GetSubUpdateLogSubscriptionTopicOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SubUpdateLogSubscriptionTopic, true
-}
-
-// SetSubUpdateLogSubscriptionTopic sets field value
-func (o *HostSettings) SetSubUpdateLogSubscriptionTopic(v string) {
-	o.SubUpdateLogSubscriptionTopic = v
+// SetDeviceSubscribesToLogSubscriptionTopic sets field value
+func (o *HostSettings) SetDeviceSubscribesToLogSubscriptionTopic(v string) {
+	o.DeviceSubscribesToLogSubscriptionTopic = v
 }
 
 func (o HostSettings) MarshalJSON() ([]byte, error) {
@@ -420,16 +403,15 @@ func (o HostSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize["pairingTimeoutSeconds"] = o.PairingTimeoutSeconds
 	toSerialize["minimumIntervalPublishSeconds"] = o.MinimumIntervalPublishSeconds
 	toSerialize["mqttKeepaliveSeconds"] = o.MqttKeepaliveSeconds
-	toSerialize["subUpdateTopic"] = o.SubUpdateTopic
-	toSerialize["subUpdateThumbnailSubscriptionTopic"] = o.SubUpdateThumbnailSubscriptionTopic
-	toSerialize["publishReportSchemaTopic"] = o.PublishReportSchemaTopic
-	toSerialize["publishReportRegistrationTopic"] = o.PublishReportRegistrationTopic
-	toSerialize["publishReportStatusTopic"] = o.PublishReportStatusTopic
-	toSerialize["publishReportActualConfigurationTopic"] = o.PublishReportActualConfigurationTopic
-	toSerialize["subUpdateCertsTopic"] = o.SubUpdateCertsTopic
-	toSerialize["publishDeprovisionTopic"] = o.PublishDeprovisionTopic
-	toSerialize["subDeprovisionTopic"] = o.SubDeprovisionTopic
-	toSerialize["subUpdateLogSubscriptionTopic"] = o.SubUpdateLogSubscriptionTopic
+	toSerialize["deviceSubscribesToDesiredConfigurationTopic"] = o.DeviceSubscribesToDesiredConfigurationTopic
+	toSerialize["deviceSubscribesToThumbnailSubscriptionTopic"] = o.DeviceSubscribesToThumbnailSubscriptionTopic
+	toSerialize["devicePublishesRegistrationTopic"] = o.DevicePublishesRegistrationTopic
+	toSerialize["devicePublishesStatusTopic"] = o.DevicePublishesStatusTopic
+	toSerialize["devicePublishesActualConfigurationTopic"] = o.DevicePublishesActualConfigurationTopic
+	toSerialize["deviceSubscribesToCertificateRotationTopic"] = o.DeviceSubscribesToCertificateRotationTopic
+	toSerialize["devicePublishesDeprovisionAcknowledgementTopic"] = o.DevicePublishesDeprovisionAcknowledgementTopic
+	toSerialize["deviceSubscribesToDeprovisionTopic"] = o.DeviceSubscribesToDeprovisionTopic
+	toSerialize["deviceSubscribesToLogSubscriptionTopic"] = o.DeviceSubscribesToLogSubscriptionTopic
 	return toSerialize, nil
 }
 
@@ -442,16 +424,15 @@ func (o *HostSettings) UnmarshalJSON(data []byte) (err error) {
 		"pairingTimeoutSeconds",
 		"minimumIntervalPublishSeconds",
 		"mqttKeepaliveSeconds",
-		"subUpdateTopic",
-		"subUpdateThumbnailSubscriptionTopic",
-		"publishReportSchemaTopic",
-		"publishReportRegistrationTopic",
-		"publishReportStatusTopic",
-		"publishReportActualConfigurationTopic",
-		"subUpdateCertsTopic",
-		"publishDeprovisionTopic",
-		"subDeprovisionTopic",
-		"subUpdateLogSubscriptionTopic",
+		"deviceSubscribesToDesiredConfigurationTopic",
+		"deviceSubscribesToThumbnailSubscriptionTopic",
+		"devicePublishesRegistrationTopic",
+		"devicePublishesStatusTopic",
+		"devicePublishesActualConfigurationTopic",
+		"deviceSubscribesToCertificateRotationTopic",
+		"devicePublishesDeprovisionAcknowledgementTopic",
+		"deviceSubscribesToDeprovisionTopic",
+		"deviceSubscribesToLogSubscriptionTopic",
 	}
 
 	allProperties := make(map[string]interface{})

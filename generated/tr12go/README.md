@@ -80,12 +80,17 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultAPI* | [**AuthenticatePairingCode**](docs/DefaultAPI.md#authenticatepairingcode) | **Post** /authenticate | 
 *DefaultAPI* | [**CreatePairingCode**](docs/DefaultAPI.md#createpairingcode) | **Post** /pair | 
-*DefaultAPI* | [**DeprovisionDevice**](docs/DefaultAPI.md#deprovisiondevice) | **Post** /internal/deprovision | 
+*DefaultAPI* | [**DevicePublishesActualConfiguration**](docs/DefaultAPI.md#devicepublishesactualconfiguration) | **Post** /mqtt/device-to-host/actual-configuration | 
+*DefaultAPI* | [**DevicePublishesDeprovisionAcknowledgement**](docs/DefaultAPI.md#devicepublishesdeprovisionacknowledgement) | **Post** /mqtt/device-to-host/deprovision-acknowledgement | 
+*DefaultAPI* | [**DevicePublishesRegistration**](docs/DefaultAPI.md#devicepublishesregistration) | **Post** /mqtt/device-to-host/registration | 
+*DefaultAPI* | [**DevicePublishesStatus**](docs/DefaultAPI.md#devicepublishesstatus) | **Post** /mqtt/device-to-host/status | 
+*DefaultAPI* | [**DeviceSubscribesToCertificateRotation**](docs/DefaultAPI.md#devicesubscribestocertificaterotation) | **Post** /mqtt/host-to-device/certificate-rotation | 
+*DefaultAPI* | [**DeviceSubscribesToDeprovision**](docs/DefaultAPI.md#devicesubscribestodeprovision) | **Post** /mqtt/host-to-device/deprovision | 
+*DefaultAPI* | [**DeviceSubscribesToDesiredConfiguration**](docs/DefaultAPI.md#devicesubscribestodesiredconfiguration) | **Post** /mqtt/host-to-device/desired-configuration | 
+*DefaultAPI* | [**DeviceSubscribesToLogSubscription**](docs/DefaultAPI.md#devicesubscribestologsubscription) | **Post** /mqtt/host-to-device/log-subscription | 
+*DefaultAPI* | [**DeviceSubscribesToThumbnailSubscription**](docs/DefaultAPI.md#devicesubscribestothumbnailsubscription) | **Post** /mqtt/host-to-device/thumbnail-subscription | 
 *DefaultAPI* | [**GetHostConfig**](docs/DefaultAPI.md#gethostconfig) | **Get** /internal/host-config | 
 *DefaultAPI* | [**GetVersion**](docs/DefaultAPI.md#getversion) | **Get** /internal/version | 
-*DefaultAPI* | [**RequestLog**](docs/DefaultAPI.md#requestlog) | **Post** /internal/log | 
-*DefaultAPI* | [**RequestThumbnail**](docs/DefaultAPI.md#requestthumbnail) | **Post** /internal/thumbnail | 
-*DefaultAPI* | [**RotateCertificates**](docs/DefaultAPI.md#rotatecertificates) | **Post** /internal/rotate-certs | 
 
 
 ## Documentation For Models
@@ -98,8 +103,16 @@ Class | Method | HTTP request | Description
  - [CreatePairingCodeResponseContent](docs/CreatePairingCodeResponseContent.md)
  - [CreatePairingCodeResult](docs/CreatePairingCodeResult.md)
  - [CreatePairingCodeSuccessData](docs/CreatePairingCodeSuccessData.md)
- - [DeprovisionDeviceRequestContent](docs/DeprovisionDeviceRequestContent.md)
  - [DeprovisionReason](docs/DeprovisionReason.md)
+ - [DevicePublishesActualConfigurationRequestContent](docs/DevicePublishesActualConfigurationRequestContent.md)
+ - [DevicePublishesDeprovisionAcknowledgementRequestContent](docs/DevicePublishesDeprovisionAcknowledgementRequestContent.md)
+ - [DevicePublishesRegistrationRequestContent](docs/DevicePublishesRegistrationRequestContent.md)
+ - [DevicePublishesStatusRequestContent](docs/DevicePublishesStatusRequestContent.md)
+ - [DeviceSubscribesToCertificateRotationRequestContent](docs/DeviceSubscribesToCertificateRotationRequestContent.md)
+ - [DeviceSubscribesToDeprovisionRequestContent](docs/DeviceSubscribesToDeprovisionRequestContent.md)
+ - [DeviceSubscribesToDesiredConfigurationRequestContent](docs/DeviceSubscribesToDesiredConfigurationRequestContent.md)
+ - [DeviceSubscribesToLogSubscriptionRequestContent](docs/DeviceSubscribesToLogSubscriptionRequestContent.md)
+ - [DeviceSubscribesToThumbnailSubscriptionRequestContent](docs/DeviceSubscribesToThumbnailSubscriptionRequestContent.md)
  - [DeviceType](docs/DeviceType.md)
  - [Failure](docs/Failure.md)
  - [GetHostConfigResponseContent](docs/GetHostConfigResponseContent.md)
@@ -107,9 +120,6 @@ Class | Method | HTTP request | Description
  - [HostSettings](docs/HostSettings.md)
  - [PairingCodeAuthorizedStatus](docs/PairingCodeAuthorizedStatus.md)
  - [ProtocolVersion](docs/ProtocolVersion.md)
- - [RequestLogRequestContent](docs/RequestLogRequestContent.md)
- - [RequestThumbnailRequestContent](docs/RequestThumbnailRequestContent.md)
- - [RotateCertificatesRequestContent](docs/RotateCertificatesRequestContent.md)
  - [Success](docs/Success.md)
  - [ThumbnailRequest](docs/ThumbnailRequest.md)
 

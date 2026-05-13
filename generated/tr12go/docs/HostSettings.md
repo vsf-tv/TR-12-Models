@@ -8,22 +8,21 @@ Name | Type | Description | Notes
 **PairingTimeoutSeconds** | **float32** |  | 
 **MinimumIntervalPublishSeconds** | **float32** |  | 
 **MqttKeepaliveSeconds** | **float32** |  | 
-**SubUpdateTopic** | **string** |  | 
-**SubUpdateThumbnailSubscriptionTopic** | **string** |  | 
-**PublishReportSchemaTopic** | **string** |  | 
-**PublishReportRegistrationTopic** | **string** |  | 
-**PublishReportStatusTopic** | **string** |  | 
-**PublishReportActualConfigurationTopic** | **string** |  | 
-**SubUpdateCertsTopic** | **string** |  | 
-**PublishDeprovisionTopic** | **string** |  | 
-**SubDeprovisionTopic** | **string** |  | 
-**SubUpdateLogSubscriptionTopic** | **string** |  | 
+**DeviceSubscribesToDesiredConfigurationTopic** | **string** | Device subscribes — host publishes desired configuration to this topic. | 
+**DeviceSubscribesToThumbnailSubscriptionTopic** | **string** | Device subscribes — host publishes thumbnail subscription requests to this topic. | 
+**DevicePublishesRegistrationTopic** | **string** | Device publishes — device reports its registration to this topic on connect. | 
+**DevicePublishesStatusTopic** | **string** | Device publishes — device reports its current status to this topic. | 
+**DevicePublishesActualConfigurationTopic** | **string** | Device publishes — device reports its actual applied configuration to this topic. | 
+**DeviceSubscribesToCertificateRotationTopic** | **string** | Device subscribes — host publishes new certificates to this topic. | 
+**DevicePublishesDeprovisionAcknowledgementTopic** | **string** | Device publishes — device acknowledges deprovision by publishing to this topic. | 
+**DeviceSubscribesToDeprovisionTopic** | **string** | Device subscribes — host publishes deprovision command to this topic. | 
+**DeviceSubscribesToLogSubscriptionTopic** | **string** | Device subscribes — host publishes log upload requests to this topic. | 
 
 ## Methods
 
 ### NewHostSettings
 
-`func NewHostSettings(mqttAlpnProtocol string, pairingTimeoutSeconds float32, minimumIntervalPublishSeconds float32, mqttKeepaliveSeconds float32, subUpdateTopic string, subUpdateThumbnailSubscriptionTopic string, publishReportSchemaTopic string, publishReportRegistrationTopic string, publishReportStatusTopic string, publishReportActualConfigurationTopic string, subUpdateCertsTopic string, publishDeprovisionTopic string, subDeprovisionTopic string, subUpdateLogSubscriptionTopic string, ) *HostSettings`
+`func NewHostSettings(mqttAlpnProtocol string, pairingTimeoutSeconds float32, minimumIntervalPublishSeconds float32, mqttKeepaliveSeconds float32, deviceSubscribesToDesiredConfigurationTopic string, deviceSubscribesToThumbnailSubscriptionTopic string, devicePublishesRegistrationTopic string, devicePublishesStatusTopic string, devicePublishesActualConfigurationTopic string, deviceSubscribesToCertificateRotationTopic string, devicePublishesDeprovisionAcknowledgementTopic string, deviceSubscribesToDeprovisionTopic string, deviceSubscribesToLogSubscriptionTopic string, ) *HostSettings`
 
 NewHostSettings instantiates a new HostSettings object
 This constructor will assign default values to properties that have it defined,
@@ -118,204 +117,184 @@ and a boolean to check if the value has been set.
 SetMqttKeepaliveSeconds sets MqttKeepaliveSeconds field to given value.
 
 
-### GetSubUpdateTopic
+### GetDeviceSubscribesToDesiredConfigurationTopic
 
-`func (o *HostSettings) GetSubUpdateTopic() string`
+`func (o *HostSettings) GetDeviceSubscribesToDesiredConfigurationTopic() string`
 
-GetSubUpdateTopic returns the SubUpdateTopic field if non-nil, zero value otherwise.
+GetDeviceSubscribesToDesiredConfigurationTopic returns the DeviceSubscribesToDesiredConfigurationTopic field if non-nil, zero value otherwise.
 
-### GetSubUpdateTopicOk
+### GetDeviceSubscribesToDesiredConfigurationTopicOk
 
-`func (o *HostSettings) GetSubUpdateTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDeviceSubscribesToDesiredConfigurationTopicOk() (*string, bool)`
 
-GetSubUpdateTopicOk returns a tuple with the SubUpdateTopic field if it's non-nil, zero value otherwise
+GetDeviceSubscribesToDesiredConfigurationTopicOk returns a tuple with the DeviceSubscribesToDesiredConfigurationTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubUpdateTopic
+### SetDeviceSubscribesToDesiredConfigurationTopic
 
-`func (o *HostSettings) SetSubUpdateTopic(v string)`
+`func (o *HostSettings) SetDeviceSubscribesToDesiredConfigurationTopic(v string)`
 
-SetSubUpdateTopic sets SubUpdateTopic field to given value.
+SetDeviceSubscribesToDesiredConfigurationTopic sets DeviceSubscribesToDesiredConfigurationTopic field to given value.
 
 
-### GetSubUpdateThumbnailSubscriptionTopic
+### GetDeviceSubscribesToThumbnailSubscriptionTopic
 
-`func (o *HostSettings) GetSubUpdateThumbnailSubscriptionTopic() string`
+`func (o *HostSettings) GetDeviceSubscribesToThumbnailSubscriptionTopic() string`
 
-GetSubUpdateThumbnailSubscriptionTopic returns the SubUpdateThumbnailSubscriptionTopic field if non-nil, zero value otherwise.
+GetDeviceSubscribesToThumbnailSubscriptionTopic returns the DeviceSubscribesToThumbnailSubscriptionTopic field if non-nil, zero value otherwise.
 
-### GetSubUpdateThumbnailSubscriptionTopicOk
+### GetDeviceSubscribesToThumbnailSubscriptionTopicOk
 
-`func (o *HostSettings) GetSubUpdateThumbnailSubscriptionTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDeviceSubscribesToThumbnailSubscriptionTopicOk() (*string, bool)`
 
-GetSubUpdateThumbnailSubscriptionTopicOk returns a tuple with the SubUpdateThumbnailSubscriptionTopic field if it's non-nil, zero value otherwise
+GetDeviceSubscribesToThumbnailSubscriptionTopicOk returns a tuple with the DeviceSubscribesToThumbnailSubscriptionTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubUpdateThumbnailSubscriptionTopic
+### SetDeviceSubscribesToThumbnailSubscriptionTopic
 
-`func (o *HostSettings) SetSubUpdateThumbnailSubscriptionTopic(v string)`
+`func (o *HostSettings) SetDeviceSubscribesToThumbnailSubscriptionTopic(v string)`
 
-SetSubUpdateThumbnailSubscriptionTopic sets SubUpdateThumbnailSubscriptionTopic field to given value.
+SetDeviceSubscribesToThumbnailSubscriptionTopic sets DeviceSubscribesToThumbnailSubscriptionTopic field to given value.
 
 
-### GetPublishReportSchemaTopic
+### GetDevicePublishesRegistrationTopic
 
-`func (o *HostSettings) GetPublishReportSchemaTopic() string`
+`func (o *HostSettings) GetDevicePublishesRegistrationTopic() string`
 
-GetPublishReportSchemaTopic returns the PublishReportSchemaTopic field if non-nil, zero value otherwise.
+GetDevicePublishesRegistrationTopic returns the DevicePublishesRegistrationTopic field if non-nil, zero value otherwise.
 
-### GetPublishReportSchemaTopicOk
+### GetDevicePublishesRegistrationTopicOk
 
-`func (o *HostSettings) GetPublishReportSchemaTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDevicePublishesRegistrationTopicOk() (*string, bool)`
 
-GetPublishReportSchemaTopicOk returns a tuple with the PublishReportSchemaTopic field if it's non-nil, zero value otherwise
+GetDevicePublishesRegistrationTopicOk returns a tuple with the DevicePublishesRegistrationTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishReportSchemaTopic
+### SetDevicePublishesRegistrationTopic
 
-`func (o *HostSettings) SetPublishReportSchemaTopic(v string)`
+`func (o *HostSettings) SetDevicePublishesRegistrationTopic(v string)`
 
-SetPublishReportSchemaTopic sets PublishReportSchemaTopic field to given value.
+SetDevicePublishesRegistrationTopic sets DevicePublishesRegistrationTopic field to given value.
 
 
-### GetPublishReportRegistrationTopic
+### GetDevicePublishesStatusTopic
 
-`func (o *HostSettings) GetPublishReportRegistrationTopic() string`
+`func (o *HostSettings) GetDevicePublishesStatusTopic() string`
 
-GetPublishReportRegistrationTopic returns the PublishReportRegistrationTopic field if non-nil, zero value otherwise.
+GetDevicePublishesStatusTopic returns the DevicePublishesStatusTopic field if non-nil, zero value otherwise.
 
-### GetPublishReportRegistrationTopicOk
+### GetDevicePublishesStatusTopicOk
 
-`func (o *HostSettings) GetPublishReportRegistrationTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDevicePublishesStatusTopicOk() (*string, bool)`
 
-GetPublishReportRegistrationTopicOk returns a tuple with the PublishReportRegistrationTopic field if it's non-nil, zero value otherwise
+GetDevicePublishesStatusTopicOk returns a tuple with the DevicePublishesStatusTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishReportRegistrationTopic
+### SetDevicePublishesStatusTopic
 
-`func (o *HostSettings) SetPublishReportRegistrationTopic(v string)`
+`func (o *HostSettings) SetDevicePublishesStatusTopic(v string)`
 
-SetPublishReportRegistrationTopic sets PublishReportRegistrationTopic field to given value.
+SetDevicePublishesStatusTopic sets DevicePublishesStatusTopic field to given value.
 
 
-### GetPublishReportStatusTopic
+### GetDevicePublishesActualConfigurationTopic
 
-`func (o *HostSettings) GetPublishReportStatusTopic() string`
+`func (o *HostSettings) GetDevicePublishesActualConfigurationTopic() string`
 
-GetPublishReportStatusTopic returns the PublishReportStatusTopic field if non-nil, zero value otherwise.
+GetDevicePublishesActualConfigurationTopic returns the DevicePublishesActualConfigurationTopic field if non-nil, zero value otherwise.
 
-### GetPublishReportStatusTopicOk
+### GetDevicePublishesActualConfigurationTopicOk
 
-`func (o *HostSettings) GetPublishReportStatusTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDevicePublishesActualConfigurationTopicOk() (*string, bool)`
 
-GetPublishReportStatusTopicOk returns a tuple with the PublishReportStatusTopic field if it's non-nil, zero value otherwise
+GetDevicePublishesActualConfigurationTopicOk returns a tuple with the DevicePublishesActualConfigurationTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishReportStatusTopic
+### SetDevicePublishesActualConfigurationTopic
 
-`func (o *HostSettings) SetPublishReportStatusTopic(v string)`
+`func (o *HostSettings) SetDevicePublishesActualConfigurationTopic(v string)`
 
-SetPublishReportStatusTopic sets PublishReportStatusTopic field to given value.
+SetDevicePublishesActualConfigurationTopic sets DevicePublishesActualConfigurationTopic field to given value.
 
 
-### GetPublishReportActualConfigurationTopic
+### GetDeviceSubscribesToCertificateRotationTopic
 
-`func (o *HostSettings) GetPublishReportActualConfigurationTopic() string`
+`func (o *HostSettings) GetDeviceSubscribesToCertificateRotationTopic() string`
 
-GetPublishReportActualConfigurationTopic returns the PublishReportActualConfigurationTopic field if non-nil, zero value otherwise.
+GetDeviceSubscribesToCertificateRotationTopic returns the DeviceSubscribesToCertificateRotationTopic field if non-nil, zero value otherwise.
 
-### GetPublishReportActualConfigurationTopicOk
+### GetDeviceSubscribesToCertificateRotationTopicOk
 
-`func (o *HostSettings) GetPublishReportActualConfigurationTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDeviceSubscribesToCertificateRotationTopicOk() (*string, bool)`
 
-GetPublishReportActualConfigurationTopicOk returns a tuple with the PublishReportActualConfigurationTopic field if it's non-nil, zero value otherwise
+GetDeviceSubscribesToCertificateRotationTopicOk returns a tuple with the DeviceSubscribesToCertificateRotationTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishReportActualConfigurationTopic
+### SetDeviceSubscribesToCertificateRotationTopic
 
-`func (o *HostSettings) SetPublishReportActualConfigurationTopic(v string)`
+`func (o *HostSettings) SetDeviceSubscribesToCertificateRotationTopic(v string)`
 
-SetPublishReportActualConfigurationTopic sets PublishReportActualConfigurationTopic field to given value.
+SetDeviceSubscribesToCertificateRotationTopic sets DeviceSubscribesToCertificateRotationTopic field to given value.
 
 
-### GetSubUpdateCertsTopic
+### GetDevicePublishesDeprovisionAcknowledgementTopic
 
-`func (o *HostSettings) GetSubUpdateCertsTopic() string`
+`func (o *HostSettings) GetDevicePublishesDeprovisionAcknowledgementTopic() string`
 
-GetSubUpdateCertsTopic returns the SubUpdateCertsTopic field if non-nil, zero value otherwise.
+GetDevicePublishesDeprovisionAcknowledgementTopic returns the DevicePublishesDeprovisionAcknowledgementTopic field if non-nil, zero value otherwise.
 
-### GetSubUpdateCertsTopicOk
+### GetDevicePublishesDeprovisionAcknowledgementTopicOk
 
-`func (o *HostSettings) GetSubUpdateCertsTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDevicePublishesDeprovisionAcknowledgementTopicOk() (*string, bool)`
 
-GetSubUpdateCertsTopicOk returns a tuple with the SubUpdateCertsTopic field if it's non-nil, zero value otherwise
+GetDevicePublishesDeprovisionAcknowledgementTopicOk returns a tuple with the DevicePublishesDeprovisionAcknowledgementTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubUpdateCertsTopic
+### SetDevicePublishesDeprovisionAcknowledgementTopic
 
-`func (o *HostSettings) SetSubUpdateCertsTopic(v string)`
+`func (o *HostSettings) SetDevicePublishesDeprovisionAcknowledgementTopic(v string)`
 
-SetSubUpdateCertsTopic sets SubUpdateCertsTopic field to given value.
+SetDevicePublishesDeprovisionAcknowledgementTopic sets DevicePublishesDeprovisionAcknowledgementTopic field to given value.
 
 
-### GetPublishDeprovisionTopic
+### GetDeviceSubscribesToDeprovisionTopic
 
-`func (o *HostSettings) GetPublishDeprovisionTopic() string`
+`func (o *HostSettings) GetDeviceSubscribesToDeprovisionTopic() string`
 
-GetPublishDeprovisionTopic returns the PublishDeprovisionTopic field if non-nil, zero value otherwise.
+GetDeviceSubscribesToDeprovisionTopic returns the DeviceSubscribesToDeprovisionTopic field if non-nil, zero value otherwise.
 
-### GetPublishDeprovisionTopicOk
+### GetDeviceSubscribesToDeprovisionTopicOk
 
-`func (o *HostSettings) GetPublishDeprovisionTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDeviceSubscribesToDeprovisionTopicOk() (*string, bool)`
 
-GetPublishDeprovisionTopicOk returns a tuple with the PublishDeprovisionTopic field if it's non-nil, zero value otherwise
+GetDeviceSubscribesToDeprovisionTopicOk returns a tuple with the DeviceSubscribesToDeprovisionTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishDeprovisionTopic
+### SetDeviceSubscribesToDeprovisionTopic
 
-`func (o *HostSettings) SetPublishDeprovisionTopic(v string)`
+`func (o *HostSettings) SetDeviceSubscribesToDeprovisionTopic(v string)`
 
-SetPublishDeprovisionTopic sets PublishDeprovisionTopic field to given value.
+SetDeviceSubscribesToDeprovisionTopic sets DeviceSubscribesToDeprovisionTopic field to given value.
 
 
-### GetSubDeprovisionTopic
+### GetDeviceSubscribesToLogSubscriptionTopic
 
-`func (o *HostSettings) GetSubDeprovisionTopic() string`
+`func (o *HostSettings) GetDeviceSubscribesToLogSubscriptionTopic() string`
 
-GetSubDeprovisionTopic returns the SubDeprovisionTopic field if non-nil, zero value otherwise.
+GetDeviceSubscribesToLogSubscriptionTopic returns the DeviceSubscribesToLogSubscriptionTopic field if non-nil, zero value otherwise.
 
-### GetSubDeprovisionTopicOk
+### GetDeviceSubscribesToLogSubscriptionTopicOk
 
-`func (o *HostSettings) GetSubDeprovisionTopicOk() (*string, bool)`
+`func (o *HostSettings) GetDeviceSubscribesToLogSubscriptionTopicOk() (*string, bool)`
 
-GetSubDeprovisionTopicOk returns a tuple with the SubDeprovisionTopic field if it's non-nil, zero value otherwise
+GetDeviceSubscribesToLogSubscriptionTopicOk returns a tuple with the DeviceSubscribesToLogSubscriptionTopic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubDeprovisionTopic
+### SetDeviceSubscribesToLogSubscriptionTopic
 
-`func (o *HostSettings) SetSubDeprovisionTopic(v string)`
+`func (o *HostSettings) SetDeviceSubscribesToLogSubscriptionTopic(v string)`
 
-SetSubDeprovisionTopic sets SubDeprovisionTopic field to given value.
-
-
-### GetSubUpdateLogSubscriptionTopic
-
-`func (o *HostSettings) GetSubUpdateLogSubscriptionTopic() string`
-
-GetSubUpdateLogSubscriptionTopic returns the SubUpdateLogSubscriptionTopic field if non-nil, zero value otherwise.
-
-### GetSubUpdateLogSubscriptionTopicOk
-
-`func (o *HostSettings) GetSubUpdateLogSubscriptionTopicOk() (*string, bool)`
-
-GetSubUpdateLogSubscriptionTopicOk returns a tuple with the SubUpdateLogSubscriptionTopic field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubUpdateLogSubscriptionTopic
-
-`func (o *HostSettings) SetSubUpdateLogSubscriptionTopic(v string)`
-
-SetSubUpdateLogSubscriptionTopic sets SubUpdateLogSubscriptionTopic field to given value.
+SetDeviceSubscribesToLogSubscriptionTopic sets DeviceSubscribesToLogSubscriptionTopic field to given value.
 
 
 

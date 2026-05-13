@@ -6,12 +6,17 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AuthenticatePairingCode**](DefaultAPI.md#AuthenticatePairingCode) | **Post** /authenticate | 
 [**CreatePairingCode**](DefaultAPI.md#CreatePairingCode) | **Post** /pair | 
-[**DeprovisionDevice**](DefaultAPI.md#DeprovisionDevice) | **Post** /internal/deprovision | 
+[**DevicePublishesActualConfiguration**](DefaultAPI.md#DevicePublishesActualConfiguration) | **Post** /mqtt/device-to-host/actual-configuration | 
+[**DevicePublishesDeprovisionAcknowledgement**](DefaultAPI.md#DevicePublishesDeprovisionAcknowledgement) | **Post** /mqtt/device-to-host/deprovision-acknowledgement | 
+[**DevicePublishesRegistration**](DefaultAPI.md#DevicePublishesRegistration) | **Post** /mqtt/device-to-host/registration | 
+[**DevicePublishesStatus**](DefaultAPI.md#DevicePublishesStatus) | **Post** /mqtt/device-to-host/status | 
+[**DeviceSubscribesToCertificateRotation**](DefaultAPI.md#DeviceSubscribesToCertificateRotation) | **Post** /mqtt/host-to-device/certificate-rotation | 
+[**DeviceSubscribesToDeprovision**](DefaultAPI.md#DeviceSubscribesToDeprovision) | **Post** /mqtt/host-to-device/deprovision | 
+[**DeviceSubscribesToDesiredConfiguration**](DefaultAPI.md#DeviceSubscribesToDesiredConfiguration) | **Post** /mqtt/host-to-device/desired-configuration | 
+[**DeviceSubscribesToLogSubscription**](DefaultAPI.md#DeviceSubscribesToLogSubscription) | **Post** /mqtt/host-to-device/log-subscription | 
+[**DeviceSubscribesToThumbnailSubscription**](DefaultAPI.md#DeviceSubscribesToThumbnailSubscription) | **Post** /mqtt/host-to-device/thumbnail-subscription | 
 [**GetHostConfig**](DefaultAPI.md#GetHostConfig) | **Get** /internal/host-config | 
 [**GetVersion**](DefaultAPI.md#GetVersion) | **Get** /internal/version | 
-[**RequestLog**](DefaultAPI.md#RequestLog) | **Post** /internal/log | 
-[**RequestThumbnail**](DefaultAPI.md#RequestThumbnail) | **Post** /internal/thumbnail | 
-[**RotateCertificates**](DefaultAPI.md#RotateCertificates) | **Post** /internal/rotate-certs | 
 
 
 
@@ -143,9 +148,75 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DeprovisionDevice
+## DevicePublishesActualConfiguration
 
-> DeprovisionDevice(ctx).DeprovisionDeviceRequestContent(deprovisionDeviceRequestContent).Execute()
+> DevicePublishesActualConfiguration(ctx).DevicePublishesActualConfigurationRequestContent(devicePublishesActualConfigurationRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	devicePublishesActualConfigurationRequestContent := *openapiclient.NewDevicePublishesActualConfigurationRequestContent() // DevicePublishesActualConfigurationRequestContent |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DevicePublishesActualConfiguration(context.Background()).DevicePublishesActualConfigurationRequestContent(devicePublishesActualConfigurationRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DevicePublishesActualConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDevicePublishesActualConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **devicePublishesActualConfigurationRequestContent** | [**DevicePublishesActualConfigurationRequestContent**](DevicePublishesActualConfigurationRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DevicePublishesDeprovisionAcknowledgement
+
+> DevicePublishesDeprovisionAcknowledgement(ctx).DevicePublishesDeprovisionAcknowledgementRequestContent(devicePublishesDeprovisionAcknowledgementRequestContent).Execute()
+
+
 
 
 
@@ -163,13 +234,13 @@ import (
 )
 
 func main() {
-	deprovisionDeviceRequestContent := *openapiclient.NewDeprovisionDeviceRequestContent(time.Now()) // DeprovisionDeviceRequestContent | 
+	devicePublishesDeprovisionAcknowledgementRequestContent := *openapiclient.NewDevicePublishesDeprovisionAcknowledgementRequestContent(time.Now()) // DevicePublishesDeprovisionAcknowledgementRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.DeprovisionDevice(context.Background()).DeprovisionDeviceRequestContent(deprovisionDeviceRequestContent).Execute()
+	r, err := apiClient.DefaultAPI.DevicePublishesDeprovisionAcknowledgement(context.Background()).DevicePublishesDeprovisionAcknowledgementRequestContent(devicePublishesDeprovisionAcknowledgementRequestContent).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeprovisionDevice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DevicePublishesDeprovisionAcknowledgement``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -181,12 +252,461 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeprovisionDeviceRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDevicePublishesDeprovisionAcknowledgementRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deprovisionDeviceRequestContent** | [**DeprovisionDeviceRequestContent**](DeprovisionDeviceRequestContent.md) |  | 
+ **devicePublishesDeprovisionAcknowledgementRequestContent** | [**DevicePublishesDeprovisionAcknowledgementRequestContent**](DevicePublishesDeprovisionAcknowledgementRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DevicePublishesRegistration
+
+> DevicePublishesRegistration(ctx).DevicePublishesRegistrationRequestContent(devicePublishesRegistrationRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	devicePublishesRegistrationRequestContent := *openapiclient.NewDevicePublishesRegistrationRequestContent() // DevicePublishesRegistrationRequestContent |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DevicePublishesRegistration(context.Background()).DevicePublishesRegistrationRequestContent(devicePublishesRegistrationRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DevicePublishesRegistration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDevicePublishesRegistrationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **devicePublishesRegistrationRequestContent** | [**DevicePublishesRegistrationRequestContent**](DevicePublishesRegistrationRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DevicePublishesStatus
+
+> DevicePublishesStatus(ctx).DevicePublishesStatusRequestContent(devicePublishesStatusRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	devicePublishesStatusRequestContent := *openapiclient.NewDevicePublishesStatusRequestContent() // DevicePublishesStatusRequestContent |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DevicePublishesStatus(context.Background()).DevicePublishesStatusRequestContent(devicePublishesStatusRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DevicePublishesStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDevicePublishesStatusRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **devicePublishesStatusRequestContent** | [**DevicePublishesStatusRequestContent**](DevicePublishesStatusRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeviceSubscribesToCertificateRotation
+
+> DeviceSubscribesToCertificateRotation(ctx).DeviceSubscribesToCertificateRotationRequestContent(deviceSubscribesToCertificateRotationRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deviceSubscribesToCertificateRotationRequestContent := *openapiclient.NewDeviceSubscribesToCertificateRotationRequestContent("MqttUri_example", "DeviceCertificate_example") // DeviceSubscribesToCertificateRotationRequestContent | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DeviceSubscribesToCertificateRotation(context.Background()).DeviceSubscribesToCertificateRotationRequestContent(deviceSubscribesToCertificateRotationRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToCertificateRotation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeviceSubscribesToCertificateRotationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceSubscribesToCertificateRotationRequestContent** | [**DeviceSubscribesToCertificateRotationRequestContent**](DeviceSubscribesToCertificateRotationRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeviceSubscribesToDeprovision
+
+> DeviceSubscribesToDeprovision(ctx).DeviceSubscribesToDeprovisionRequestContent(deviceSubscribesToDeprovisionRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deviceSubscribesToDeprovisionRequestContent := *openapiclient.NewDeviceSubscribesToDeprovisionRequestContent(time.Now()) // DeviceSubscribesToDeprovisionRequestContent | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DeviceSubscribesToDeprovision(context.Background()).DeviceSubscribesToDeprovisionRequestContent(deviceSubscribesToDeprovisionRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToDeprovision``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeviceSubscribesToDeprovisionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceSubscribesToDeprovisionRequestContent** | [**DeviceSubscribesToDeprovisionRequestContent**](DeviceSubscribesToDeprovisionRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeviceSubscribesToDesiredConfiguration
+
+> DeviceSubscribesToDesiredConfiguration(ctx).DeviceSubscribesToDesiredConfigurationRequestContent(deviceSubscribesToDesiredConfigurationRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deviceSubscribesToDesiredConfigurationRequestContent := *openapiclient.NewDeviceSubscribesToDesiredConfigurationRequestContent() // DeviceSubscribesToDesiredConfigurationRequestContent |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DeviceSubscribesToDesiredConfiguration(context.Background()).DeviceSubscribesToDesiredConfigurationRequestContent(deviceSubscribesToDesiredConfigurationRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToDesiredConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeviceSubscribesToDesiredConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceSubscribesToDesiredConfigurationRequestContent** | [**DeviceSubscribesToDesiredConfigurationRequestContent**](DeviceSubscribesToDesiredConfigurationRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeviceSubscribesToLogSubscription
+
+> DeviceSubscribesToLogSubscription(ctx).DeviceSubscribesToLogSubscriptionRequestContent(deviceSubscribesToLogSubscriptionRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deviceSubscribesToLogSubscriptionRequestContent := *openapiclient.NewDeviceSubscribesToLogSubscriptionRequestContent() // DeviceSubscribesToLogSubscriptionRequestContent |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DeviceSubscribesToLogSubscription(context.Background()).DeviceSubscribesToLogSubscriptionRequestContent(deviceSubscribesToLogSubscriptionRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToLogSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeviceSubscribesToLogSubscriptionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceSubscribesToLogSubscriptionRequestContent** | [**DeviceSubscribesToLogSubscriptionRequestContent**](DeviceSubscribesToLogSubscriptionRequestContent.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeviceSubscribesToThumbnailSubscription
+
+> DeviceSubscribesToThumbnailSubscription(ctx).DeviceSubscribesToThumbnailSubscriptionRequestContent(deviceSubscribesToThumbnailSubscriptionRequestContent).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deviceSubscribesToThumbnailSubscriptionRequestContent := *openapiclient.NewDeviceSubscribesToThumbnailSubscriptionRequestContent(map[string]ThumbnailRequest{"key": *openapiclient.NewThumbnailRequest()}) // DeviceSubscribesToThumbnailSubscriptionRequestContent | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DefaultAPI.DeviceSubscribesToThumbnailSubscription(context.Background()).DeviceSubscribesToThumbnailSubscriptionRequestContent(deviceSubscribesToThumbnailSubscriptionRequestContent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToThumbnailSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeviceSubscribesToThumbnailSubscriptionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceSubscribesToThumbnailSubscriptionRequestContent** | [**DeviceSubscribesToThumbnailSubscriptionRequestContent**](DeviceSubscribesToThumbnailSubscriptionRequestContent.md) |  | 
 
 ### Return type
 
@@ -209,6 +729,8 @@ No authorization required
 ## GetHostConfig
 
 > GetHostConfigResponseContent GetHostConfig(ctx).Execute()
+
+
 
 
 
@@ -271,6 +793,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -318,192 +842,6 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RequestLog
-
-> RequestLog(ctx).RequestLogRequestContent(requestLogRequestContent).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	requestLogRequestContent := *openapiclient.NewRequestLogRequestContent() // RequestLogRequestContent |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.RequestLog(context.Background()).RequestLogRequestContent(requestLogRequestContent).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.RequestLog``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRequestLogRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestLogRequestContent** | [**RequestLogRequestContent**](RequestLogRequestContent.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RequestThumbnail
-
-> RequestThumbnail(ctx).RequestThumbnailRequestContent(requestThumbnailRequestContent).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	requestThumbnailRequestContent := *openapiclient.NewRequestThumbnailRequestContent(map[string]ThumbnailRequest{"key": *openapiclient.NewThumbnailRequest()}) // RequestThumbnailRequestContent | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.RequestThumbnail(context.Background()).RequestThumbnailRequestContent(requestThumbnailRequestContent).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.RequestThumbnail``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRequestThumbnailRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestThumbnailRequestContent** | [**RequestThumbnailRequestContent**](RequestThumbnailRequestContent.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RotateCertificates
-
-> RotateCertificates(ctx).RotateCertificatesRequestContent(rotateCertificatesRequestContent).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	rotateCertificatesRequestContent := *openapiclient.NewRotateCertificatesRequestContent("MqttUri_example", "DeviceCertificate_example") // RotateCertificatesRequestContent | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.RotateCertificates(context.Background()).RotateCertificatesRequestContent(rotateCertificatesRequestContent).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.RotateCertificates``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRotateCertificatesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **rotateCertificatesRequestContent** | [**RotateCertificatesRequestContent**](RotateCertificatesRequestContent.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

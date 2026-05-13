@@ -43,11 +43,6 @@ union SettingsChoice {
     profile: ChannelProfile
 }
 
-union RistStreamIdentifier {
-    synchronizationSource: Integer
-    streamId: String
-}
-
 structure ChannelProfile {
     @required
     id: String
@@ -87,8 +82,8 @@ union EncryptionAes {
 union TransportProtocol {
     srtListener: SrtListenerTransportProtocol
     srtCaller: SrtCallerTransportProtocol
-    ristListener: RistListenerTransportProtocol
-    ristCaller: RistCallerTransportProtocol
+    ristSimpleListener: RistSimpleListenerTransportProtocol
+    ristSimpleCaller: RistSimpleCallerTransportProtocol
     zixiPush: ZixiPushTransportProtocol
     zixiPull: ZixiPullTransportProtocol
     rtp: RtpTransportProtocol
@@ -122,8 +117,10 @@ structure SrtCallerTransportProtocol {
     encryption: EncryptionAes
 }
 
-structure RistListenerTransportProtocol {
-    streamId: RistStreamIdentifier
+// RIST Simple Profile (VSF TR-06-1) listener — binds a local UDP port and waits for the sender.
+// Stream identification uses the RTP SSRC embedded in the packet header;
+// no external streamId configuration is needed or supported in Simple Profile.
+structure RistSimpleListenerTransportProtocol {
     // 1024 is the floor — ports 0–1023 require root/admin to bind locally.
     @required
     @range(min: 1024, max: 65535)
@@ -134,8 +131,10 @@ structure RistListenerTransportProtocol {
     interface: String
 }
 
-structure RistCallerTransportProtocol {
-    streamId: RistStreamIdentifier
+// RIST Simple Profile (VSF TR-06-1) caller — initiates connection to a remote listener.
+// Stream identification uses the RTP SSRC embedded in the packet header;
+// no external streamId configuration is needed or supported in Simple Profile.
+structure RistSimpleCallerTransportProtocol {
     @required
     address: String
     // No lower bound restriction — connecting to a remote port, not binding locally.

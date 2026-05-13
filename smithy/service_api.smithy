@@ -19,13 +19,21 @@ use com.cdd.common#VersionResponse
 service HostServiceApi {
     version: "1.0"
     operations: [
+        // HTTP endpoints
         CreatePairingCode,
         AuthenticatePairingCode,
-        // MQTT payload operations — included for codegen shape reachability only, not HTTP endpoints
-        RotateCertificates,
-        DeprovisionDevice,
-        RequestThumbnail,
-        RequestLog,
+        // MQTT: host → device (device subscribes)
+        DeviceSubscribesToDesiredConfiguration,
+        DeviceSubscribesToThumbnailSubscription,
+        DeviceSubscribesToCertificateRotation,
+        DeviceSubscribesToDeprovision,
+        DeviceSubscribesToLogSubscription,
+        // MQTT: device → host (device publishes)
+        DevicePublishesRegistration,
+        DevicePublishesStatus,
+        DevicePublishesActualConfiguration,
+        DevicePublishesDeprovisionAcknowledgement,
+        // Internal
         GetHostConfig,
         GetVersion
     ]
@@ -43,42 +51,99 @@ operation AuthenticatePairingCode {
     output: AuthenticatePairingCodeResponse
 }
 
-// The following operations are MQTT message payloads, not HTTP endpoints.
+// -----------------------------------------------------------------------
+// MQTT: host → device (device subscribes)
 // @http is required by @restJson1 for the openapi plugin to traverse these
-// shapes and include them in the generated output. The /internal/ prefix
-// signals they are not real REST APIs.
+// shapes. The /mqtt/ prefix signals these are not real REST endpoints.
+// -----------------------------------------------------------------------
 
-// MQTT payload: device publishes on cert rotation — not an HTTP endpoint
-@http(method: "POST", uri: "/internal/rotate-certs")
-operation RotateCertificates {
-    input: RotateCertificatesRequest
+/// Host publishes desired configuration to the device.
+/// Topic: deviceSubscribesToDesiredConfigurationTopic
+/// Payload shape: DeviceConfiguration (see cdd_sdk smithy)
+@http(method: "POST", uri: "/mqtt/host-to-device/desired-configuration")
+operation DeviceSubscribesToDesiredConfiguration {
+    input: OpaquePayload
 }
 
-// MQTT payload: device publishes to deprovision itself — not an HTTP endpoint
-@http(method: "POST", uri: "/internal/deprovision")
-operation DeprovisionDevice {
-    input: DeprovisionRequest
-}
-
-// MQTT payload: host publishes thumbnail subscription request — not an HTTP endpoint
-@http(method: "POST", uri: "/internal/thumbnail")
-operation RequestThumbnail {
+/// Host publishes thumbnail subscription requests to the device.
+/// Topic: deviceSubscribesToThumbnailSubscriptionTopic
+@http(method: "POST", uri: "/mqtt/host-to-device/thumbnail-subscription")
+operation DeviceSubscribesToThumbnailSubscription {
     input: ThumbnailSubscription
 }
 
-// MQTT payload: host publishes log upload request — not an HTTP endpoint
-@http(method: "POST", uri: "/internal/log")
-operation RequestLog {
+/// Host publishes new certificates to the device.
+/// Topic: deviceSubscribesToCertificateRotationTopic
+@http(method: "POST", uri: "/mqtt/host-to-device/certificate-rotation")
+operation DeviceSubscribesToCertificateRotation {
+    input: RotateCertificatesRequest
+}
+
+/// Host publishes deprovision command to the device.
+/// Topic: deviceSubscribesToDeprovisionTopic
+@http(method: "POST", uri: "/mqtt/host-to-device/deprovision")
+operation DeviceSubscribesToDeprovision {
+    input: DeprovisionRequest
+}
+
+/// Host publishes log upload request to the device.
+/// Topic: deviceSubscribesToLogSubscriptionTopic
+@http(method: "POST", uri: "/mqtt/host-to-device/log-subscription")
+operation DeviceSubscribesToLogSubscription {
     input: LogRequest
 }
 
-// MQTT payload: host publishes host configuration to device — not an HTTP endpoint
+// -----------------------------------------------------------------------
+// MQTT: device → host (device publishes)
+// -----------------------------------------------------------------------
+
+/// Device publishes its registration on connect.
+/// Topic: devicePublishesRegistrationTopic
+/// Payload shape: DeviceRegistration (see cdd_sdk smithy)
+@http(method: "POST", uri: "/mqtt/device-to-host/registration")
+operation DevicePublishesRegistration {
+    input: OpaquePayload
+}
+
+/// Device publishes its current status.
+/// Topic: devicePublishesStatusTopic
+/// Payload shape: DeviceStatus (see cdd_sdk smithy)
+@http(method: "POST", uri: "/mqtt/device-to-host/status")
+operation DevicePublishesStatus {
+    input: OpaquePayload
+}
+
+/// Device publishes its actual applied configuration.
+/// Topic: devicePublishesActualConfigurationTopic
+/// Payload shape: DeviceConfiguration (see cdd_sdk smithy)
+@http(method: "POST", uri: "/mqtt/device-to-host/actual-configuration")
+operation DevicePublishesActualConfiguration {
+    input: OpaquePayload
+}
+
+/// Device acknowledges deprovision by publishing to this topic.
+/// Topic: devicePublishesDeprovisionAcknowledgementTopic
+@http(method: "POST", uri: "/mqtt/device-to-host/deprovision-acknowledgement")
+operation DevicePublishesDeprovisionAcknowledgement {
+    input: DeprovisionRequest
+}
+
+/// Opaque MQTT payload — shape defined in cdd_sdk smithy.
+structure OpaquePayload {
+    payload: Document
+}
+
+// -----------------------------------------------------------------------
+// Internal / informational
+// -----------------------------------------------------------------------
+
+/// Host publishes host configuration to device on connect.
 @http(method: "GET", uri: "/internal/host-config")
 operation GetHostConfig {
     output: HostConfig
 }
 
-// MQTT payload: host publishes protocol version to device — not an HTTP endpoint
+/// Host publishes protocol version to device.
 @http(method: "GET", uri: "/internal/version")
 operation GetVersion {
     output: VersionResponse

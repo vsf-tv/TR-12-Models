@@ -13,7 +13,7 @@ namespace com.cdd.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("3.0.0")
+    @default("4.0.0")
     version: String
 }
 
@@ -47,8 +47,8 @@ enum TransportProtocolName {
     SRT_CALLER
     ZIXI_PUSH
     ZIXI_PULL
-    RIST_CALLER
-    RIST_LISTENER
+    RIST_SIMPLE_CALLER
+    RIST_SIMPLE_LISTENER
     RTP
 }
 
@@ -99,26 +99,33 @@ structure HostSettings {
     minimumIntervalPublishSeconds: Integer
     @required
     mqttKeepaliveSeconds: Integer
+    /// Device subscribes — host publishes desired configuration to this topic.
     @required
-    subUpdateTopic: String
+    deviceSubscribesToDesiredConfigurationTopic: String
+    /// Device subscribes — host publishes thumbnail subscription requests to this topic.
     @required
-    subUpdateThumbnailSubscriptionTopic: String
+    deviceSubscribesToThumbnailSubscriptionTopic: String
+    /// Device publishes — device reports its registration to this topic on connect.
     @required
-    publishReportSchemaTopic: String
+    devicePublishesRegistrationTopic: String
+    /// Device publishes — device reports its current status to this topic.
     @required
-    publishReportRegistrationTopic: String
+    devicePublishesStatusTopic: String
+    /// Device publishes — device reports its actual applied configuration to this topic.
     @required
-    publishReportStatusTopic: String
+    devicePublishesActualConfigurationTopic: String
+    /// Device subscribes — host publishes new certificates to this topic.
     @required
-    publishReportActualConfigurationTopic: String
+    deviceSubscribesToCertificateRotationTopic: String
+    /// Device publishes — device acknowledges deprovision by publishing to this topic.
     @required
-    subUpdateCertsTopic: String
+    devicePublishesDeprovisionAcknowledgementTopic: String
+    /// Device subscribes — host publishes deprovision command to this topic.
     @required
-    publishDeprovisionTopic: String
+    deviceSubscribesToDeprovisionTopic: String
+    /// Device subscribes — host publishes log upload requests to this topic.
     @required
-    subDeprovisionTopic: String
-    @required
-    subUpdateLogSubscriptionTopic: String
+    deviceSubscribesToLogSubscriptionTopic: String
 }
 
 structure CreatePairingCodeRequest {

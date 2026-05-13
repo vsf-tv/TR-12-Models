@@ -238,54 +238,155 @@ func (a *DefaultAPIService) CreatePairingCodeExecute(r ApiCreatePairingCodeReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeprovisionDeviceRequest struct {
+type ApiDevicePublishesActualConfigurationRequest struct {
 	ctx context.Context
 	ApiService *DefaultAPIService
-	deprovisionDeviceRequestContent *DeprovisionDeviceRequestContent
+	devicePublishesActualConfigurationRequestContent *DevicePublishesActualConfigurationRequestContent
 }
 
-func (r ApiDeprovisionDeviceRequest) DeprovisionDeviceRequestContent(deprovisionDeviceRequestContent DeprovisionDeviceRequestContent) ApiDeprovisionDeviceRequest {
-	r.deprovisionDeviceRequestContent = &deprovisionDeviceRequestContent
+func (r ApiDevicePublishesActualConfigurationRequest) DevicePublishesActualConfigurationRequestContent(devicePublishesActualConfigurationRequestContent DevicePublishesActualConfigurationRequestContent) ApiDevicePublishesActualConfigurationRequest {
+	r.devicePublishesActualConfigurationRequestContent = &devicePublishesActualConfigurationRequestContent
 	return r
 }
 
-func (r ApiDeprovisionDeviceRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeprovisionDeviceExecute(r)
+func (r ApiDevicePublishesActualConfigurationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DevicePublishesActualConfigurationExecute(r)
 }
 
 /*
-DeprovisionDevice Method for DeprovisionDevice
+DevicePublishesActualConfiguration Method for DevicePublishesActualConfiguration
+
+Device publishes its actual applied configuration.
+Topic: devicePublishesActualConfigurationTopic
+Payload shape: DeviceConfiguration (see cdd_sdk smithy)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDeprovisionDeviceRequest
+ @return ApiDevicePublishesActualConfigurationRequest
 */
-func (a *DefaultAPIService) DeprovisionDevice(ctx context.Context) ApiDeprovisionDeviceRequest {
-	return ApiDeprovisionDeviceRequest{
+func (a *DefaultAPIService) DevicePublishesActualConfiguration(ctx context.Context) ApiDevicePublishesActualConfigurationRequest {
+	return ApiDevicePublishesActualConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-func (a *DefaultAPIService) DeprovisionDeviceExecute(r ApiDeprovisionDeviceRequest) (*http.Response, error) {
+func (a *DefaultAPIService) DevicePublishesActualConfigurationExecute(r ApiDevicePublishesActualConfigurationRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeprovisionDevice")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DevicePublishesActualConfiguration")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/internal/deprovision"
+	localVarPath := localBasePath + "/mqtt/device-to-host/actual-configuration"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.deprovisionDeviceRequestContent == nil {
-		return nil, reportError("deprovisionDeviceRequestContent is required and must be specified")
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.devicePublishesActualConfigurationRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDevicePublishesDeprovisionAcknowledgementRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	devicePublishesDeprovisionAcknowledgementRequestContent *DevicePublishesDeprovisionAcknowledgementRequestContent
+}
+
+func (r ApiDevicePublishesDeprovisionAcknowledgementRequest) DevicePublishesDeprovisionAcknowledgementRequestContent(devicePublishesDeprovisionAcknowledgementRequestContent DevicePublishesDeprovisionAcknowledgementRequestContent) ApiDevicePublishesDeprovisionAcknowledgementRequest {
+	r.devicePublishesDeprovisionAcknowledgementRequestContent = &devicePublishesDeprovisionAcknowledgementRequestContent
+	return r
+}
+
+func (r ApiDevicePublishesDeprovisionAcknowledgementRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DevicePublishesDeprovisionAcknowledgementExecute(r)
+}
+
+/*
+DevicePublishesDeprovisionAcknowledgement Method for DevicePublishesDeprovisionAcknowledgement
+
+Device acknowledges deprovision by publishing to this topic.
+Topic: devicePublishesDeprovisionAcknowledgementTopic
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDevicePublishesDeprovisionAcknowledgementRequest
+*/
+func (a *DefaultAPIService) DevicePublishesDeprovisionAcknowledgement(ctx context.Context) ApiDevicePublishesDeprovisionAcknowledgementRequest {
+	return ApiDevicePublishesDeprovisionAcknowledgementRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DevicePublishesDeprovisionAcknowledgementExecute(r ApiDevicePublishesDeprovisionAcknowledgementRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DevicePublishesDeprovisionAcknowledgement")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/device-to-host/deprovision-acknowledgement"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.devicePublishesDeprovisionAcknowledgementRequestContent == nil {
+		return nil, reportError("devicePublishesDeprovisionAcknowledgementRequestContent is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -306,7 +407,698 @@ func (a *DefaultAPIService) DeprovisionDeviceExecute(r ApiDeprovisionDeviceReque
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.deprovisionDeviceRequestContent
+	localVarPostBody = r.devicePublishesDeprovisionAcknowledgementRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDevicePublishesRegistrationRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	devicePublishesRegistrationRequestContent *DevicePublishesRegistrationRequestContent
+}
+
+func (r ApiDevicePublishesRegistrationRequest) DevicePublishesRegistrationRequestContent(devicePublishesRegistrationRequestContent DevicePublishesRegistrationRequestContent) ApiDevicePublishesRegistrationRequest {
+	r.devicePublishesRegistrationRequestContent = &devicePublishesRegistrationRequestContent
+	return r
+}
+
+func (r ApiDevicePublishesRegistrationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DevicePublishesRegistrationExecute(r)
+}
+
+/*
+DevicePublishesRegistration Method for DevicePublishesRegistration
+
+Device publishes its registration on connect.
+Topic: devicePublishesRegistrationTopic
+Payload shape: DeviceRegistration (see cdd_sdk smithy)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDevicePublishesRegistrationRequest
+*/
+func (a *DefaultAPIService) DevicePublishesRegistration(ctx context.Context) ApiDevicePublishesRegistrationRequest {
+	return ApiDevicePublishesRegistrationRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DevicePublishesRegistrationExecute(r ApiDevicePublishesRegistrationRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DevicePublishesRegistration")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/device-to-host/registration"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.devicePublishesRegistrationRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDevicePublishesStatusRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	devicePublishesStatusRequestContent *DevicePublishesStatusRequestContent
+}
+
+func (r ApiDevicePublishesStatusRequest) DevicePublishesStatusRequestContent(devicePublishesStatusRequestContent DevicePublishesStatusRequestContent) ApiDevicePublishesStatusRequest {
+	r.devicePublishesStatusRequestContent = &devicePublishesStatusRequestContent
+	return r
+}
+
+func (r ApiDevicePublishesStatusRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DevicePublishesStatusExecute(r)
+}
+
+/*
+DevicePublishesStatus Method for DevicePublishesStatus
+
+Device publishes its current status.
+Topic: devicePublishesStatusTopic
+Payload shape: DeviceStatus (see cdd_sdk smithy)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDevicePublishesStatusRequest
+*/
+func (a *DefaultAPIService) DevicePublishesStatus(ctx context.Context) ApiDevicePublishesStatusRequest {
+	return ApiDevicePublishesStatusRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DevicePublishesStatusExecute(r ApiDevicePublishesStatusRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DevicePublishesStatus")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/device-to-host/status"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.devicePublishesStatusRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeviceSubscribesToCertificateRotationRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	deviceSubscribesToCertificateRotationRequestContent *DeviceSubscribesToCertificateRotationRequestContent
+}
+
+func (r ApiDeviceSubscribesToCertificateRotationRequest) DeviceSubscribesToCertificateRotationRequestContent(deviceSubscribesToCertificateRotationRequestContent DeviceSubscribesToCertificateRotationRequestContent) ApiDeviceSubscribesToCertificateRotationRequest {
+	r.deviceSubscribesToCertificateRotationRequestContent = &deviceSubscribesToCertificateRotationRequestContent
+	return r
+}
+
+func (r ApiDeviceSubscribesToCertificateRotationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeviceSubscribesToCertificateRotationExecute(r)
+}
+
+/*
+DeviceSubscribesToCertificateRotation Method for DeviceSubscribesToCertificateRotation
+
+Host publishes new certificates to the device.
+Topic: deviceSubscribesToCertificateRotationTopic
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDeviceSubscribesToCertificateRotationRequest
+*/
+func (a *DefaultAPIService) DeviceSubscribesToCertificateRotation(ctx context.Context) ApiDeviceSubscribesToCertificateRotationRequest {
+	return ApiDeviceSubscribesToCertificateRotationRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DeviceSubscribesToCertificateRotationExecute(r ApiDeviceSubscribesToCertificateRotationRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeviceSubscribesToCertificateRotation")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/host-to-device/certificate-rotation"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.deviceSubscribesToCertificateRotationRequestContent == nil {
+		return nil, reportError("deviceSubscribesToCertificateRotationRequestContent is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deviceSubscribesToCertificateRotationRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeviceSubscribesToDeprovisionRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	deviceSubscribesToDeprovisionRequestContent *DeviceSubscribesToDeprovisionRequestContent
+}
+
+func (r ApiDeviceSubscribesToDeprovisionRequest) DeviceSubscribesToDeprovisionRequestContent(deviceSubscribesToDeprovisionRequestContent DeviceSubscribesToDeprovisionRequestContent) ApiDeviceSubscribesToDeprovisionRequest {
+	r.deviceSubscribesToDeprovisionRequestContent = &deviceSubscribesToDeprovisionRequestContent
+	return r
+}
+
+func (r ApiDeviceSubscribesToDeprovisionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeviceSubscribesToDeprovisionExecute(r)
+}
+
+/*
+DeviceSubscribesToDeprovision Method for DeviceSubscribesToDeprovision
+
+Host publishes deprovision command to the device.
+Topic: deviceSubscribesToDeprovisionTopic
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDeviceSubscribesToDeprovisionRequest
+*/
+func (a *DefaultAPIService) DeviceSubscribesToDeprovision(ctx context.Context) ApiDeviceSubscribesToDeprovisionRequest {
+	return ApiDeviceSubscribesToDeprovisionRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DeviceSubscribesToDeprovisionExecute(r ApiDeviceSubscribesToDeprovisionRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeviceSubscribesToDeprovision")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/host-to-device/deprovision"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.deviceSubscribesToDeprovisionRequestContent == nil {
+		return nil, reportError("deviceSubscribesToDeprovisionRequestContent is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deviceSubscribesToDeprovisionRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeviceSubscribesToDesiredConfigurationRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	deviceSubscribesToDesiredConfigurationRequestContent *DeviceSubscribesToDesiredConfigurationRequestContent
+}
+
+func (r ApiDeviceSubscribesToDesiredConfigurationRequest) DeviceSubscribesToDesiredConfigurationRequestContent(deviceSubscribesToDesiredConfigurationRequestContent DeviceSubscribesToDesiredConfigurationRequestContent) ApiDeviceSubscribesToDesiredConfigurationRequest {
+	r.deviceSubscribesToDesiredConfigurationRequestContent = &deviceSubscribesToDesiredConfigurationRequestContent
+	return r
+}
+
+func (r ApiDeviceSubscribesToDesiredConfigurationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeviceSubscribesToDesiredConfigurationExecute(r)
+}
+
+/*
+DeviceSubscribesToDesiredConfiguration Method for DeviceSubscribesToDesiredConfiguration
+
+Host publishes desired configuration to the device.
+Topic: deviceSubscribesToDesiredConfigurationTopic
+Payload shape: DeviceConfiguration (see cdd_sdk smithy)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDeviceSubscribesToDesiredConfigurationRequest
+*/
+func (a *DefaultAPIService) DeviceSubscribesToDesiredConfiguration(ctx context.Context) ApiDeviceSubscribesToDesiredConfigurationRequest {
+	return ApiDeviceSubscribesToDesiredConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DeviceSubscribesToDesiredConfigurationExecute(r ApiDeviceSubscribesToDesiredConfigurationRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeviceSubscribesToDesiredConfiguration")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/host-to-device/desired-configuration"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deviceSubscribesToDesiredConfigurationRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeviceSubscribesToLogSubscriptionRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	deviceSubscribesToLogSubscriptionRequestContent *DeviceSubscribesToLogSubscriptionRequestContent
+}
+
+func (r ApiDeviceSubscribesToLogSubscriptionRequest) DeviceSubscribesToLogSubscriptionRequestContent(deviceSubscribesToLogSubscriptionRequestContent DeviceSubscribesToLogSubscriptionRequestContent) ApiDeviceSubscribesToLogSubscriptionRequest {
+	r.deviceSubscribesToLogSubscriptionRequestContent = &deviceSubscribesToLogSubscriptionRequestContent
+	return r
+}
+
+func (r ApiDeviceSubscribesToLogSubscriptionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeviceSubscribesToLogSubscriptionExecute(r)
+}
+
+/*
+DeviceSubscribesToLogSubscription Method for DeviceSubscribesToLogSubscription
+
+Host publishes log upload request to the device.
+Topic: deviceSubscribesToLogSubscriptionTopic
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDeviceSubscribesToLogSubscriptionRequest
+*/
+func (a *DefaultAPIService) DeviceSubscribesToLogSubscription(ctx context.Context) ApiDeviceSubscribesToLogSubscriptionRequest {
+	return ApiDeviceSubscribesToLogSubscriptionRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DeviceSubscribesToLogSubscriptionExecute(r ApiDeviceSubscribesToLogSubscriptionRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeviceSubscribesToLogSubscription")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/host-to-device/log-subscription"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deviceSubscribesToLogSubscriptionRequestContent
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeviceSubscribesToThumbnailSubscriptionRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	deviceSubscribesToThumbnailSubscriptionRequestContent *DeviceSubscribesToThumbnailSubscriptionRequestContent
+}
+
+func (r ApiDeviceSubscribesToThumbnailSubscriptionRequest) DeviceSubscribesToThumbnailSubscriptionRequestContent(deviceSubscribesToThumbnailSubscriptionRequestContent DeviceSubscribesToThumbnailSubscriptionRequestContent) ApiDeviceSubscribesToThumbnailSubscriptionRequest {
+	r.deviceSubscribesToThumbnailSubscriptionRequestContent = &deviceSubscribesToThumbnailSubscriptionRequestContent
+	return r
+}
+
+func (r ApiDeviceSubscribesToThumbnailSubscriptionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeviceSubscribesToThumbnailSubscriptionExecute(r)
+}
+
+/*
+DeviceSubscribesToThumbnailSubscription Method for DeviceSubscribesToThumbnailSubscription
+
+Host publishes thumbnail subscription requests to the device.
+Topic: deviceSubscribesToThumbnailSubscriptionTopic
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiDeviceSubscribesToThumbnailSubscriptionRequest
+*/
+func (a *DefaultAPIService) DeviceSubscribesToThumbnailSubscription(ctx context.Context) ApiDeviceSubscribesToThumbnailSubscriptionRequest {
+	return ApiDeviceSubscribesToThumbnailSubscriptionRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultAPIService) DeviceSubscribesToThumbnailSubscriptionExecute(r ApiDeviceSubscribesToThumbnailSubscriptionRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeviceSubscribesToThumbnailSubscription")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mqtt/host-to-device/thumbnail-subscription"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.deviceSubscribesToThumbnailSubscriptionRequestContent == nil {
+		return nil, reportError("deviceSubscribesToThumbnailSubscriptionRequestContent is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.deviceSubscribesToThumbnailSubscriptionRequestContent
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -346,6 +1138,8 @@ func (r ApiGetHostConfigRequest) Execute() (*GetHostConfigResponseContent, *http
 
 /*
 GetHostConfig Method for GetHostConfig
+
+Host publishes host configuration to device on connect.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetHostConfigRequest
@@ -444,6 +1238,8 @@ func (r ApiGetVersionRequest) Execute() (*GetVersionResponseContent, *http.Respo
 /*
 GetVersion Method for GetVersion
 
+Host publishes protocol version to device.
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetVersionRequest
 */
@@ -527,292 +1323,4 @@ func (a *DefaultAPIService) GetVersionExecute(r ApiGetVersionRequest) (*GetVersi
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiRequestLogRequest struct {
-	ctx context.Context
-	ApiService *DefaultAPIService
-	requestLogRequestContent *RequestLogRequestContent
-}
-
-func (r ApiRequestLogRequest) RequestLogRequestContent(requestLogRequestContent RequestLogRequestContent) ApiRequestLogRequest {
-	r.requestLogRequestContent = &requestLogRequestContent
-	return r
-}
-
-func (r ApiRequestLogRequest) Execute() (*http.Response, error) {
-	return r.ApiService.RequestLogExecute(r)
-}
-
-/*
-RequestLog Method for RequestLog
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRequestLogRequest
-*/
-func (a *DefaultAPIService) RequestLog(ctx context.Context) ApiRequestLogRequest {
-	return ApiRequestLogRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-func (a *DefaultAPIService) RequestLogExecute(r ApiRequestLogRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RequestLog")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/internal/log"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.requestLogRequestContent
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiRequestThumbnailRequest struct {
-	ctx context.Context
-	ApiService *DefaultAPIService
-	requestThumbnailRequestContent *RequestThumbnailRequestContent
-}
-
-func (r ApiRequestThumbnailRequest) RequestThumbnailRequestContent(requestThumbnailRequestContent RequestThumbnailRequestContent) ApiRequestThumbnailRequest {
-	r.requestThumbnailRequestContent = &requestThumbnailRequestContent
-	return r
-}
-
-func (r ApiRequestThumbnailRequest) Execute() (*http.Response, error) {
-	return r.ApiService.RequestThumbnailExecute(r)
-}
-
-/*
-RequestThumbnail Method for RequestThumbnail
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRequestThumbnailRequest
-*/
-func (a *DefaultAPIService) RequestThumbnail(ctx context.Context) ApiRequestThumbnailRequest {
-	return ApiRequestThumbnailRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-func (a *DefaultAPIService) RequestThumbnailExecute(r ApiRequestThumbnailRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RequestThumbnail")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/internal/thumbnail"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.requestThumbnailRequestContent == nil {
-		return nil, reportError("requestThumbnailRequestContent is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.requestThumbnailRequestContent
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiRotateCertificatesRequest struct {
-	ctx context.Context
-	ApiService *DefaultAPIService
-	rotateCertificatesRequestContent *RotateCertificatesRequestContent
-}
-
-func (r ApiRotateCertificatesRequest) RotateCertificatesRequestContent(rotateCertificatesRequestContent RotateCertificatesRequestContent) ApiRotateCertificatesRequest {
-	r.rotateCertificatesRequestContent = &rotateCertificatesRequestContent
-	return r
-}
-
-func (r ApiRotateCertificatesRequest) Execute() (*http.Response, error) {
-	return r.ApiService.RotateCertificatesExecute(r)
-}
-
-/*
-RotateCertificates Method for RotateCertificates
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRotateCertificatesRequest
-*/
-func (a *DefaultAPIService) RotateCertificates(ctx context.Context) ApiRotateCertificatesRequest {
-	return ApiRotateCertificatesRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-func (a *DefaultAPIService) RotateCertificatesExecute(r ApiRotateCertificatesRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RotateCertificates")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/internal/rotate-certs"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.rotateCertificatesRequestContent == nil {
-		return nil, reportError("rotateCertificatesRequestContent is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.rotateCertificatesRequestContent
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }

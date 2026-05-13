@@ -21,20 +21,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/AuthenticatePairingCodeResponseContent"
           description: AuthenticatePairingCode 200 response
-  /internal/deprovision:
-    post:
-      operationId: DeprovisionDevice
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DeprovisionDeviceRequestContent"
-        required: true
-      responses:
-        "200":
-          description: DeprovisionDevice 200 response
   /internal/host-config:
     get:
+      description: Host publishes host configuration to device on connect.
       operationId: GetHostConfig
       responses:
         "200":
@@ -43,43 +32,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetHostConfigResponseContent"
           description: GetHostConfig 200 response
-  /internal/log:
-    post:
-      operationId: RequestLog
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RequestLogRequestContent"
-      responses:
-        "200":
-          description: RequestLog 200 response
-  /internal/rotate-certs:
-    post:
-      operationId: RotateCertificates
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RotateCertificatesRequestContent"
-        required: true
-      responses:
-        "200":
-          description: RotateCertificates 200 response
-  /internal/thumbnail:
-    post:
-      operationId: RequestThumbnail
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RequestThumbnailRequestContent"
-        required: true
-      responses:
-        "200":
-          description: RequestThumbnail 200 response
   /internal/version:
     get:
+      description: Host publishes protocol version to device.
       operationId: GetVersion
       responses:
         "200":
@@ -88,6 +43,140 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetVersionResponseContent"
           description: GetVersion 200 response
+  /mqtt/device-to-host/actual-configuration:
+    post:
+      description: |-
+        Device publishes its actual applied configuration.
+        Topic: devicePublishesActualConfigurationTopic
+        Payload shape: DeviceConfiguration (see cdd_sdk smithy)
+      operationId: DevicePublishesActualConfiguration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DevicePublishesActualConfigurationRequestContent"
+      responses:
+        "200":
+          description: DevicePublishesActualConfiguration 200 response
+  /mqtt/device-to-host/deprovision-acknowledgement:
+    post:
+      description: |-
+        Device acknowledges deprovision by publishing to this topic.
+        Topic: devicePublishesDeprovisionAcknowledgementTopic
+      operationId: DevicePublishesDeprovisionAcknowledgement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DevicePublishesDeprovisionAcknowledgementRequestContent"
+        required: true
+      responses:
+        "200":
+          description: DevicePublishesDeprovisionAcknowledgement 200 response
+  /mqtt/device-to-host/registration:
+    post:
+      description: |-
+        Device publishes its registration on connect.
+        Topic: devicePublishesRegistrationTopic
+        Payload shape: DeviceRegistration (see cdd_sdk smithy)
+      operationId: DevicePublishesRegistration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DevicePublishesRegistrationRequestContent"
+      responses:
+        "200":
+          description: DevicePublishesRegistration 200 response
+  /mqtt/device-to-host/status:
+    post:
+      description: |-
+        Device publishes its current status.
+        Topic: devicePublishesStatusTopic
+        Payload shape: DeviceStatus (see cdd_sdk smithy)
+      operationId: DevicePublishesStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DevicePublishesStatusRequestContent"
+      responses:
+        "200":
+          description: DevicePublishesStatus 200 response
+  /mqtt/host-to-device/certificate-rotation:
+    post:
+      description: |-
+        Host publishes new certificates to the device.
+        Topic: deviceSubscribesToCertificateRotationTopic
+      operationId: DeviceSubscribesToCertificateRotation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceSubscribesToCertificateRotationRequestContent"
+        required: true
+      responses:
+        "200":
+          description: DeviceSubscribesToCertificateRotation 200 response
+  /mqtt/host-to-device/deprovision:
+    post:
+      description: |-
+        Host publishes deprovision command to the device.
+        Topic: deviceSubscribesToDeprovisionTopic
+      operationId: DeviceSubscribesToDeprovision
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceSubscribesToDeprovisionRequestContent"
+        required: true
+      responses:
+        "200":
+          description: DeviceSubscribesToDeprovision 200 response
+  /mqtt/host-to-device/desired-configuration:
+    post:
+      description: |-
+        Host publishes desired configuration to the device.
+        Topic: deviceSubscribesToDesiredConfigurationTopic
+        Payload shape: DeviceConfiguration (see cdd_sdk smithy)
+      operationId: DeviceSubscribesToDesiredConfiguration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceSubscribesToDesiredConfigurationRequestContent"
+      responses:
+        "200":
+          description: DeviceSubscribesToDesiredConfiguration 200 response
+  /mqtt/host-to-device/log-subscription:
+    post:
+      description: |-
+        Host publishes log upload request to the device.
+        Topic: deviceSubscribesToLogSubscriptionTopic
+      operationId: DeviceSubscribesToLogSubscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceSubscribesToLogSubscriptionRequestContent"
+      responses:
+        "200":
+          description: DeviceSubscribesToLogSubscription 200 response
+  /mqtt/host-to-device/thumbnail-subscription:
+    post:
+      description: |-
+        Host publishes thumbnail subscription requests to the device.
+        Topic: deviceSubscribesToThumbnailSubscriptionTopic
+      operationId: DeviceSubscribesToThumbnailSubscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceSubscribesToThumbnailSubscriptionRequestContent"
+        required: true
+      responses:
+        "200":
+          description: DeviceSubscribesToThumbnailSubscription 200 response
   /pair:
     post:
       operationId: CreatePairingCode
@@ -130,19 +219,18 @@ components:
         regionName: regionName
         hostSettings:
           pairingTimeoutSeconds: 0.8008281904610115
-          publishReportSchemaTopic: publishReportSchemaTopic
-          publishDeprovisionTopic: publishDeprovisionTopic
-          subUpdateTopic: subUpdateTopic
-          subUpdateCertsTopic: subUpdateCertsTopic
+          deviceSubscribesToThumbnailSubscriptionTopic: deviceSubscribesToThumbnailSubscriptionTopic
+          deviceSubscribesToDeprovisionTopic: deviceSubscribesToDeprovisionTopic
+          devicePublishesStatusTopic: devicePublishesStatusTopic
+          deviceSubscribesToCertificateRotationTopic: deviceSubscribesToCertificateRotationTopic
           minimumIntervalPublishSeconds: 6.027456183070403
-          subDeprovisionTopic: subDeprovisionTopic
-          subUpdateThumbnailSubscriptionTopic: subUpdateThumbnailSubscriptionTopic
-          publishReportActualConfigurationTopic: publishReportActualConfigurationTopic
-          subUpdateLogSubscriptionTopic: subUpdateLogSubscriptionTopic
+          devicePublishesRegistrationTopic: devicePublishesRegistrationTopic
+          deviceSubscribesToLogSubscriptionTopic: deviceSubscribesToLogSubscriptionTopic
+          deviceSubscribesToDesiredConfigurationTopic: deviceSubscribesToDesiredConfigurationTopic
           mqttKeepaliveSeconds: 1.4658129805029452
-          publishReportRegistrationTopic: publishReportRegistrationTopic
           mqttAlpnProtocol: mqttAlpnProtocol
-          publishReportStatusTopic: publishReportStatusTopic
+          devicePublishesActualConfigurationTopic: devicePublishesActualConfigurationTopic
+          devicePublishesDeprovisionAcknowledgementTopic: devicePublishesDeprovisionAcknowledgementTopic
         mqttUri: mqttUri
         caCertificate: caCertificate
         deviceCertificate: deviceCertificate
@@ -184,7 +272,7 @@ components:
         certificateSigningRequest: certificateSigningRequest
         hostId: hostId
         version:
-          version: 3.0.0
+          version: 4.0.0
       properties:
         deviceType:
           $ref: "#/components/schemas/DeviceType"
@@ -243,7 +331,20 @@ components:
       - pairingCode
       - pairingTimeoutSeconds
       type: object
-    DeprovisionDeviceRequestContent:
+    DeprovisionReason:
+      enum:
+      - DEPROVISIONED
+      - EXPIRED
+      - UNKNOWN
+      type: string
+    DevicePublishesActualConfigurationRequestContent:
+      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
+      example:
+        payload: ""
+      properties:
+        payload: {}
+      type: object
+    DevicePublishesDeprovisionAcknowledgementRequestContent:
       example:
         reason: DEPROVISIONED
         timestamp: 2000-01-23T04:56:07.000+00:00
@@ -256,12 +357,89 @@ components:
       required:
       - timestamp
       type: object
-    DeprovisionReason:
-      enum:
-      - DEPROVISIONED
-      - EXPIRED
-      - UNKNOWN
-      type: string
+    DevicePublishesRegistrationRequestContent:
+      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
+      example:
+        payload: ""
+      properties:
+        payload: {}
+      type: object
+    DevicePublishesStatusRequestContent:
+      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
+      example:
+        payload: ""
+      properties:
+        payload: {}
+      type: object
+    DeviceSubscribesToCertificateRotationRequestContent:
+      example:
+        regionName: regionName
+        mqttUri: mqttUri
+        deviceCertificate: deviceCertificate
+      properties:
+        mqttUri:
+          type: string
+        deviceCertificate:
+          format: password
+          type: string
+        regionName:
+          type: string
+      required:
+      - deviceCertificate
+      - mqttUri
+      type: object
+    DeviceSubscribesToDeprovisionRequestContent:
+      example:
+        reason: DEPROVISIONED
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        reason:
+          $ref: "#/components/schemas/DeprovisionReason"
+        timestamp:
+          format: date-time
+          type: string
+      required:
+      - timestamp
+      type: object
+    DeviceSubscribesToDesiredConfigurationRequestContent:
+      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
+      example:
+        payload: ""
+      properties:
+        payload: {}
+      type: object
+    DeviceSubscribesToLogSubscriptionRequestContent:
+      example:
+        remotePath: remotePath
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        expiresAt:
+          format: date-time
+          type: string
+        remotePath:
+          type: string
+      type: object
+    DeviceSubscribesToThumbnailSubscriptionRequestContent:
+      example:
+        requests:
+          key:
+            headers:
+              key: headers
+            remotePath: remotePath
+            periodSeconds: 0.8008281904610115
+            expiresAt: 2000-01-23T04:56:07.000+00:00
+            maxSizeKB: 6.027456183070403
+      properties:
+        requests:
+          additionalProperties:
+            $ref: "#/components/schemas/ThumbnailRequest"
+          description: |-
+            Map of channelId to ThumbnailRequest. The host subscribes by channel.
+            The SDK resolves the channel's thumbnail local path from ActualConfiguration.
+          type: object
+      required:
+      - requests
+      type: object
     DeviceType:
       enum:
       - SOURCE
@@ -308,7 +486,7 @@ components:
     GetVersionResponseContent:
       example:
         version:
-          version: 3.0.0
+          version: 4.0.0
       properties:
         version:
           $ref: "#/components/schemas/ProtocolVersion"
@@ -318,19 +496,18 @@ components:
     HostSettings:
       example:
         pairingTimeoutSeconds: 0.8008281904610115
-        publishReportSchemaTopic: publishReportSchemaTopic
-        publishDeprovisionTopic: publishDeprovisionTopic
-        subUpdateTopic: subUpdateTopic
-        subUpdateCertsTopic: subUpdateCertsTopic
+        deviceSubscribesToThumbnailSubscriptionTopic: deviceSubscribesToThumbnailSubscriptionTopic
+        deviceSubscribesToDeprovisionTopic: deviceSubscribesToDeprovisionTopic
+        devicePublishesStatusTopic: devicePublishesStatusTopic
+        deviceSubscribesToCertificateRotationTopic: deviceSubscribesToCertificateRotationTopic
         minimumIntervalPublishSeconds: 6.027456183070403
-        subDeprovisionTopic: subDeprovisionTopic
-        subUpdateThumbnailSubscriptionTopic: subUpdateThumbnailSubscriptionTopic
-        publishReportActualConfigurationTopic: publishReportActualConfigurationTopic
-        subUpdateLogSubscriptionTopic: subUpdateLogSubscriptionTopic
+        devicePublishesRegistrationTopic: devicePublishesRegistrationTopic
+        deviceSubscribesToLogSubscriptionTopic: deviceSubscribesToLogSubscriptionTopic
+        deviceSubscribesToDesiredConfigurationTopic: deviceSubscribesToDesiredConfigurationTopic
         mqttKeepaliveSeconds: 1.4658129805029452
-        publishReportRegistrationTopic: publishReportRegistrationTopic
         mqttAlpnProtocol: mqttAlpnProtocol
-        publishReportStatusTopic: publishReportStatusTopic
+        devicePublishesActualConfigurationTopic: devicePublishesActualConfigurationTopic
+        devicePublishesDeprovisionAcknowledgementTopic: devicePublishesDeprovisionAcknowledgementTopic
       properties:
         mqttAlpnProtocol:
           type: string
@@ -340,41 +517,56 @@ components:
           type: number
         mqttKeepaliveSeconds:
           type: number
-        subUpdateTopic:
+        deviceSubscribesToDesiredConfigurationTopic:
+          description: Device subscribes — host publishes desired configuration to
+            this topic.
           type: string
-        subUpdateThumbnailSubscriptionTopic:
+        deviceSubscribesToThumbnailSubscriptionTopic:
+          description: Device subscribes — host publishes thumbnail subscription requests
+            to this topic.
           type: string
-        publishReportSchemaTopic:
+        devicePublishesRegistrationTopic:
+          description: Device publishes — device reports its registration to this
+            topic on connect.
           type: string
-        publishReportRegistrationTopic:
+        devicePublishesStatusTopic:
+          description: Device publishes — device reports its current status to this
+            topic.
           type: string
-        publishReportStatusTopic:
+        devicePublishesActualConfigurationTopic:
+          description: Device publishes — device reports its actual applied configuration
+            to this topic.
           type: string
-        publishReportActualConfigurationTopic:
+        deviceSubscribesToCertificateRotationTopic:
+          description: Device subscribes — host publishes new certificates to this
+            topic.
           type: string
-        subUpdateCertsTopic:
+        devicePublishesDeprovisionAcknowledgementTopic:
+          description: Device publishes — device acknowledges deprovision by publishing
+            to this topic.
           type: string
-        publishDeprovisionTopic:
+        deviceSubscribesToDeprovisionTopic:
+          description: Device subscribes — host publishes deprovision command to this
+            topic.
           type: string
-        subDeprovisionTopic:
-          type: string
-        subUpdateLogSubscriptionTopic:
+        deviceSubscribesToLogSubscriptionTopic:
+          description: Device subscribes — host publishes log upload requests to this
+            topic.
           type: string
       required:
+      - devicePublishesActualConfigurationTopic
+      - devicePublishesDeprovisionAcknowledgementTopic
+      - devicePublishesRegistrationTopic
+      - devicePublishesStatusTopic
+      - deviceSubscribesToCertificateRotationTopic
+      - deviceSubscribesToDeprovisionTopic
+      - deviceSubscribesToDesiredConfigurationTopic
+      - deviceSubscribesToLogSubscriptionTopic
+      - deviceSubscribesToThumbnailSubscriptionTopic
       - minimumIntervalPublishSeconds
       - mqttAlpnProtocol
       - mqttKeepaliveSeconds
       - pairingTimeoutSeconds
-      - publishDeprovisionTopic
-      - publishReportActualConfigurationTopic
-      - publishReportRegistrationTopic
-      - publishReportSchemaTopic
-      - publishReportStatusTopic
-      - subDeprovisionTopic
-      - subUpdateCertsTopic
-      - subUpdateLogSubscriptionTopic
-      - subUpdateThumbnailSubscriptionTopic
-      - subUpdateTopic
       type: object
     PairingCodeAuthorizedStatus:
       enum:
@@ -383,60 +575,11 @@ components:
       type: string
     ProtocolVersion:
       example:
-        version: 3.0.0
+        version: 4.0.0
       properties:
         version:
-          default: 3.0.0
+          default: 4.0.0
           type: string
-      type: object
-    RequestLogRequestContent:
-      example:
-        remotePath: remotePath
-        expiresAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        expiresAt:
-          format: date-time
-          type: string
-        remotePath:
-          type: string
-      type: object
-    RequestThumbnailRequestContent:
-      example:
-        requests:
-          key:
-            headers:
-              key: headers
-            remotePath: remotePath
-            periodSeconds: 0.8008281904610115
-            expiresAt: 2000-01-23T04:56:07.000+00:00
-            maxSizeKB: 6.027456183070403
-      properties:
-        requests:
-          additionalProperties:
-            $ref: "#/components/schemas/ThumbnailRequest"
-          description: |-
-            Map of channelId to ThumbnailRequest. The host subscribes by channel.
-            The SDK resolves the channel's thumbnail local path from ActualConfiguration.
-          type: object
-      required:
-      - requests
-      type: object
-    RotateCertificatesRequestContent:
-      example:
-        regionName: regionName
-        mqttUri: mqttUri
-        deviceCertificate: deviceCertificate
-      properties:
-        mqttUri:
-          type: string
-        deviceCertificate:
-          format: password
-          type: string
-        regionName:
-          type: string
-      required:
-      - deviceCertificate
-      - mqttUri
       type: object
     StringMap:
       additionalProperties:

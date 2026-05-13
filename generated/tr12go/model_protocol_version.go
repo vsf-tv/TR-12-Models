@@ -28,7 +28,7 @@ type ProtocolVersion struct {
 // will change when the set of required properties is changed
 func NewProtocolVersion() *ProtocolVersion {
 	this := ProtocolVersion{}
-	var version string = "3.0.0"
+	var version string = "4.0.0"
 	this.Version = &version
 	return &this
 }
@@ -38,7 +38,7 @@ func NewProtocolVersion() *ProtocolVersion {
 // but it doesn't guarantee that properties required by API are set
 func NewProtocolVersionWithDefaults() *ProtocolVersion {
 	this := ProtocolVersion{}
-	var version string = "3.0.0"
+	var version string = "4.0.0"
 	this.Version = &version
 	return &this
 }
