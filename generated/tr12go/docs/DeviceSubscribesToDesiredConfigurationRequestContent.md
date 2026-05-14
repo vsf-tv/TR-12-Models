@@ -4,13 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Payload** | Pointer to **interface{}** |  | [optional] 
+**ConfigurationId** | **string** |  | 
+**Channels** | [**[]ChannelConfiguration**](ChannelConfiguration.md) |  | 
+**StandardSettings** | Pointer to [**[]IdAndValue**](IdAndValue.md) |  | [optional] 
+**Health** | Pointer to [**Health**](Health.md) |  | [optional] 
 
 ## Methods
 
 ### NewDeviceSubscribesToDesiredConfigurationRequestContent
 
-`func NewDeviceSubscribesToDesiredConfigurationRequestContent() *DeviceSubscribesToDesiredConfigurationRequestContent`
+`func NewDeviceSubscribesToDesiredConfigurationRequestContent(configurationId string, channels []ChannelConfiguration, ) *DeviceSubscribesToDesiredConfigurationRequestContent`
 
 NewDeviceSubscribesToDesiredConfigurationRequestContent instantiates a new DeviceSubscribesToDesiredConfigurationRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -25,41 +28,96 @@ NewDeviceSubscribesToDesiredConfigurationRequestContentWithDefaults instantiates
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPayload
+### GetConfigurationId
 
-`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetPayload() interface{}`
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetConfigurationId() string`
 
-GetPayload returns the Payload field if non-nil, zero value otherwise.
+GetConfigurationId returns the ConfigurationId field if non-nil, zero value otherwise.
 
-### GetPayloadOk
+### GetConfigurationIdOk
 
-`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetPayloadOk() (*interface{}, bool)`
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetConfigurationIdOk() (*string, bool)`
 
-GetPayloadOk returns a tuple with the Payload field if it's non-nil, zero value otherwise
+GetConfigurationIdOk returns a tuple with the ConfigurationId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPayload
+### SetConfigurationId
 
-`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetPayload(v interface{})`
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetConfigurationId(v string)`
 
-SetPayload sets Payload field to given value.
+SetConfigurationId sets ConfigurationId field to given value.
 
-### HasPayload
 
-`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) HasPayload() bool`
+### GetChannels
 
-HasPayload returns a boolean if a field has been set.
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannels() []ChannelConfiguration`
 
-### SetPayloadNil
+GetChannels returns the Channels field if non-nil, zero value otherwise.
 
-`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetPayloadNil(b bool)`
+### GetChannelsOk
 
- SetPayloadNil sets the value for Payload to be an explicit nil
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannelsOk() (*[]ChannelConfiguration, bool)`
 
-### UnsetPayload
-`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) UnsetPayload()`
+GetChannelsOk returns a tuple with the Channels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
 
-UnsetPayload ensures that no value is present for Payload, not even an explicit nil
+### SetChannels
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetChannels(v []ChannelConfiguration)`
+
+SetChannels sets Channels field to given value.
+
+
+### GetStandardSettings
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetStandardSettings() []IdAndValue`
+
+GetStandardSettings returns the StandardSettings field if non-nil, zero value otherwise.
+
+### GetStandardSettingsOk
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetStandardSettingsOk() (*[]IdAndValue, bool)`
+
+GetStandardSettingsOk returns a tuple with the StandardSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStandardSettings
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetStandardSettings(v []IdAndValue)`
+
+SetStandardSettings sets StandardSettings field to given value.
+
+### HasStandardSettings
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) HasStandardSettings() bool`
+
+HasStandardSettings returns a boolean if a field has been set.
+
+### GetHealth
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetHealth() Health`
+
+GetHealth returns the Health field if non-nil, zero value otherwise.
+
+### GetHealthOk
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetHealthOk() (*Health, bool)`
+
+GetHealthOk returns a tuple with the Health field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHealth
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetHealth(v Health)`
+
+SetHealth sets Health field to given value.
+
+### HasHealth
+
+`func (o *DeviceSubscribesToDesiredConfigurationRequestContent) HasHealth() bool`
+
+HasHealth returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Payload** | Pointer to **interface{}** |  | [optional] 
+**Status** | [**[]StatusValue**](StatusValue.md) |  | 
+**Channels** | Pointer to [**[]ChannelStatus**](ChannelStatus.md) |  | [optional] 
 
 ## Methods
 
 ### NewDevicePublishesStatusRequestContent
 
-`func NewDevicePublishesStatusRequestContent() *DevicePublishesStatusRequestContent`
+`func NewDevicePublishesStatusRequestContent(status []StatusValue, ) *DevicePublishesStatusRequestContent`
 
 NewDevicePublishesStatusRequestContent instantiates a new DevicePublishesStatusRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -25,41 +26,51 @@ NewDevicePublishesStatusRequestContentWithDefaults instantiates a new DevicePubl
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPayload
+### GetStatus
 
-`func (o *DevicePublishesStatusRequestContent) GetPayload() interface{}`
+`func (o *DevicePublishesStatusRequestContent) GetStatus() []StatusValue`
 
-GetPayload returns the Payload field if non-nil, zero value otherwise.
+GetStatus returns the Status field if non-nil, zero value otherwise.
 
-### GetPayloadOk
+### GetStatusOk
 
-`func (o *DevicePublishesStatusRequestContent) GetPayloadOk() (*interface{}, bool)`
+`func (o *DevicePublishesStatusRequestContent) GetStatusOk() (*[]StatusValue, bool)`
 
-GetPayloadOk returns a tuple with the Payload field if it's non-nil, zero value otherwise
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPayload
+### SetStatus
 
-`func (o *DevicePublishesStatusRequestContent) SetPayload(v interface{})`
+`func (o *DevicePublishesStatusRequestContent) SetStatus(v []StatusValue)`
 
-SetPayload sets Payload field to given value.
+SetStatus sets Status field to given value.
 
-### HasPayload
 
-`func (o *DevicePublishesStatusRequestContent) HasPayload() bool`
+### GetChannels
 
-HasPayload returns a boolean if a field has been set.
+`func (o *DevicePublishesStatusRequestContent) GetChannels() []ChannelStatus`
 
-### SetPayloadNil
+GetChannels returns the Channels field if non-nil, zero value otherwise.
 
-`func (o *DevicePublishesStatusRequestContent) SetPayloadNil(b bool)`
+### GetChannelsOk
 
- SetPayloadNil sets the value for Payload to be an explicit nil
+`func (o *DevicePublishesStatusRequestContent) GetChannelsOk() (*[]ChannelStatus, bool)`
 
-### UnsetPayload
-`func (o *DevicePublishesStatusRequestContent) UnsetPayload()`
+GetChannelsOk returns a tuple with the Channels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
 
-UnsetPayload ensures that no value is present for Payload, not even an explicit nil
+### SetChannels
+
+`func (o *DevicePublishesStatusRequestContent) SetChannels(v []ChannelStatus)`
+
+SetChannels sets Channels field to given value.
+
+### HasChannels
+
+`func (o *DevicePublishesStatusRequestContent) HasChannels() bool`
+
+HasChannels returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

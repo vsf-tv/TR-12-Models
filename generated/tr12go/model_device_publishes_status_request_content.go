@@ -12,22 +12,28 @@ package openapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the DevicePublishesStatusRequestContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DevicePublishesStatusRequestContent{}
 
-// DevicePublishesStatusRequestContent Opaque MQTT payload — shape defined in cdd_sdk smithy.
+// DevicePublishesStatusRequestContent struct for DevicePublishesStatusRequestContent
 type DevicePublishesStatusRequestContent struct {
-	Payload interface{} `json:"payload,omitempty"`
+	Status []StatusValue `json:"status"`
+	Channels []ChannelStatus `json:"channels,omitempty"`
 }
+
+type _DevicePublishesStatusRequestContent DevicePublishesStatusRequestContent
 
 // NewDevicePublishesStatusRequestContent instantiates a new DevicePublishesStatusRequestContent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePublishesStatusRequestContent() *DevicePublishesStatusRequestContent {
+func NewDevicePublishesStatusRequestContent(status []StatusValue) *DevicePublishesStatusRequestContent {
 	this := DevicePublishesStatusRequestContent{}
+	this.Status = status
 	return &this
 }
 
@@ -39,37 +45,60 @@ func NewDevicePublishesStatusRequestContentWithDefaults() *DevicePublishesStatus
 	return &this
 }
 
-// GetPayload returns the Payload field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DevicePublishesStatusRequestContent) GetPayload() interface{} {
+// GetStatus returns the Status field value
+func (o *DevicePublishesStatusRequestContent) GetStatus() []StatusValue {
 	if o == nil {
-		var ret interface{}
+		var ret []StatusValue
 		return ret
 	}
-	return o.Payload
+
+	return o.Status
 }
 
-// GetPayloadOk returns a tuple with the Payload field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DevicePublishesStatusRequestContent) GetPayloadOk() (*interface{}, bool) {
-	if o == nil || IsNil(o.Payload) {
+func (o *DevicePublishesStatusRequestContent) GetStatusOk() ([]StatusValue, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Payload, true
+	return o.Status, true
 }
 
-// HasPayload returns a boolean if a field has been set.
-func (o *DevicePublishesStatusRequestContent) HasPayload() bool {
-	if o != nil && !IsNil(o.Payload) {
+// SetStatus sets field value
+func (o *DevicePublishesStatusRequestContent) SetStatus(v []StatusValue) {
+	o.Status = v
+}
+
+// GetChannels returns the Channels field value if set, zero value otherwise.
+func (o *DevicePublishesStatusRequestContent) GetChannels() []ChannelStatus {
+	if o == nil || IsNil(o.Channels) {
+		var ret []ChannelStatus
+		return ret
+	}
+	return o.Channels
+}
+
+// GetChannelsOk returns a tuple with the Channels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DevicePublishesStatusRequestContent) GetChannelsOk() ([]ChannelStatus, bool) {
+	if o == nil || IsNil(o.Channels) {
+		return nil, false
+	}
+	return o.Channels, true
+}
+
+// HasChannels returns a boolean if a field has been set.
+func (o *DevicePublishesStatusRequestContent) HasChannels() bool {
+	if o != nil && !IsNil(o.Channels) {
 		return true
 	}
 
 	return false
 }
 
-// SetPayload gets a reference to the given interface{} and assigns it to the Payload field.
-func (o *DevicePublishesStatusRequestContent) SetPayload(v interface{}) {
-	o.Payload = v
+// SetChannels gets a reference to the given []ChannelStatus and assigns it to the Channels field.
+func (o *DevicePublishesStatusRequestContent) SetChannels(v []ChannelStatus) {
+	o.Channels = v
 }
 
 func (o DevicePublishesStatusRequestContent) MarshalJSON() ([]byte, error) {
@@ -82,10 +111,48 @@ func (o DevicePublishesStatusRequestContent) MarshalJSON() ([]byte, error) {
 
 func (o DevicePublishesStatusRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Payload != nil {
-		toSerialize["payload"] = o.Payload
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Channels) {
+		toSerialize["channels"] = o.Channels
 	}
 	return toSerialize, nil
+}
+
+func (o *DevicePublishesStatusRequestContent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDevicePublishesStatusRequestContent := _DevicePublishesStatusRequestContent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDevicePublishesStatusRequestContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DevicePublishesStatusRequestContent(varDevicePublishesStatusRequestContent)
+
+	return err
 }
 
 type NullableDevicePublishesStatusRequestContent struct {

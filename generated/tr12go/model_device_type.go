@@ -20,9 +20,9 @@ type DeviceType string
 
 // List of DeviceType
 const (
-	SOURCE DeviceType = "SOURCE"
-	DESTINATION DeviceType = "DESTINATION"
-	BOTH DeviceType = "BOTH"
+	DEVICETYPE_SOURCE DeviceType = "SOURCE"
+	DEVICETYPE_DESTINATION DeviceType = "DESTINATION"
+	DEVICETYPE_BOTH DeviceType = "BOTH"
 )
 
 // All allowed values of DeviceType enum

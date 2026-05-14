@@ -48,13 +48,13 @@ paths:
       description: |-
         Device publishes its actual applied configuration.
         Topic: devicePublishesActualConfigurationTopic
-        Payload shape: DeviceConfiguration (see cdd_sdk smithy)
       operationId: DevicePublishesActualConfiguration
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/DevicePublishesActualConfigurationRequestContent"
+        required: true
       responses:
         "200":
           description: DevicePublishesActualConfiguration 200 response
@@ -78,13 +78,13 @@ paths:
       description: |-
         Device publishes its registration on connect.
         Topic: devicePublishesRegistrationTopic
-        Payload shape: DeviceRegistration (see cdd_sdk smithy)
       operationId: DevicePublishesRegistration
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/DevicePublishesRegistrationRequestContent"
+        required: true
       responses:
         "200":
           description: DevicePublishesRegistration 200 response
@@ -93,13 +93,13 @@ paths:
       description: |-
         Device publishes its current status.
         Topic: devicePublishesStatusTopic
-        Payload shape: DeviceStatus (see cdd_sdk smithy)
       operationId: DevicePublishesStatus
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/DevicePublishesStatusRequestContent"
+        required: true
       responses:
         "200":
           description: DevicePublishesStatus 200 response
@@ -138,13 +138,13 @@ paths:
       description: |-
         Host publishes desired configuration to the device.
         Topic: deviceSubscribesToDesiredConfigurationTopic
-        Payload shape: DeviceConfiguration (see cdd_sdk smithy)
       operationId: DeviceSubscribesToDesiredConfiguration
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/DeviceSubscribesToDesiredConfigurationRequestContent"
+        required: true
       responses:
         "200":
           description: DeviceSubscribesToDesiredConfiguration 200 response
@@ -253,6 +253,177 @@ components:
       required:
       - status
       type: object
+    Channel:
+      example:
+        standardSettings:
+        - enums:
+            defaultValue: defaultValue
+            values:
+            - values
+            - values
+          ranges:
+            defaultValue: 1.4658129
+            maximum: 6.0274563
+            minimum: 0.8008282
+          name: name
+          description: description
+          id: id
+        - enums:
+            defaultValue: defaultValue
+            values:
+            - values
+            - values
+          ranges:
+            defaultValue: 1.4658129
+            maximum: 6.0274563
+            minimum: 0.8008282
+          name: name
+          description: description
+          id: id
+        name: name
+        profiles:
+        - name: name
+          description: description
+          id: id
+        - name: name
+          description: description
+          id: id
+        channelType: SOURCE
+        id: id
+        connectionProtocols:
+        - SRT_LISTENER
+        - SRT_LISTENER
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        channelType:
+          $ref: "#/components/schemas/ChannelType"
+        standardSettings:
+          items:
+            $ref: "#/components/schemas/Setting"
+          type: array
+        profiles:
+          items:
+            $ref: "#/components/schemas/ProfileDefinition"
+          type: array
+        connectionProtocols:
+          items:
+            $ref: "#/components/schemas/TransportProtocolName"
+          type: array
+      required:
+      - channelType
+      - id
+      - name
+      type: object
+    ChannelConfiguration:
+      example:
+        settings:
+          standardSettings:
+          - value: value
+            key: key
+          - value: value
+            key: key
+        health:
+          healthy: "{}"
+        connection:
+          transportProtocol:
+            srtListener:
+              streamId: streamId
+              minimumLatencyMilliseconds: 6.027456183070403
+              encryption:
+                aes128:
+                  passphrase: passphrase
+              port: 6190.222739483032
+              interface: interface
+        id: id
+        configurationId: configurationId
+        state: ACTIVE
+        thumbnailLocalPath: thumbnailLocalPath
+      properties:
+        id:
+          type: string
+        configurationId:
+          maxLength: 80
+          type: string
+        state:
+          $ref: "#/components/schemas/ChannelState"
+        settings:
+          $ref: "#/components/schemas/SettingsChoice"
+        connection:
+          $ref: "#/components/schemas/Connection"
+        health:
+          $ref: "#/components/schemas/Health"
+        thumbnailLocalPath:
+          description: |-
+            Device-side only. Set by the application to indicate the local filesystem
+            path to the thumbnail image for this channel. The host shall not set this
+            field in desired configuration. The SDK reads this to resolve thumbnail
+            subscriptions keyed by channelId.
+          type: string
+      required:
+      - configurationId
+      - id
+      - state
+      type: object
+    ChannelProfile:
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    ChannelState:
+      enum:
+      - ACTIVE
+      - IDLE
+      type: string
+    ChannelStatus:
+      example:
+        id: id
+        state: ACTIVE
+        status:
+        - name: name
+          value: value
+          info: info
+        - name: name
+          value: value
+          info: info
+      properties:
+        id:
+          type: string
+        state:
+          $ref: "#/components/schemas/ChannelState"
+        status:
+          items:
+            $ref: "#/components/schemas/StatusValue"
+          type: array
+      required:
+      - id
+      - state
+      - status
+      type: object
+    ChannelType:
+      enum:
+      - SOURCE
+      - DESTINATION
+      type: string
+    Connection:
+      example:
+        transportProtocol:
+          srtListener:
+            streamId: streamId
+            minimumLatencyMilliseconds: 6.027456183070403
+            encryption:
+              aes128:
+                passphrase: passphrase
+            port: 6190.222739483032
+            interface: interface
+      properties:
+        transportProtocol:
+          $ref: "#/components/schemas/TransportProtocol"
+      type: object
     CreatePairingCodeFailureData:
       properties:
         reason:
@@ -338,11 +509,76 @@ components:
       - UNKNOWN
       type: string
     DevicePublishesActualConfigurationRequestContent:
-      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
       example:
-        payload: ""
+        standardSettings:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        channels:
+        - settings:
+            standardSettings:
+            - value: value
+              key: key
+            - value: value
+              key: key
+          health:
+            healthy: "{}"
+          connection:
+            transportProtocol:
+              srtListener:
+                streamId: streamId
+                minimumLatencyMilliseconds: 6.027456183070403
+                encryption:
+                  aes128:
+                    passphrase: passphrase
+                port: 6190.222739483032
+                interface: interface
+          id: id
+          configurationId: configurationId
+          state: ACTIVE
+          thumbnailLocalPath: thumbnailLocalPath
+        - settings:
+            standardSettings:
+            - value: value
+              key: key
+            - value: value
+              key: key
+          health:
+            healthy: "{}"
+          connection:
+            transportProtocol:
+              srtListener:
+                streamId: streamId
+                minimumLatencyMilliseconds: 6.027456183070403
+                encryption:
+                  aes128:
+                    passphrase: passphrase
+                port: 6190.222739483032
+                interface: interface
+          id: id
+          configurationId: configurationId
+          state: ACTIVE
+          thumbnailLocalPath: thumbnailLocalPath
+        health: null
+        configurationId: configurationId
       properties:
-        payload: {}
+        configurationId:
+          maxLength: 80
+          type: string
+        channels:
+          items:
+            $ref: "#/components/schemas/ChannelConfiguration"
+          type: array
+        standardSettings:
+          items:
+            $ref: "#/components/schemas/IdAndValue"
+          type: array
+        health:
+          $ref: "#/components/schemas/Health"
+      required:
+      - channels
+      - configurationId
       type: object
     DevicePublishesDeprovisionAcknowledgementRequestContent:
       example:
@@ -358,18 +594,160 @@ components:
       - timestamp
       type: object
     DevicePublishesRegistrationRequestContent:
-      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
       example:
-        payload: ""
+        standardSettings:
+        - enums:
+            defaultValue: defaultValue
+            values:
+            - values
+            - values
+          ranges:
+            defaultValue: 1.4658129
+            maximum: 6.0274563
+            minimum: 0.8008282
+          name: name
+          description: description
+          id: id
+        - enums:
+            defaultValue: defaultValue
+            values:
+            - values
+            - values
+          ranges:
+            defaultValue: 1.4658129
+            maximum: 6.0274563
+            minimum: 0.8008282
+          name: name
+          description: description
+          id: id
+        channels:
+        - standardSettings:
+          - enums:
+              defaultValue: defaultValue
+              values:
+              - values
+              - values
+            ranges:
+              defaultValue: 1.4658129
+              maximum: 6.0274563
+              minimum: 0.8008282
+            name: name
+            description: description
+            id: id
+          - enums:
+              defaultValue: defaultValue
+              values:
+              - values
+              - values
+            ranges:
+              defaultValue: 1.4658129
+              maximum: 6.0274563
+              minimum: 0.8008282
+            name: name
+            description: description
+            id: id
+          name: name
+          profiles:
+          - name: name
+            description: description
+            id: id
+          - name: name
+            description: description
+            id: id
+          channelType: SOURCE
+          id: id
+          connectionProtocols:
+          - SRT_LISTENER
+          - SRT_LISTENER
+        - standardSettings:
+          - enums:
+              defaultValue: defaultValue
+              values:
+              - values
+              - values
+            ranges:
+              defaultValue: 1.4658129
+              maximum: 6.0274563
+              minimum: 0.8008282
+            name: name
+            description: description
+            id: id
+          - enums:
+              defaultValue: defaultValue
+              values:
+              - values
+              - values
+            ranges:
+              defaultValue: 1.4658129
+              maximum: 6.0274563
+              minimum: 0.8008282
+            name: name
+            description: description
+            id: id
+          name: name
+          profiles:
+          - name: name
+            description: description
+            id: id
+          - name: name
+            description: description
+            id: id
+          channelType: SOURCE
+          id: id
+          connectionProtocols:
+          - SRT_LISTENER
+          - SRT_LISTENER
       properties:
-        payload: {}
+        channels:
+          items:
+            $ref: "#/components/schemas/Channel"
+          type: array
+        standardSettings:
+          items:
+            $ref: "#/components/schemas/Setting"
+          type: array
+      required:
+      - channels
       type: object
     DevicePublishesStatusRequestContent:
-      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
       example:
-        payload: ""
+        channels:
+        - id: id
+          state: ACTIVE
+          status:
+          - name: name
+            value: value
+            info: info
+          - name: name
+            value: value
+            info: info
+        - id: id
+          state: ACTIVE
+          status:
+          - name: name
+            value: value
+            info: info
+          - name: name
+            value: value
+            info: info
+        status:
+        - name: name
+          value: value
+          info: info
+        - name: name
+          value: value
+          info: info
       properties:
-        payload: {}
+        status:
+          items:
+            $ref: "#/components/schemas/StatusValue"
+          type: array
+        channels:
+          items:
+            $ref: "#/components/schemas/ChannelStatus"
+          type: array
+      required:
+      - status
       type: object
     DeviceSubscribesToCertificateRotationRequestContent:
       example:
@@ -402,11 +780,77 @@ components:
       - timestamp
       type: object
     DeviceSubscribesToDesiredConfigurationRequestContent:
-      description: Opaque MQTT payload — shape defined in cdd_sdk smithy.
       example:
-        payload: ""
+        standardSettings:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        channels:
+        - settings:
+            standardSettings:
+            - value: value
+              key: key
+            - value: value
+              key: key
+          health:
+            healthy: "{}"
+          connection:
+            transportProtocol:
+              srtListener:
+                streamId: streamId
+                minimumLatencyMilliseconds: 6.027456183070403
+                encryption:
+                  aes128:
+                    passphrase: passphrase
+                port: 6190.222739483032
+                interface: interface
+          id: id
+          configurationId: configurationId
+          state: ACTIVE
+          thumbnailLocalPath: thumbnailLocalPath
+        - settings:
+            standardSettings:
+            - value: value
+              key: key
+            - value: value
+              key: key
+          health:
+            healthy: "{}"
+          connection:
+            transportProtocol:
+              srtListener:
+                streamId: streamId
+                minimumLatencyMilliseconds: 6.027456183070403
+                encryption:
+                  aes128:
+                    passphrase: passphrase
+                port: 6190.222739483032
+                interface: interface
+          id: id
+          configurationId: configurationId
+          state: ACTIVE
+          thumbnailLocalPath: thumbnailLocalPath
+        health:
+          healthy: "{}"
+        configurationId: configurationId
       properties:
-        payload: {}
+        configurationId:
+          maxLength: 80
+          type: string
+        channels:
+          items:
+            $ref: "#/components/schemas/ChannelConfiguration"
+          type: array
+        standardSettings:
+          items:
+            $ref: "#/components/schemas/IdAndValue"
+          type: array
+        health:
+          $ref: "#/components/schemas/Health"
+      required:
+      - channels
+      - configurationId
       type: object
     DeviceSubscribesToLogSubscriptionRequestContent:
       example:
@@ -446,6 +890,53 @@ components:
       - DESTINATION
       - BOTH
       type: string
+    EncryptionAes:
+      oneOf:
+      - $ref: "#/components/schemas/aes128"
+      - $ref: "#/components/schemas/aes256"
+    EncryptionAes128:
+      example:
+        passphrase: passphrase
+      properties:
+        passphrase:
+          description: A 32-character hexadecimal string.
+          format: password
+          maxLength: 32
+          minLength: 32
+          pattern: "^[a-fA-F0-9]+$"
+          type: string
+      required:
+      - passphrase
+      type: object
+    EncryptionAes256:
+      properties:
+        passphrase:
+          description: A 64-character hexadecimal string.
+          format: password
+          maxLength: 64
+          minLength: 64
+          pattern: "^[a-fA-F0-9]+$"
+          type: string
+      required:
+      - passphrase
+      type: object
+    EnumValues:
+      example:
+        defaultValue: defaultValue
+        values:
+        - values
+        - values
+      properties:
+        values:
+          items:
+            type: string
+          type: array
+        defaultValue:
+          type: string
+      required:
+      - defaultValue
+      - values
+      type: object
     GetHostConfigResponseContent:
       example:
         thumbnailMaximumSizeKB: 0.8008281904610115
@@ -492,6 +983,14 @@ components:
           $ref: "#/components/schemas/ProtocolVersion"
       required:
       - version
+      type: object
+    Health:
+      oneOf:
+      - $ref: "#/components/schemas/healthy"
+      - $ref: "#/components/schemas/degraded"
+      - $ref: "#/components/schemas/critical"
+    Healthy:
+      description: Healthy state — no additional fields needed.
       type: object
     HostSettings:
       example:
@@ -568,11 +1067,41 @@ components:
       - mqttKeepaliveSeconds
       - pairingTimeoutSeconds
       type: object
+    IdAndValue:
+      example:
+        value: value
+        key: key
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
     PairingCodeAuthorizedStatus:
       enum:
       - STANDBY
       - CLAIMED
       type: string
+    ProfileDefinition:
+      example:
+        name: name
+        description: description
+        id: id
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - id
+      - name
+      type: object
     ProtocolVersion:
       example:
         version: 4.0.0
@@ -580,6 +1109,197 @@ components:
         version:
           default: 4.0.0
           type: string
+      type: object
+    RangeValues:
+      example:
+        defaultValue: 1.4658129
+        maximum: 6.0274563
+        minimum: 0.8008282
+      properties:
+        minimum:
+          format: float
+          type: number
+        maximum:
+          format: float
+          type: number
+        defaultValue:
+          format: float
+          type: number
+      required:
+      - defaultValue
+      - maximum
+      - minimum
+      type: object
+    RistSimpleCallerTransportProtocol:
+      properties:
+        address:
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1
+          type: number
+        minimumLatencyMilliseconds:
+          default: 1000
+          type: number
+        encryption:
+          $ref: "#/components/schemas/EncryptionAes"
+      required:
+      - address
+      - port
+      type: object
+    RistSimpleListenerTransportProtocol:
+      properties:
+        port:
+          maximum: 65535
+          minimum: 1024
+          type: number
+        minimumLatencyMilliseconds:
+          default: 1000
+          type: number
+        encryption:
+          $ref: "#/components/schemas/EncryptionAes"
+        interface:
+          type: string
+      required:
+      - port
+      type: object
+    RtpFecConfiguration:
+      properties:
+        columnFec:
+          $ref: "#/components/schemas/RtpFecStreamConfig"
+        rowFec:
+          $ref: "#/components/schemas/RtpFecStreamConfig"
+        matrixColumns:
+          type: number
+        matrixRows:
+          type: number
+      required:
+      - columnFec
+      type: object
+    RtpFecStreamConfig:
+      properties:
+        address:
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1024
+          type: number
+        rtpPayloadType:
+          type: number
+      type: object
+    RtpTransportProtocol:
+      properties:
+        address:
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1024
+          type: number
+        sourceAddressFilter:
+          type: string
+        rtpPayloadType:
+          type: number
+        fecConfig:
+          $ref: "#/components/schemas/RtpFecConfiguration"
+      required:
+      - address
+      - port
+      type: object
+    Setting:
+      example:
+        enums:
+          defaultValue: defaultValue
+          values:
+          - values
+          - values
+        ranges:
+          defaultValue: 1.4658129
+          maximum: 6.0274563
+          minimum: 0.8008282
+        name: name
+        description: description
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enums:
+          $ref: "#/components/schemas/EnumValues"
+        ranges:
+          $ref: "#/components/schemas/RangeValues"
+      required:
+      - description
+      - id
+      - name
+      type: object
+    SettingsChoice:
+      oneOf:
+      - $ref: "#/components/schemas/standardSettings"
+      - $ref: "#/components/schemas/profile"
+    SrtCallerTransportProtocol:
+      properties:
+        streamId:
+          type: string
+        address:
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1
+          type: number
+        minimumLatencyMilliseconds:
+          default: 1000
+          type: number
+        encryption:
+          $ref: "#/components/schemas/EncryptionAes"
+      required:
+      - address
+      - port
+      type: object
+    SrtListenerTransportProtocol:
+      example:
+        streamId: streamId
+        minimumLatencyMilliseconds: 6.027456183070403
+        encryption:
+          aes128:
+            passphrase: passphrase
+        port: 6190.222739483032
+        interface: interface
+      properties:
+        streamId:
+          type: string
+        port:
+          maximum: 65535
+          minimum: 1024
+          type: number
+        minimumLatencyMilliseconds:
+          default: 1000
+          type: number
+        encryption:
+          $ref: "#/components/schemas/EncryptionAes"
+        interface:
+          type: string
+      required:
+      - port
+      type: object
+    StatusValue:
+      example:
+        name: name
+        value: value
+        info: info
+      properties:
+        name:
+          type: string
+        info:
+          type: string
+        value:
+          type: string
+      required:
+      - info
+      - name
+      - value
       type: object
     StringMap:
       additionalProperties:
@@ -615,6 +1335,80 @@ components:
         Map of channelId to ThumbnailRequest. The host subscribes by channel.
         The SDK resolves the channel's thumbnail local path from ActualConfiguration.
       type: object
+    TransportProtocol:
+      oneOf:
+      - $ref: "#/components/schemas/srtListener"
+      - $ref: "#/components/schemas/srtCaller"
+      - $ref: "#/components/schemas/ristSimpleListener"
+      - $ref: "#/components/schemas/ristSimpleCaller"
+      - $ref: "#/components/schemas/zixiPush"
+      - $ref: "#/components/schemas/zixiPull"
+      - $ref: "#/components/schemas/rtp"
+    TransportProtocolName:
+      enum:
+      - SRT_LISTENER
+      - SRT_CALLER
+      - ZIXI_PUSH
+      - ZIXI_PULL
+      - RIST_SIMPLE_CALLER
+      - RIST_SIMPLE_LISTENER
+      - RTP
+      type: string
+    UnhealthyStateDescription:
+      description: Shared description for degraded and critical states.
+      properties:
+        messages:
+          items:
+            type: string
+          type: array
+        timestamp:
+          format: date-time
+          type: string
+        componentName:
+          type: string
+      required:
+      - componentName
+      - messages
+      - timestamp
+      type: object
+    ZixiPullTransportProtocol:
+      properties:
+        streamId:
+          type: string
+        address:
+          type: string
+        port:
+          default: 2088
+          maximum: 65535
+          minimum: 1024
+          type: number
+        minimumLatencyMilliseconds:
+          default: 1000
+          type: number
+        encryption:
+          $ref: "#/components/schemas/EncryptionAes"
+      required:
+      - address
+      type: object
+    ZixiPushTransportProtocol:
+      properties:
+        streamId:
+          type: string
+        address:
+          type: string
+        port:
+          default: 2088
+          maximum: 65535
+          minimum: 1
+          type: number
+        minimumLatencyMilliseconds:
+          default: 1000
+          type: number
+        encryption:
+          $ref: "#/components/schemas/EncryptionAes"
+      required:
+      - address
+      type: object
     success:
       example:
         success:
@@ -636,4 +1430,139 @@ components:
       required:
       - failure
       title: failure
+      type: object
+    aes128:
+      example:
+        aes128:
+          passphrase: passphrase
+      properties:
+        aes128:
+          $ref: "#/components/schemas/EncryptionAes128"
+      required:
+      - aes128
+      title: aes128
+      type: object
+    aes256:
+      properties:
+        aes256:
+          $ref: "#/components/schemas/EncryptionAes256"
+      required:
+      - aes256
+      title: aes256
+      type: object
+    healthy:
+      example:
+        healthy: "{}"
+      properties:
+        healthy:
+          description: Healthy state — no additional fields needed.
+          type: object
+      required:
+      - healthy
+      title: healthy
+      type: object
+    degraded:
+      properties:
+        degraded:
+          $ref: "#/components/schemas/UnhealthyStateDescription"
+      required:
+      - degraded
+      title: degraded
+      type: object
+    critical:
+      properties:
+        critical:
+          $ref: "#/components/schemas/UnhealthyStateDescription"
+      required:
+      - critical
+      title: critical
+      type: object
+    standardSettings:
+      example:
+        standardSettings:
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        standardSettings:
+          items:
+            $ref: "#/components/schemas/IdAndValue"
+          type: array
+      required:
+      - standardSettings
+      title: standardSettings
+      type: object
+    profile:
+      properties:
+        profile:
+          $ref: "#/components/schemas/ChannelProfile"
+      required:
+      - profile
+      title: profile
+      type: object
+    srtListener:
+      example:
+        srtListener:
+          streamId: streamId
+          minimumLatencyMilliseconds: 6.027456183070403
+          encryption:
+            aes128:
+              passphrase: passphrase
+          port: 6190.222739483032
+          interface: interface
+      properties:
+        srtListener:
+          $ref: "#/components/schemas/SrtListenerTransportProtocol"
+      required:
+      - srtListener
+      title: srtListener
+      type: object
+    srtCaller:
+      properties:
+        srtCaller:
+          $ref: "#/components/schemas/SrtCallerTransportProtocol"
+      required:
+      - srtCaller
+      title: srtCaller
+      type: object
+    ristSimpleListener:
+      properties:
+        ristSimpleListener:
+          $ref: "#/components/schemas/RistSimpleListenerTransportProtocol"
+      required:
+      - ristSimpleListener
+      title: ristSimpleListener
+      type: object
+    ristSimpleCaller:
+      properties:
+        ristSimpleCaller:
+          $ref: "#/components/schemas/RistSimpleCallerTransportProtocol"
+      required:
+      - ristSimpleCaller
+      title: ristSimpleCaller
+      type: object
+    zixiPush:
+      properties:
+        zixiPush:
+          $ref: "#/components/schemas/ZixiPushTransportProtocol"
+      required:
+      - zixiPush
+      title: zixiPush
+      type: object
+    zixiPull:
+      properties:
+        zixiPull:
+          $ref: "#/components/schemas/ZixiPullTransportProtocol"
+      required:
+      - zixiPull
+      title: zixiPull
+      type: object
+    rtp:
+      properties:
+        rtp:
+          $ref: "#/components/schemas/RtpTransportProtocol"
+      required:
+      - rtp
+      title: rtp
       type: object

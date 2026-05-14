@@ -14,6 +14,9 @@ use com.cdd.common#ThumbnailSubscription
 use com.cdd.common#LogRequest
 use com.cdd.common#HostConfig
 use com.cdd.common#VersionResponse
+use com.cdd.registration#DeviceRegistration
+use com.cdd.status#DeviceStatus
+use com.cdd.configuration#DeviceConfiguration
 
 @restJson1
 service HostServiceApi {
@@ -59,10 +62,9 @@ operation AuthenticatePairingCode {
 
 /// Host publishes desired configuration to the device.
 /// Topic: deviceSubscribesToDesiredConfigurationTopic
-/// Payload shape: DeviceConfiguration (see cdd_sdk smithy)
 @http(method: "POST", uri: "/mqtt/host-to-device/desired-configuration")
 operation DeviceSubscribesToDesiredConfiguration {
-    input: OpaquePayload
+    input: DeviceConfiguration
 }
 
 /// Host publishes thumbnail subscription requests to the device.
@@ -99,26 +101,23 @@ operation DeviceSubscribesToLogSubscription {
 
 /// Device publishes its registration on connect.
 /// Topic: devicePublishesRegistrationTopic
-/// Payload shape: DeviceRegistration (see cdd_sdk smithy)
 @http(method: "POST", uri: "/mqtt/device-to-host/registration")
 operation DevicePublishesRegistration {
-    input: OpaquePayload
+    input: DeviceRegistration
 }
 
 /// Device publishes its current status.
 /// Topic: devicePublishesStatusTopic
-/// Payload shape: DeviceStatus (see cdd_sdk smithy)
 @http(method: "POST", uri: "/mqtt/device-to-host/status")
 operation DevicePublishesStatus {
-    input: OpaquePayload
+    input: DeviceStatus
 }
 
 /// Device publishes its actual applied configuration.
 /// Topic: devicePublishesActualConfigurationTopic
-/// Payload shape: DeviceConfiguration (see cdd_sdk smithy)
 @http(method: "POST", uri: "/mqtt/device-to-host/actual-configuration")
 operation DevicePublishesActualConfiguration {
-    input: OpaquePayload
+    input: DeviceConfiguration
 }
 
 /// Device acknowledges deprovision by publishing to this topic.
@@ -126,11 +125,6 @@ operation DevicePublishesActualConfiguration {
 @http(method: "POST", uri: "/mqtt/device-to-host/deprovision-acknowledgement")
 operation DevicePublishesDeprovisionAcknowledgement {
     input: DeprovisionRequest
-}
-
-/// Opaque MQTT payload — shape defined in cdd_sdk smithy.
-structure OpaquePayload {
-    payload: Document
 }
 
 // -----------------------------------------------------------------------

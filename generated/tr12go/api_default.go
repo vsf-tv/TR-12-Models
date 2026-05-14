@@ -258,7 +258,6 @@ DevicePublishesActualConfiguration Method for DevicePublishesActualConfiguration
 
 Device publishes its actual applied configuration.
 Topic: devicePublishesActualConfigurationTopic
-Payload shape: DeviceConfiguration (see cdd_sdk smithy)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDevicePublishesActualConfigurationRequest
@@ -288,6 +287,9 @@ func (a *DefaultAPIService) DevicePublishesActualConfigurationExecute(r ApiDevic
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.devicePublishesActualConfigurationRequestContent == nil {
+		return nil, reportError("devicePublishesActualConfigurationRequestContent is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -456,7 +458,6 @@ DevicePublishesRegistration Method for DevicePublishesRegistration
 
 Device publishes its registration on connect.
 Topic: devicePublishesRegistrationTopic
-Payload shape: DeviceRegistration (see cdd_sdk smithy)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDevicePublishesRegistrationRequest
@@ -486,6 +487,9 @@ func (a *DefaultAPIService) DevicePublishesRegistrationExecute(r ApiDevicePublis
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.devicePublishesRegistrationRequestContent == nil {
+		return nil, reportError("devicePublishesRegistrationRequestContent is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -554,7 +558,6 @@ DevicePublishesStatus Method for DevicePublishesStatus
 
 Device publishes its current status.
 Topic: devicePublishesStatusTopic
-Payload shape: DeviceStatus (see cdd_sdk smithy)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDevicePublishesStatusRequest
@@ -584,6 +587,9 @@ func (a *DefaultAPIService) DevicePublishesStatusExecute(r ApiDevicePublishesSta
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.devicePublishesStatusRequestContent == nil {
+		return nil, reportError("devicePublishesStatusRequestContent is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -852,7 +858,6 @@ DeviceSubscribesToDesiredConfiguration Method for DeviceSubscribesToDesiredConfi
 
 Host publishes desired configuration to the device.
 Topic: deviceSubscribesToDesiredConfigurationTopic
-Payload shape: DeviceConfiguration (see cdd_sdk smithy)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeviceSubscribesToDesiredConfigurationRequest
@@ -882,6 +887,9 @@ func (a *DefaultAPIService) DeviceSubscribesToDesiredConfigurationExecute(r ApiD
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.deviceSubscribesToDesiredConfigurationRequestContent == nil {
+		return nil, reportError("deviceSubscribesToDesiredConfigurationRequestContent is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

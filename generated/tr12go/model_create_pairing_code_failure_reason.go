@@ -20,9 +20,9 @@ type CreatePairingCodeFailureReason string
 
 // List of CreatePairingCodeFailureReason
 const (
-	HOST_ID_MISMATCH CreatePairingCodeFailureReason = "HOST_ID_MISMATCH"
-	VERSION_NOT_SUPPORTED CreatePairingCodeFailureReason = "VERSION_NOT_SUPPORTED"
-	DEVICE_TYPE_NOT_SUPPORTED CreatePairingCodeFailureReason = "DEVICE_TYPE_NOT_SUPPORTED"
+	CREATEPAIRINGCODEFAILUREREASON_HOST_ID_MISMATCH CreatePairingCodeFailureReason = "HOST_ID_MISMATCH"
+	CREATEPAIRINGCODEFAILUREREASON_VERSION_NOT_SUPPORTED CreatePairingCodeFailureReason = "VERSION_NOT_SUPPORTED"
+	CREATEPAIRINGCODEFAILUREREASON_DEVICE_TYPE_NOT_SUPPORTED CreatePairingCodeFailureReason = "DEVICE_TYPE_NOT_SUPPORTED"
 )
 
 // All allowed values of CreatePairingCodeFailureReason enum

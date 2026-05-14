@@ -58,7 +58,7 @@ else
         -i "$INTERNAL_SPEC" \
         -g "$LANG" \
         -o "$OUTPUT_PATH" \
-        --additional-properties=projectName="${INTERNAL_SERVICE}SDK"
+        --additional-properties=projectName="${INTERNAL_SERVICE}SDK",enumClassPrefix=true
 fi
 
 echo "✅ Done! TR12 SDK is in $OUTPUT_PATH"

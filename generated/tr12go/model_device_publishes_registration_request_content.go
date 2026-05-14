@@ -12,22 +12,28 @@ package openapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the DevicePublishesRegistrationRequestContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DevicePublishesRegistrationRequestContent{}
 
-// DevicePublishesRegistrationRequestContent Opaque MQTT payload — shape defined in cdd_sdk smithy.
+// DevicePublishesRegistrationRequestContent struct for DevicePublishesRegistrationRequestContent
 type DevicePublishesRegistrationRequestContent struct {
-	Payload interface{} `json:"payload,omitempty"`
+	Channels []Channel `json:"channels"`
+	StandardSettings []Setting `json:"standardSettings,omitempty"`
 }
+
+type _DevicePublishesRegistrationRequestContent DevicePublishesRegistrationRequestContent
 
 // NewDevicePublishesRegistrationRequestContent instantiates a new DevicePublishesRegistrationRequestContent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePublishesRegistrationRequestContent() *DevicePublishesRegistrationRequestContent {
+func NewDevicePublishesRegistrationRequestContent(channels []Channel) *DevicePublishesRegistrationRequestContent {
 	this := DevicePublishesRegistrationRequestContent{}
+	this.Channels = channels
 	return &this
 }
 
@@ -39,37 +45,60 @@ func NewDevicePublishesRegistrationRequestContentWithDefaults() *DevicePublishes
 	return &this
 }
 
-// GetPayload returns the Payload field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DevicePublishesRegistrationRequestContent) GetPayload() interface{} {
+// GetChannels returns the Channels field value
+func (o *DevicePublishesRegistrationRequestContent) GetChannels() []Channel {
 	if o == nil {
-		var ret interface{}
+		var ret []Channel
 		return ret
 	}
-	return o.Payload
+
+	return o.Channels
 }
 
-// GetPayloadOk returns a tuple with the Payload field value if set, nil otherwise
+// GetChannelsOk returns a tuple with the Channels field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DevicePublishesRegistrationRequestContent) GetPayloadOk() (*interface{}, bool) {
-	if o == nil || IsNil(o.Payload) {
+func (o *DevicePublishesRegistrationRequestContent) GetChannelsOk() ([]Channel, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Payload, true
+	return o.Channels, true
 }
 
-// HasPayload returns a boolean if a field has been set.
-func (o *DevicePublishesRegistrationRequestContent) HasPayload() bool {
-	if o != nil && !IsNil(o.Payload) {
+// SetChannels sets field value
+func (o *DevicePublishesRegistrationRequestContent) SetChannels(v []Channel) {
+	o.Channels = v
+}
+
+// GetStandardSettings returns the StandardSettings field value if set, zero value otherwise.
+func (o *DevicePublishesRegistrationRequestContent) GetStandardSettings() []Setting {
+	if o == nil || IsNil(o.StandardSettings) {
+		var ret []Setting
+		return ret
+	}
+	return o.StandardSettings
+}
+
+// GetStandardSettingsOk returns a tuple with the StandardSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DevicePublishesRegistrationRequestContent) GetStandardSettingsOk() ([]Setting, bool) {
+	if o == nil || IsNil(o.StandardSettings) {
+		return nil, false
+	}
+	return o.StandardSettings, true
+}
+
+// HasStandardSettings returns a boolean if a field has been set.
+func (o *DevicePublishesRegistrationRequestContent) HasStandardSettings() bool {
+	if o != nil && !IsNil(o.StandardSettings) {
 		return true
 	}
 
 	return false
 }
 
-// SetPayload gets a reference to the given interface{} and assigns it to the Payload field.
-func (o *DevicePublishesRegistrationRequestContent) SetPayload(v interface{}) {
-	o.Payload = v
+// SetStandardSettings gets a reference to the given []Setting and assigns it to the StandardSettings field.
+func (o *DevicePublishesRegistrationRequestContent) SetStandardSettings(v []Setting) {
+	o.StandardSettings = v
 }
 
 func (o DevicePublishesRegistrationRequestContent) MarshalJSON() ([]byte, error) {
@@ -82,10 +111,48 @@ func (o DevicePublishesRegistrationRequestContent) MarshalJSON() ([]byte, error)
 
 func (o DevicePublishesRegistrationRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Payload != nil {
-		toSerialize["payload"] = o.Payload
+	toSerialize["channels"] = o.Channels
+	if !IsNil(o.StandardSettings) {
+		toSerialize["standardSettings"] = o.StandardSettings
 	}
 	return toSerialize, nil
+}
+
+func (o *DevicePublishesRegistrationRequestContent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"channels",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDevicePublishesRegistrationRequestContent := _DevicePublishesRegistrationRequestContent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDevicePublishesRegistrationRequestContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DevicePublishesRegistrationRequestContent(varDevicePublishesRegistrationRequestContent)
+
+	return err
 }
 
 type NullableDevicePublishesRegistrationRequestContent struct {

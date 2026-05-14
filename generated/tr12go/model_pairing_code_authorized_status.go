@@ -20,8 +20,8 @@ type PairingCodeAuthorizedStatus string
 
 // List of PairingCodeAuthorizedStatus
 const (
-	STANDBY PairingCodeAuthorizedStatus = "STANDBY"
-	CLAIMED PairingCodeAuthorizedStatus = "CLAIMED"
+	PAIRINGCODEAUTHORIZEDSTATUS_STANDBY PairingCodeAuthorizedStatus = "STANDBY"
+	PAIRINGCODEAUTHORIZEDSTATUS_CLAIMED PairingCodeAuthorizedStatus = "CLAIMED"
 )
 
 // All allowed values of PairingCodeAuthorizedStatus enum

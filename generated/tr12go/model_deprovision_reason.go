@@ -20,9 +20,9 @@ type DeprovisionReason string
 
 // List of DeprovisionReason
 const (
-	DEPROVISIONED DeprovisionReason = "DEPROVISIONED"
-	EXPIRED DeprovisionReason = "EXPIRED"
-	UNKNOWN DeprovisionReason = "UNKNOWN"
+	DEPROVISIONREASON_DEPROVISIONED DeprovisionReason = "DEPROVISIONED"
+	DEPROVISIONREASON_EXPIRED DeprovisionReason = "EXPIRED"
+	DEPROVISIONREASON_UNKNOWN DeprovisionReason = "UNKNOWN"
 )
 
 // All allowed values of DeprovisionReason enum
