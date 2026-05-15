@@ -8,7 +8,7 @@ use com.cdd.common#StringList
 structure DeviceRegistration {
     @required
     channels: ChannelList
-    deviceRegistrationSettings: SettingsList
+    settings: SettingsList
 }
 
 list ChannelList {
@@ -22,8 +22,8 @@ structure Channel {
     id: String
     @required
     channelType: ChannelType
-    // A channel advertises optional standardSettings and/or profiles
-    channelSettings: SettingsList
+    // A channel advertises optional settings and/or profiles
+    settings: SettingsList
     profiles: ProfileList
     protocols: ProtocolList
 }
