@@ -11,7 +11,7 @@ use com.cdd.common#AuthenticatePairingCodeResponse
 use com.cdd.common#RotateCertificatesRequest
 use com.cdd.common#DeprovisionRequest
 use com.cdd.common#ThumbnailSubscription
-use com.cdd.common#LogRequest
+use com.cdd.common#LogSubscription
 use com.cdd.common#HostConfig
 use com.cdd.common#VersionResponse
 use com.cdd.registration#DeviceRegistration
@@ -93,7 +93,7 @@ operation DeviceSubscribesToDeprovision {
 /// Topic: deviceSubscribesToLogSubscriptionTopic
 @http(method: "POST", uri: "/mqtt/host-to-device/log-subscription")
 operation DeviceSubscribesToLogSubscription {
-    input: LogRequest
+    input: LogSubscription
 }
 
 // -----------------------------------------------------------------------

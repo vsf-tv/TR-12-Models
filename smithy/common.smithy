@@ -240,9 +240,9 @@ map ThumbnailRequestMap {
     value: ThumbnailRequest
 }
 
-// All fields are optional — a partial LogRequest instructs the device to upload
+// All fields are optional — a partial LogSubscription instructs the device to upload
 // any available logs to the provided remotePath before expiresAt.
-structure LogRequest {
+structure LogSubscription {
     @timestampFormat("date-time")
     expiresAt: Timestamp
     remotePath: String
