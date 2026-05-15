@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConfigurationId** | **string** |  | 
-**Channels** | [**[]ChannelConfiguration**](ChannelConfiguration.md) |  | 
+**Version** | **string** |  | 
+**Channels** | [**[]ActualChannelConfiguration**](ActualChannelConfiguration.md) |  | 
 **StandardSettings** | Pointer to [**[]IdAndValue**](IdAndValue.md) |  | [optional] 
 **Health** | Pointer to [**Health**](Health.md) |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewDevicePublishesActualConfigurationRequestContent
 
-`func NewDevicePublishesActualConfigurationRequestContent(configurationId string, channels []ChannelConfiguration, ) *DevicePublishesActualConfigurationRequestContent`
+`func NewDevicePublishesActualConfigurationRequestContent(version string, channels []ActualChannelConfiguration, ) *DevicePublishesActualConfigurationRequestContent`
 
 NewDevicePublishesActualConfigurationRequestContent instantiates a new DevicePublishesActualConfigurationRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -28,42 +28,42 @@ NewDevicePublishesActualConfigurationRequestContentWithDefaults instantiates a n
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetConfigurationId
+### GetVersion
 
-`func (o *DevicePublishesActualConfigurationRequestContent) GetConfigurationId() string`
+`func (o *DevicePublishesActualConfigurationRequestContent) GetVersion() string`
 
-GetConfigurationId returns the ConfigurationId field if non-nil, zero value otherwise.
+GetVersion returns the Version field if non-nil, zero value otherwise.
 
-### GetConfigurationIdOk
+### GetVersionOk
 
-`func (o *DevicePublishesActualConfigurationRequestContent) GetConfigurationIdOk() (*string, bool)`
+`func (o *DevicePublishesActualConfigurationRequestContent) GetVersionOk() (*string, bool)`
 
-GetConfigurationIdOk returns a tuple with the ConfigurationId field if it's non-nil, zero value otherwise
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetConfigurationId
+### SetVersion
 
-`func (o *DevicePublishesActualConfigurationRequestContent) SetConfigurationId(v string)`
+`func (o *DevicePublishesActualConfigurationRequestContent) SetVersion(v string)`
 
-SetConfigurationId sets ConfigurationId field to given value.
+SetVersion sets Version field to given value.
 
 
 ### GetChannels
 
-`func (o *DevicePublishesActualConfigurationRequestContent) GetChannels() []ChannelConfiguration`
+`func (o *DevicePublishesActualConfigurationRequestContent) GetChannels() []ActualChannelConfiguration`
 
 GetChannels returns the Channels field if non-nil, zero value otherwise.
 
 ### GetChannelsOk
 
-`func (o *DevicePublishesActualConfigurationRequestContent) GetChannelsOk() (*[]ChannelConfiguration, bool)`
+`func (o *DevicePublishesActualConfigurationRequestContent) GetChannelsOk() (*[]ActualChannelConfiguration, bool)`
 
 GetChannelsOk returns a tuple with the Channels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChannels
 
-`func (o *DevicePublishesActualConfigurationRequestContent) SetChannels(v []ChannelConfiguration)`
+`func (o *DevicePublishesActualConfigurationRequestContent) SetChannels(v []ActualChannelConfiguration)`
 
 SetChannels sets Channels field to given value.
 

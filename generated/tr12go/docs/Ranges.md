@@ -1,48 +1,48 @@
-# Degraded
+# Ranges
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Degraded** | [**Error**](Error.md) |  | 
+**Ranges** | [**RangeValues**](RangeValues.md) |  | 
 
 ## Methods
 
-### NewDegraded
+### NewRanges
 
-`func NewDegraded(degraded Error, ) *Degraded`
+`func NewRanges(ranges RangeValues, ) *Ranges`
 
-NewDegraded instantiates a new Degraded object
+NewRanges instantiates a new Ranges object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDegradedWithDefaults
+### NewRangesWithDefaults
 
-`func NewDegradedWithDefaults() *Degraded`
+`func NewRangesWithDefaults() *Ranges`
 
-NewDegradedWithDefaults instantiates a new Degraded object
+NewRangesWithDefaults instantiates a new Ranges object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDegraded
+### GetRanges
 
-`func (o *Degraded) GetDegraded() Error`
+`func (o *Ranges) GetRanges() RangeValues`
 
-GetDegraded returns the Degraded field if non-nil, zero value otherwise.
+GetRanges returns the Ranges field if non-nil, zero value otherwise.
 
-### GetDegradedOk
+### GetRangesOk
 
-`func (o *Degraded) GetDegradedOk() (*Error, bool)`
+`func (o *Ranges) GetRangesOk() (*RangeValues, bool)`
 
-GetDegradedOk returns a tuple with the Degraded field if it's non-nil, zero value otherwise
+GetRangesOk returns a tuple with the Ranges field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDegraded
+### SetRanges
 
-`func (o *Degraded) SetDegraded(v Error)`
+`func (o *Ranges) SetRanges(v RangeValues)`
 
-SetDegraded sets Degraded field to given value.
+SetRanges sets Ranges field to given value.
 
 
 

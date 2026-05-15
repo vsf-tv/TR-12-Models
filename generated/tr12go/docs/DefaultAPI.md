@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	devicePublishesActualConfigurationRequestContent := *openapiclient.NewDevicePublishesActualConfigurationRequestContent("ConfigurationId_example", []openapiclient.ChannelConfiguration{*openapiclient.NewChannelConfiguration("Id_example", "ConfigurationId_example", openapiclient.ChannelState("ACTIVE"))}) // DevicePublishesActualConfigurationRequestContent | 
+	devicePublishesActualConfigurationRequestContent := *openapiclient.NewDevicePublishesActualConfigurationRequestContent("Version_example", []openapiclient.ActualChannelConfiguration{*openapiclient.NewActualChannelConfiguration("Id_example", "Version_example", openapiclient.ChannelState("ACTIVE"))}) // DevicePublishesActualConfigurationRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -362,7 +362,7 @@ import (
 )
 
 func main() {
-	devicePublishesStatusRequestContent := *openapiclient.NewDevicePublishesStatusRequestContent([]openapiclient.StatusValue{*openapiclient.NewStatusValue("Name_example", "Info_example", "Value_example")}) // DevicePublishesStatusRequestContent | 
+	devicePublishesStatusRequestContent := *openapiclient.NewDevicePublishesStatusRequestContent([]openapiclient.StatusValue{*openapiclient.NewStatusValue("Name_example", "Description_example", "Value_example")}) // DevicePublishesStatusRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -555,7 +555,7 @@ import (
 )
 
 func main() {
-	deviceSubscribesToDesiredConfigurationRequestContent := *openapiclient.NewDeviceSubscribesToDesiredConfigurationRequestContent("ConfigurationId_example", []openapiclient.ChannelConfiguration{*openapiclient.NewChannelConfiguration("Id_example", "ConfigurationId_example", openapiclient.ChannelState("ACTIVE"))}) // DeviceSubscribesToDesiredConfigurationRequestContent | 
+	deviceSubscribesToDesiredConfigurationRequestContent := *openapiclient.NewDeviceSubscribesToDesiredConfigurationRequestContent("Version_example", []openapiclient.DesiredChannelConfiguration{*openapiclient.NewDesiredChannelConfiguration("Id_example", "Version_example", openapiclient.ChannelState("ACTIVE"))}) // DeviceSubscribesToDesiredConfigurationRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

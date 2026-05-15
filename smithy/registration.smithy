@@ -8,7 +8,7 @@ use com.cdd.common#StringList
 structure DeviceRegistration {
     @required
     channels: ChannelList
-    standardSettings: SettingsList
+    deviceRegistrationSettings: SettingsList
 }
 
 list ChannelList {
@@ -22,13 +22,21 @@ structure Channel {
     id: String
     @required
     channelType: ChannelType
-    standardSettings: SettingsList
+    // A channel advertises optional standardSettings and/or profiles
+    channelSettings: SettingsList
     profiles: ProfileList
-    connectionProtocols: ProtocolList
+    protocols: ProtocolList
 }
 
 list SettingsList {
     member: Setting
+}
+
+/// A setting constraint is either an enumerated list of valid values
+/// or a numeric range — never both.
+union SettingConstraint {
+    enums: EnumValues
+    ranges: RangeValues
 }
 
 structure Setting {
@@ -38,8 +46,8 @@ structure Setting {
     name: String
     @required
     description: String
-    enums: EnumValues
-    ranges: RangeValues
+    @required
+    constraint: SettingConstraint
 }
 
 structure EnumValues {

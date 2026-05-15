@@ -13,7 +13,7 @@ namespace com.cdd.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("4.0.0")
+    @default("5.0.0")
     version: String
 }
 
@@ -54,7 +54,7 @@ enum TransportProtocolName {
 
 structure IdAndValue {
     @required
-    key: String
+    id: String
     @required
     value: String
 }
@@ -267,22 +267,20 @@ structure HostConfig {
 
 union Health {
     healthy: Healthy
-    degraded: UnhealthyStateDescription
-    critical: UnhealthyStateDescription
+    degraded: Error
+    critical: Error
 }
 
 /// Healthy state — no additional fields needed.
 structure Healthy {}
 
 /// Shared description for degraded and critical states.
-structure UnhealthyStateDescription {
+structure Error {
     @required
-    messages: StringList
+    message: String
     @required
     @timestampFormat("date-time")
     timestamp: Timestamp
-    @required
-    componentName: String
 }
 
 structure VersionResponse {

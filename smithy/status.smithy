@@ -30,7 +30,7 @@ structure StatusValue {
     @required
     name: String
     @required
-    info: String
+    description: String
     @required
     value: String
 }

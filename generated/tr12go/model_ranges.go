@@ -16,59 +16,59 @@ import (
 	"fmt"
 )
 
-// checks if the Critical type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Critical{}
+// checks if the Ranges type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Ranges{}
 
-// Critical struct for Critical
-type Critical struct {
-	Critical Error `json:"critical"`
+// Ranges struct for Ranges
+type Ranges struct {
+	Ranges RangeValues `json:"ranges"`
 }
 
-type _Critical Critical
+type _Ranges Ranges
 
-// NewCritical instantiates a new Critical object
+// NewRanges instantiates a new Ranges object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCritical(critical Error) *Critical {
-	this := Critical{}
-	this.Critical = critical
+func NewRanges(ranges RangeValues) *Ranges {
+	this := Ranges{}
+	this.Ranges = ranges
 	return &this
 }
 
-// NewCriticalWithDefaults instantiates a new Critical object
+// NewRangesWithDefaults instantiates a new Ranges object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCriticalWithDefaults() *Critical {
-	this := Critical{}
+func NewRangesWithDefaults() *Ranges {
+	this := Ranges{}
 	return &this
 }
 
-// GetCritical returns the Critical field value
-func (o *Critical) GetCritical() Error {
+// GetRanges returns the Ranges field value
+func (o *Ranges) GetRanges() RangeValues {
 	if o == nil {
-		var ret Error
+		var ret RangeValues
 		return ret
 	}
 
-	return o.Critical
+	return o.Ranges
 }
 
-// GetCriticalOk returns a tuple with the Critical field value
+// GetRangesOk returns a tuple with the Ranges field value
 // and a boolean to check if the value has been set.
-func (o *Critical) GetCriticalOk() (*Error, bool) {
+func (o *Ranges) GetRangesOk() (*RangeValues, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Critical, true
+	return &o.Ranges, true
 }
 
-// SetCritical sets field value
-func (o *Critical) SetCritical(v Error) {
-	o.Critical = v
+// SetRanges sets field value
+func (o *Ranges) SetRanges(v RangeValues) {
+	o.Ranges = v
 }
 
-func (o Critical) MarshalJSON() ([]byte, error) {
+func (o Ranges) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -76,18 +76,18 @@ func (o Critical) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Critical) ToMap() (map[string]interface{}, error) {
+func (o Ranges) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["critical"] = o.Critical
+	toSerialize["ranges"] = o.Ranges
 	return toSerialize, nil
 }
 
-func (o *Critical) UnmarshalJSON(data []byte) (err error) {
+func (o *Ranges) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"critical",
+		"ranges",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -104,53 +104,53 @@ func (o *Critical) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varCritical := _Critical{}
+	varRanges := _Ranges{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCritical)
+	err = decoder.Decode(&varRanges)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Critical(varCritical)
+	*o = Ranges(varRanges)
 
 	return err
 }
 
-type NullableCritical struct {
-	value *Critical
+type NullableRanges struct {
+	value *Ranges
 	isSet bool
 }
 
-func (v NullableCritical) Get() *Critical {
+func (v NullableRanges) Get() *Ranges {
 	return v.value
 }
 
-func (v *NullableCritical) Set(val *Critical) {
+func (v *NullableRanges) Set(val *Ranges) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCritical) IsSet() bool {
+func (v NullableRanges) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCritical) Unset() {
+func (v *NullableRanges) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCritical(val *Critical) *NullableCritical {
-	return &NullableCritical{value: val, isSet: true}
+func NewNullableRanges(val *Ranges) *NullableRanges {
+	return &NullableRanges{value: val, isSet: true}
 }
 
-func (v NullableCritical) MarshalJSON() ([]byte, error) {
+func (v NullableRanges) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCritical) UnmarshalJSON(src []byte) error {
+func (v *NullableRanges) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

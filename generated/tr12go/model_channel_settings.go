@@ -16,29 +16,29 @@ import (
 	"gopkg.in/validator.v2"
 )
 
-// SettingsChoice - struct for SettingsChoice
-type SettingsChoice struct {
+// ChannelSettings - struct for ChannelSettings
+type ChannelSettings struct {
 	Profile *Profile
 	StandardSettings *StandardSettings
 }
 
-// ProfileAsSettingsChoice is a convenience function that returns Profile wrapped in SettingsChoice
-func ProfileAsSettingsChoice(v *Profile) SettingsChoice {
-	return SettingsChoice{
+// ProfileAsChannelSettings is a convenience function that returns Profile wrapped in ChannelSettings
+func ProfileAsChannelSettings(v *Profile) ChannelSettings {
+	return ChannelSettings{
 		Profile: v,
 	}
 }
 
-// StandardSettingsAsSettingsChoice is a convenience function that returns StandardSettings wrapped in SettingsChoice
-func StandardSettingsAsSettingsChoice(v *StandardSettings) SettingsChoice {
-	return SettingsChoice{
+// StandardSettingsAsChannelSettings is a convenience function that returns StandardSettings wrapped in ChannelSettings
+func StandardSettingsAsChannelSettings(v *StandardSettings) ChannelSettings {
+	return ChannelSettings{
 		StandardSettings: v,
 	}
 }
 
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *SettingsChoice) UnmarshalJSON(data []byte) error {
+func (dst *ChannelSettings) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into Profile
@@ -80,16 +80,16 @@ func (dst *SettingsChoice) UnmarshalJSON(data []byte) error {
 		dst.Profile = nil
 		dst.StandardSettings = nil
 
-		return fmt.Errorf("data matches more than one schema in oneOf(SettingsChoice)")
+		return fmt.Errorf("data matches more than one schema in oneOf(ChannelSettings)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(SettingsChoice)")
+		return fmt.Errorf("data failed to match schemas in oneOf(ChannelSettings)")
 	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src SettingsChoice) MarshalJSON() ([]byte, error) {
+func (src ChannelSettings) MarshalJSON() ([]byte, error) {
 	if src.Profile != nil {
 		return json.Marshal(&src.Profile)
 	}
@@ -102,7 +102,7 @@ func (src SettingsChoice) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *SettingsChoice) GetActualInstance() (interface{}) {
+func (obj *ChannelSettings) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -119,7 +119,7 @@ func (obj *SettingsChoice) GetActualInstance() (interface{}) {
 }
 
 // Get the actual instance value
-func (obj SettingsChoice) GetActualInstanceValue() (interface{}) {
+func (obj ChannelSettings) GetActualInstanceValue() (interface{}) {
 	if obj.Profile != nil {
 		return *obj.Profile
 	}
@@ -132,38 +132,38 @@ func (obj SettingsChoice) GetActualInstanceValue() (interface{}) {
 	return nil
 }
 
-type NullableSettingsChoice struct {
-	value *SettingsChoice
+type NullableChannelSettings struct {
+	value *ChannelSettings
 	isSet bool
 }
 
-func (v NullableSettingsChoice) Get() *SettingsChoice {
+func (v NullableChannelSettings) Get() *ChannelSettings {
 	return v.value
 }
 
-func (v *NullableSettingsChoice) Set(val *SettingsChoice) {
+func (v *NullableChannelSettings) Set(val *ChannelSettings) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSettingsChoice) IsSet() bool {
+func (v NullableChannelSettings) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSettingsChoice) Unset() {
+func (v *NullableChannelSettings) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSettingsChoice(val *SettingsChoice) *NullableSettingsChoice {
-	return &NullableSettingsChoice{value: val, isSet: true}
+func NewNullableChannelSettings(val *ChannelSettings) *NullableChannelSettings {
+	return &NullableChannelSettings{value: val, isSet: true}
 }
 
-func (v NullableSettingsChoice) MarshalJSON() ([]byte, error) {
+func (v NullableChannelSettings) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSettingsChoice) UnmarshalJSON(src []byte) error {
+func (v *NullableChannelSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

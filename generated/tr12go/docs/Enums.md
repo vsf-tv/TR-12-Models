@@ -1,48 +1,48 @@
-# Degraded
+# Enums
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Degraded** | [**Error**](Error.md) |  | 
+**Enums** | [**EnumValues**](EnumValues.md) |  | 
 
 ## Methods
 
-### NewDegraded
+### NewEnums
 
-`func NewDegraded(degraded Error, ) *Degraded`
+`func NewEnums(enums EnumValues, ) *Enums`
 
-NewDegraded instantiates a new Degraded object
+NewEnums instantiates a new Enums object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDegradedWithDefaults
+### NewEnumsWithDefaults
 
-`func NewDegradedWithDefaults() *Degraded`
+`func NewEnumsWithDefaults() *Enums`
 
-NewDegradedWithDefaults instantiates a new Degraded object
+NewEnumsWithDefaults instantiates a new Enums object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDegraded
+### GetEnums
 
-`func (o *Degraded) GetDegraded() Error`
+`func (o *Enums) GetEnums() EnumValues`
 
-GetDegraded returns the Degraded field if non-nil, zero value otherwise.
+GetEnums returns the Enums field if non-nil, zero value otherwise.
 
-### GetDegradedOk
+### GetEnumsOk
 
-`func (o *Degraded) GetDegradedOk() (*Error, bool)`
+`func (o *Enums) GetEnumsOk() (*EnumValues, bool)`
 
-GetDegradedOk returns a tuple with the Degraded field if it's non-nil, zero value otherwise
+GetEnumsOk returns a tuple with the Enums field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDegraded
+### SetEnums
 
-`func (o *Degraded) SetDegraded(v Error)`
+`func (o *Enums) SetEnums(v EnumValues)`
 
-SetDegraded sets Degraded field to given value.
+SetEnums sets Enums field to given value.
 
 
 

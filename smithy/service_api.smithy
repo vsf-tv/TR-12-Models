@@ -16,7 +16,8 @@ use com.cdd.common#HostConfig
 use com.cdd.common#VersionResponse
 use com.cdd.registration#DeviceRegistration
 use com.cdd.status#DeviceStatus
-use com.cdd.configuration#DeviceConfiguration
+use com.cdd.configuration#DesiredDeviceConfiguration
+use com.cdd.configuration#ActualDeviceConfiguration
 
 @restJson1
 service HostServiceApi {
@@ -64,7 +65,7 @@ operation AuthenticatePairingCode {
 /// Topic: deviceSubscribesToDesiredConfigurationTopic
 @http(method: "POST", uri: "/mqtt/host-to-device/desired-configuration")
 operation DeviceSubscribesToDesiredConfiguration {
-    input: DeviceConfiguration
+    input: DesiredDeviceConfiguration
 }
 
 /// Host publishes thumbnail subscription requests to the device.
@@ -117,7 +118,7 @@ operation DevicePublishesStatus {
 /// Topic: devicePublishesActualConfigurationTopic
 @http(method: "POST", uri: "/mqtt/device-to-host/actual-configuration")
 operation DevicePublishesActualConfiguration {
-    input: DeviceConfiguration
+    input: ActualDeviceConfiguration
 }
 
 /// Device acknowledges deprovision by publishing to this topic.

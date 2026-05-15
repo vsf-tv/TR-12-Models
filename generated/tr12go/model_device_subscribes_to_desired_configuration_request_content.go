@@ -19,12 +19,11 @@ import (
 // checks if the DeviceSubscribesToDesiredConfigurationRequestContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeviceSubscribesToDesiredConfigurationRequestContent{}
 
-// DeviceSubscribesToDesiredConfigurationRequestContent struct for DeviceSubscribesToDesiredConfigurationRequestContent
+// DeviceSubscribesToDesiredConfigurationRequestContent Desired device configuration — sent from host to device. Contains only fields the host controls. No device-reported fields.
 type DeviceSubscribesToDesiredConfigurationRequestContent struct {
-	ConfigurationId string `json:"configurationId"`
-	Channels []ChannelConfiguration `json:"channels"`
+	Version string `json:"version"`
+	Channels []DesiredChannelConfiguration `json:"channels"`
 	StandardSettings []IdAndValue `json:"standardSettings,omitempty"`
-	Health *Health `json:"health,omitempty"`
 }
 
 type _DeviceSubscribesToDesiredConfigurationRequestContent DeviceSubscribesToDesiredConfigurationRequestContent
@@ -33,9 +32,9 @@ type _DeviceSubscribesToDesiredConfigurationRequestContent DeviceSubscribesToDes
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeviceSubscribesToDesiredConfigurationRequestContent(configurationId string, channels []ChannelConfiguration) *DeviceSubscribesToDesiredConfigurationRequestContent {
+func NewDeviceSubscribesToDesiredConfigurationRequestContent(version string, channels []DesiredChannelConfiguration) *DeviceSubscribesToDesiredConfigurationRequestContent {
 	this := DeviceSubscribesToDesiredConfigurationRequestContent{}
-	this.ConfigurationId = configurationId
+	this.Version = version
 	this.Channels = channels
 	return &this
 }
@@ -48,34 +47,34 @@ func NewDeviceSubscribesToDesiredConfigurationRequestContentWithDefaults() *Devi
 	return &this
 }
 
-// GetConfigurationId returns the ConfigurationId field value
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetConfigurationId() string {
+// GetVersion returns the Version field value
+func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetVersion() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ConfigurationId
+	return o.Version
 }
 
-// GetConfigurationIdOk returns a tuple with the ConfigurationId field value
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetConfigurationIdOk() (*string, bool) {
+func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ConfigurationId, true
+	return &o.Version, true
 }
 
-// SetConfigurationId sets field value
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetConfigurationId(v string) {
-	o.ConfigurationId = v
+// SetVersion sets field value
+func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetVersion(v string) {
+	o.Version = v
 }
 
 // GetChannels returns the Channels field value
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannels() []ChannelConfiguration {
+func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannels() []DesiredChannelConfiguration {
 	if o == nil {
-		var ret []ChannelConfiguration
+		var ret []DesiredChannelConfiguration
 		return ret
 	}
 
@@ -84,7 +83,7 @@ func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannels() []C
 
 // GetChannelsOk returns a tuple with the Channels field value
 // and a boolean to check if the value has been set.
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannelsOk() ([]ChannelConfiguration, bool) {
+func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannelsOk() ([]DesiredChannelConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +91,7 @@ func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetChannelsOk() (
 }
 
 // SetChannels sets field value
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetChannels(v []ChannelConfiguration) {
+func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetChannels(v []DesiredChannelConfiguration) {
 	o.Channels = v
 }
 
@@ -128,38 +127,6 @@ func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetStandardSettin
 	o.StandardSettings = v
 }
 
-// GetHealth returns the Health field value if set, zero value otherwise.
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetHealth() Health {
-	if o == nil || IsNil(o.Health) {
-		var ret Health
-		return ret
-	}
-	return *o.Health
-}
-
-// GetHealthOk returns a tuple with the Health field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) GetHealthOk() (*Health, bool) {
-	if o == nil || IsNil(o.Health) {
-		return nil, false
-	}
-	return o.Health, true
-}
-
-// HasHealth returns a boolean if a field has been set.
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) HasHealth() bool {
-	if o != nil && !IsNil(o.Health) {
-		return true
-	}
-
-	return false
-}
-
-// SetHealth gets a reference to the given Health and assigns it to the Health field.
-func (o *DeviceSubscribesToDesiredConfigurationRequestContent) SetHealth(v Health) {
-	o.Health = &v
-}
-
 func (o DeviceSubscribesToDesiredConfigurationRequestContent) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -170,13 +137,10 @@ func (o DeviceSubscribesToDesiredConfigurationRequestContent) MarshalJSON() ([]b
 
 func (o DeviceSubscribesToDesiredConfigurationRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["configurationId"] = o.ConfigurationId
+	toSerialize["version"] = o.Version
 	toSerialize["channels"] = o.Channels
 	if !IsNil(o.StandardSettings) {
 		toSerialize["standardSettings"] = o.StandardSettings
-	}
-	if !IsNil(o.Health) {
-		toSerialize["health"] = o.Health
 	}
 	return toSerialize, nil
 }
@@ -186,7 +150,7 @@ func (o *DeviceSubscribesToDesiredConfigurationRequestContent) UnmarshalJSON(dat
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"configurationId",
+		"version",
 		"channels",
 	}
 

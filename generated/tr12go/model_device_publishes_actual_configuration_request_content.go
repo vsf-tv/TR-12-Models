@@ -19,10 +19,10 @@ import (
 // checks if the DevicePublishesActualConfigurationRequestContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DevicePublishesActualConfigurationRequestContent{}
 
-// DevicePublishesActualConfigurationRequestContent struct for DevicePublishesActualConfigurationRequestContent
+// DevicePublishesActualConfigurationRequestContent Actual device configuration — reported by device to host. Extends desired fields with device-only reporting fields.
 type DevicePublishesActualConfigurationRequestContent struct {
-	ConfigurationId string `json:"configurationId"`
-	Channels []ChannelConfiguration `json:"channels"`
+	Version string `json:"version"`
+	Channels []ActualChannelConfiguration `json:"channels"`
 	StandardSettings []IdAndValue `json:"standardSettings,omitempty"`
 	Health *Health `json:"health,omitempty"`
 }
@@ -33,9 +33,9 @@ type _DevicePublishesActualConfigurationRequestContent DevicePublishesActualConf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePublishesActualConfigurationRequestContent(configurationId string, channels []ChannelConfiguration) *DevicePublishesActualConfigurationRequestContent {
+func NewDevicePublishesActualConfigurationRequestContent(version string, channels []ActualChannelConfiguration) *DevicePublishesActualConfigurationRequestContent {
 	this := DevicePublishesActualConfigurationRequestContent{}
-	this.ConfigurationId = configurationId
+	this.Version = version
 	this.Channels = channels
 	return &this
 }
@@ -48,34 +48,34 @@ func NewDevicePublishesActualConfigurationRequestContentWithDefaults() *DevicePu
 	return &this
 }
 
-// GetConfigurationId returns the ConfigurationId field value
-func (o *DevicePublishesActualConfigurationRequestContent) GetConfigurationId() string {
+// GetVersion returns the Version field value
+func (o *DevicePublishesActualConfigurationRequestContent) GetVersion() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ConfigurationId
+	return o.Version
 }
 
-// GetConfigurationIdOk returns a tuple with the ConfigurationId field value
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) GetConfigurationIdOk() (*string, bool) {
+func (o *DevicePublishesActualConfigurationRequestContent) GetVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ConfigurationId, true
+	return &o.Version, true
 }
 
-// SetConfigurationId sets field value
-func (o *DevicePublishesActualConfigurationRequestContent) SetConfigurationId(v string) {
-	o.ConfigurationId = v
+// SetVersion sets field value
+func (o *DevicePublishesActualConfigurationRequestContent) SetVersion(v string) {
+	o.Version = v
 }
 
 // GetChannels returns the Channels field value
-func (o *DevicePublishesActualConfigurationRequestContent) GetChannels() []ChannelConfiguration {
+func (o *DevicePublishesActualConfigurationRequestContent) GetChannels() []ActualChannelConfiguration {
 	if o == nil {
-		var ret []ChannelConfiguration
+		var ret []ActualChannelConfiguration
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *DevicePublishesActualConfigurationRequestContent) GetChannels() []Chann
 
 // GetChannelsOk returns a tuple with the Channels field value
 // and a boolean to check if the value has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) GetChannelsOk() ([]ChannelConfiguration, bool) {
+func (o *DevicePublishesActualConfigurationRequestContent) GetChannelsOk() ([]ActualChannelConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *DevicePublishesActualConfigurationRequestContent) GetChannelsOk() ([]Ch
 }
 
 // SetChannels sets field value
-func (o *DevicePublishesActualConfigurationRequestContent) SetChannels(v []ChannelConfiguration) {
+func (o *DevicePublishesActualConfigurationRequestContent) SetChannels(v []ActualChannelConfiguration) {
 	o.Channels = v
 }
 
@@ -170,7 +170,7 @@ func (o DevicePublishesActualConfigurationRequestContent) MarshalJSON() ([]byte,
 
 func (o DevicePublishesActualConfigurationRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["configurationId"] = o.ConfigurationId
+	toSerialize["version"] = o.Version
 	toSerialize["channels"] = o.Channels
 	if !IsNil(o.StandardSettings) {
 		toSerialize["standardSettings"] = o.StandardSettings
@@ -186,7 +186,7 @@ func (o *DevicePublishesActualConfigurationRequestContent) UnmarshalJSON(data []
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"configurationId",
+		"version",
 		"channels",
 	}
 

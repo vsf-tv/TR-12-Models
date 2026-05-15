@@ -12,89 +12,90 @@ package openapi
 
 import (
 	"encoding/json"
+	"time"
 	"bytes"
 	"fmt"
 )
 
-// checks if the IdAndValue type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &IdAndValue{}
+// checks if the Error type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Error{}
 
-// IdAndValue struct for IdAndValue
-type IdAndValue struct {
-	Id string `json:"id"`
-	Value string `json:"value"`
+// Error Shared description for degraded and critical states.
+type Error struct {
+	Message string `json:"message"`
+	Timestamp time.Time `json:"timestamp"`
 }
 
-type _IdAndValue IdAndValue
+type _Error Error
 
-// NewIdAndValue instantiates a new IdAndValue object
+// NewError instantiates a new Error object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIdAndValue(id string, value string) *IdAndValue {
-	this := IdAndValue{}
-	this.Id = id
-	this.Value = value
+func NewError(message string, timestamp time.Time) *Error {
+	this := Error{}
+	this.Message = message
+	this.Timestamp = timestamp
 	return &this
 }
 
-// NewIdAndValueWithDefaults instantiates a new IdAndValue object
+// NewErrorWithDefaults instantiates a new Error object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewIdAndValueWithDefaults() *IdAndValue {
-	this := IdAndValue{}
+func NewErrorWithDefaults() *Error {
+	this := Error{}
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *IdAndValue) GetId() string {
+// GetMessage returns the Message field value
+func (o *Error) GetMessage() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Id
+	return o.Message
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *IdAndValue) GetIdOk() (*string, bool) {
+func (o *Error) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return &o.Message, true
 }
 
-// SetId sets field value
-func (o *IdAndValue) SetId(v string) {
-	o.Id = v
+// SetMessage sets field value
+func (o *Error) SetMessage(v string) {
+	o.Message = v
 }
 
-// GetValue returns the Value field value
-func (o *IdAndValue) GetValue() string {
+// GetTimestamp returns the Timestamp field value
+func (o *Error) GetTimestamp() time.Time {
 	if o == nil {
-		var ret string
+		var ret time.Time
 		return ret
 	}
 
-	return o.Value
+	return o.Timestamp
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
-func (o *IdAndValue) GetValueOk() (*string, bool) {
+func (o *Error) GetTimestampOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Value, true
+	return &o.Timestamp, true
 }
 
-// SetValue sets field value
-func (o *IdAndValue) SetValue(v string) {
-	o.Value = v
+// SetTimestamp sets field value
+func (o *Error) SetTimestamp(v time.Time) {
+	o.Timestamp = v
 }
 
-func (o IdAndValue) MarshalJSON() ([]byte, error) {
+func (o Error) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -102,20 +103,20 @@ func (o IdAndValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o IdAndValue) ToMap() (map[string]interface{}, error) {
+func (o Error) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["value"] = o.Value
+	toSerialize["message"] = o.Message
+	toSerialize["timestamp"] = o.Timestamp
 	return toSerialize, nil
 }
 
-func (o *IdAndValue) UnmarshalJSON(data []byte) (err error) {
+func (o *Error) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
-		"value",
+		"message",
+		"timestamp",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -132,53 +133,53 @@ func (o *IdAndValue) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varIdAndValue := _IdAndValue{}
+	varError := _Error{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIdAndValue)
+	err = decoder.Decode(&varError)
 
 	if err != nil {
 		return err
 	}
 
-	*o = IdAndValue(varIdAndValue)
+	*o = Error(varError)
 
 	return err
 }
 
-type NullableIdAndValue struct {
-	value *IdAndValue
+type NullableError struct {
+	value *Error
 	isSet bool
 }
 
-func (v NullableIdAndValue) Get() *IdAndValue {
+func (v NullableError) Get() *Error {
 	return v.value
 }
 
-func (v *NullableIdAndValue) Set(val *IdAndValue) {
+func (v *NullableError) Set(val *Error) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableIdAndValue) IsSet() bool {
+func (v NullableError) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableIdAndValue) Unset() {
+func (v *NullableError) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableIdAndValue(val *IdAndValue) *NullableIdAndValue {
-	return &NullableIdAndValue{value: val, isSet: true}
+func NewNullableError(val *Error) *NullableError {
+	return &NullableError{value: val, isSet: true}
 }
 
-func (v NullableIdAndValue) MarshalJSON() ([]byte, error) {
+func (v NullableError) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableIdAndValue) UnmarshalJSON(src []byte) error {
+func (v *NullableError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -4,41 +4,75 @@ namespace com.cdd.configuration
 use com.cdd.common#ChannelState
 use com.cdd.common#Health
 use com.cdd.common#IdAndValueList
-use com.cdd.common#StringList
 
-structure DeviceConfiguration {
+/// Desired device configuration — sent from host to device.
+/// Contains only fields the host controls. No device-reported fields.
+structure DesiredDeviceConfiguration {
     @required
     @length(max: 80)
-    configurationId: String
+    version: String
     @required
-    channels: ChannelConfigurationList
+    channels: DesiredChannelConfigurationList
+    // A device can only expose standardSettings.
     standardSettings: IdAndValueList
+}
+
+/// Actual device configuration — reported by device to host.
+/// Extends desired fields with device-only reporting fields.
+structure ActualDeviceConfiguration {
+    @required
+    @length(max: 80)
+    version: String
+    @required
+    channels: ActualChannelConfigurationList
+    // A device can only expose standardSettings.
+    standardSettings: IdAndValueList
+    /// Overall device health as reported by the device.
     health: Health
 }
 
-list ChannelConfigurationList {
-    member: ChannelConfiguration
+list DesiredChannelConfigurationList {
+    member: DesiredChannelConfiguration
 }
 
-structure ChannelConfiguration {
+list ActualChannelConfigurationList {
+    member: ActualChannelConfiguration
+}
+
+/// Desired channel configuration — sent from host to device.
+/// Contains only fields the host controls. No device-reported fields.
+structure DesiredChannelConfiguration {
     @required
     id: String
     @required
     @length(max: 80)
-    configurationId: String
+    version: String
     @required
     state: ChannelState
-    settings: SettingsChoice
-    connection: Connection
+    // A channel can expose standardSettings and profiles
+    channelSettings: ChannelSettings
+    protocol: TransportProtocol
+}
+
+/// Actual channel configuration — reported by device to host.
+/// Extends desired fields with device-only reporting fields.
+structure ActualChannelConfiguration {
+    @required
+    id: String
+    @required
+    @length(max: 80)
+    version: String
+    @required
+    state: ChannelState
+    // A channel can expose standardSettings and profiles
+    channelSettings: ChannelSettings
+    protocol: TransportProtocol
     health: Health
-    /// Device-side only. Set by the application to indicate the local filesystem
-    /// path to the thumbnail image for this channel. The host shall not set this
-    /// field in desired configuration. The SDK reads this to resolve thumbnail
-    /// subscriptions keyed by channelId.
+    /// Informs the TR12 Client so it may service Thumbnail Subscriptions.  Host service can ignore.
     thumbnailLocalPath: String
 }
 
-union SettingsChoice {
+union ChannelSettings {
     standardSettings: IdAndValueList
     profile: ChannelProfile
 }
@@ -46,10 +80,6 @@ union SettingsChoice {
 structure ChannelProfile {
     @required
     id: String
-}
-
-structure Connection {
-    transportProtocol: TransportProtocol
 }
 
 @sensitive

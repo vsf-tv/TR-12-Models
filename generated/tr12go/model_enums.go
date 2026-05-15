@@ -16,59 +16,59 @@ import (
 	"fmt"
 )
 
-// checks if the Critical type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Critical{}
+// checks if the Enums type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Enums{}
 
-// Critical struct for Critical
-type Critical struct {
-	Critical Error `json:"critical"`
+// Enums struct for Enums
+type Enums struct {
+	Enums EnumValues `json:"enums"`
 }
 
-type _Critical Critical
+type _Enums Enums
 
-// NewCritical instantiates a new Critical object
+// NewEnums instantiates a new Enums object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCritical(critical Error) *Critical {
-	this := Critical{}
-	this.Critical = critical
+func NewEnums(enums EnumValues) *Enums {
+	this := Enums{}
+	this.Enums = enums
 	return &this
 }
 
-// NewCriticalWithDefaults instantiates a new Critical object
+// NewEnumsWithDefaults instantiates a new Enums object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCriticalWithDefaults() *Critical {
-	this := Critical{}
+func NewEnumsWithDefaults() *Enums {
+	this := Enums{}
 	return &this
 }
 
-// GetCritical returns the Critical field value
-func (o *Critical) GetCritical() Error {
+// GetEnums returns the Enums field value
+func (o *Enums) GetEnums() EnumValues {
 	if o == nil {
-		var ret Error
+		var ret EnumValues
 		return ret
 	}
 
-	return o.Critical
+	return o.Enums
 }
 
-// GetCriticalOk returns a tuple with the Critical field value
+// GetEnumsOk returns a tuple with the Enums field value
 // and a boolean to check if the value has been set.
-func (o *Critical) GetCriticalOk() (*Error, bool) {
+func (o *Enums) GetEnumsOk() (*EnumValues, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Critical, true
+	return &o.Enums, true
 }
 
-// SetCritical sets field value
-func (o *Critical) SetCritical(v Error) {
-	o.Critical = v
+// SetEnums sets field value
+func (o *Enums) SetEnums(v EnumValues) {
+	o.Enums = v
 }
 
-func (o Critical) MarshalJSON() ([]byte, error) {
+func (o Enums) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -76,18 +76,18 @@ func (o Critical) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Critical) ToMap() (map[string]interface{}, error) {
+func (o Enums) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["critical"] = o.Critical
+	toSerialize["enums"] = o.Enums
 	return toSerialize, nil
 }
 
-func (o *Critical) UnmarshalJSON(data []byte) (err error) {
+func (o *Enums) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"critical",
+		"enums",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -104,53 +104,53 @@ func (o *Critical) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varCritical := _Critical{}
+	varEnums := _Enums{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCritical)
+	err = decoder.Decode(&varEnums)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Critical(varCritical)
+	*o = Enums(varEnums)
 
 	return err
 }
 
-type NullableCritical struct {
-	value *Critical
+type NullableEnums struct {
+	value *Enums
 	isSet bool
 }
 
-func (v NullableCritical) Get() *Critical {
+func (v NullableEnums) Get() *Enums {
 	return v.value
 }
 
-func (v *NullableCritical) Set(val *Critical) {
+func (v *NullableEnums) Set(val *Enums) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCritical) IsSet() bool {
+func (v NullableEnums) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCritical) Unset() {
+func (v *NullableEnums) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCritical(val *Critical) *NullableCritical {
-	return &NullableCritical{value: val, isSet: true}
+func NewNullableEnums(val *Enums) *NullableEnums {
+	return &NullableEnums{value: val, isSet: true}
 }
 
-func (v NullableCritical) MarshalJSON() ([]byte, error) {
+func (v NullableEnums) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCritical) UnmarshalJSON(src []byte) error {
+func (v *NullableEnums) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

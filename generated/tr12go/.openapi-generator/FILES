@@ -6,17 +6,17 @@ api/openapi.yaml
 api_default.go
 client.go
 configuration.go
+docs/ActualChannelConfiguration.md
 docs/Aes128.md
 docs/Aes256.md
 docs/AuthenticatePairingCodeRequestContent.md
 docs/AuthenticatePairingCodeResponseContent.md
 docs/Channel.md
-docs/ChannelConfiguration.md
 docs/ChannelProfile.md
+docs/ChannelSettings.md
 docs/ChannelState.md
 docs/ChannelStatus.md
 docs/ChannelType.md
-docs/Connection.md
 docs/CreatePairingCodeFailureData.md
 docs/CreatePairingCodeFailureReason.md
 docs/CreatePairingCodeRequestContent.md
@@ -27,6 +27,7 @@ docs/Critical.md
 docs/DefaultAPI.md
 docs/Degraded.md
 docs/DeprovisionReason.md
+docs/DesiredChannelConfiguration.md
 docs/DevicePublishesActualConfigurationRequestContent.md
 docs/DevicePublishesDeprovisionAcknowledgementRequestContent.md
 docs/DevicePublishesRegistrationRequestContent.md
@@ -41,6 +42,8 @@ docs/EncryptionAes.md
 docs/EncryptionAes128.md
 docs/EncryptionAes256.md
 docs/EnumValues.md
+docs/Enums.md
+docs/Error.md
 docs/Failure.md
 docs/GetHostConfigResponseContent.md
 docs/GetVersionResponseContent.md
@@ -53,6 +56,7 @@ docs/Profile.md
 docs/ProfileDefinition.md
 docs/ProtocolVersion.md
 docs/RangeValues.md
+docs/Ranges.md
 docs/RistSimpleCaller.md
 docs/RistSimpleCallerTransportProtocol.md
 docs/RistSimpleListener.md
@@ -62,7 +66,7 @@ docs/RtpFecConfiguration.md
 docs/RtpFecStreamConfig.md
 docs/RtpTransportProtocol.md
 docs/Setting.md
-docs/SettingsChoice.md
+docs/SettingConstraint.md
 docs/SrtCaller.md
 docs/SrtCallerTransportProtocol.md
 docs/SrtListener.md
@@ -73,7 +77,6 @@ docs/Success.md
 docs/ThumbnailRequest.md
 docs/TransportProtocol.md
 docs/TransportProtocolName.md
-docs/UnhealthyStateDescription.md
 docs/ZixiPull.md
 docs/ZixiPullTransportProtocol.md
 docs/ZixiPush.md
@@ -81,17 +84,17 @@ docs/ZixiPushTransportProtocol.md
 git_push.sh
 go.mod
 go.sum
+model_actual_channel_configuration.go
 model_aes128.go
 model_aes256.go
 model_authenticate_pairing_code_request_content.go
 model_authenticate_pairing_code_response_content.go
 model_channel.go
-model_channel_configuration.go
 model_channel_profile.go
+model_channel_settings.go
 model_channel_state.go
 model_channel_status.go
 model_channel_type.go
-model_connection.go
 model_create_pairing_code_failure_data.go
 model_create_pairing_code_failure_reason.go
 model_create_pairing_code_request_content.go
@@ -101,6 +104,7 @@ model_create_pairing_code_success_data.go
 model_critical.go
 model_degraded.go
 model_deprovision_reason.go
+model_desired_channel_configuration.go
 model_device_publishes_actual_configuration_request_content.go
 model_device_publishes_deprovision_acknowledgement_request_content.go
 model_device_publishes_registration_request_content.go
@@ -115,6 +119,8 @@ model_encryption_aes.go
 model_encryption_aes128.go
 model_encryption_aes256.go
 model_enum_values.go
+model_enums.go
+model_error.go
 model_failure.go
 model_get_host_config_response_content.go
 model_get_version_response_content.go
@@ -127,6 +133,7 @@ model_profile.go
 model_profile_definition.go
 model_protocol_version.go
 model_range_values.go
+model_ranges.go
 model_rist_simple_caller.go
 model_rist_simple_caller_transport_protocol.go
 model_rist_simple_listener.go
@@ -136,7 +143,7 @@ model_rtp_fec_configuration.go
 model_rtp_fec_stream_config.go
 model_rtp_transport_protocol.go
 model_setting.go
-model_settings_choice.go
+model_setting_constraint.go
 model_srt_caller.go
 model_srt_caller_transport_protocol.go
 model_srt_listener.go
@@ -147,7 +154,6 @@ model_success.go
 model_thumbnail_request.go
 model_transport_protocol.go
 model_transport_protocol_name.go
-model_unhealthy_state_description.go
 model_zixi_pull.go
 model_zixi_pull_transport_protocol.go
 model_zixi_push.go
