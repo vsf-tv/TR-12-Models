@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	devicePublishesActualConfigurationRequestContent := *openapiclient.NewDevicePublishesActualConfigurationRequestContent("Version_example", []openapiclient.ActualChannelConfiguration{*openapiclient.NewActualChannelConfiguration("Id_example", "Version_example", openapiclient.ChannelState("ACTIVE"))}) // DevicePublishesActualConfigurationRequestContent | 
+	devicePublishesActualConfigurationRequestContent := *openapiclient.NewDevicePublishesActualConfigurationRequestContent(*openapiclient.NewActualDeviceConfiguration("Version_example", []openapiclient.ActualChannelConfiguration{*openapiclient.NewActualChannelConfiguration("Id_example", "Version_example", openapiclient.ChannelState("ACTIVE"))})) // DevicePublishesActualConfigurationRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -298,7 +298,7 @@ import (
 )
 
 func main() {
-	devicePublishesRegistrationRequestContent := *openapiclient.NewDevicePublishesRegistrationRequestContent([]openapiclient.Channel{*openapiclient.NewChannel("Name_example", "Id_example", openapiclient.ChannelType("SOURCE"))}) // DevicePublishesRegistrationRequestContent | 
+	devicePublishesRegistrationRequestContent := *openapiclient.NewDevicePublishesRegistrationRequestContent(*openapiclient.NewDeviceRegistration([]openapiclient.ChannelTemplate{*openapiclient.NewChannelTemplate("Id_example", openapiclient.ChannelType("SOURCE"))}, []openapiclient.ChannelAssignment{*openapiclient.NewChannelAssignment("ChannelId_example", "Name_example", "TemplateId_example")})) // DevicePublishesRegistrationRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -362,7 +362,7 @@ import (
 )
 
 func main() {
-	devicePublishesStatusRequestContent := *openapiclient.NewDevicePublishesStatusRequestContent([]openapiclient.StatusValue{*openapiclient.NewStatusValue("Name_example", "Description_example", "Value_example")}) // DevicePublishesStatusRequestContent | 
+	devicePublishesStatusRequestContent := *openapiclient.NewDevicePublishesStatusRequestContent(*openapiclient.NewDeviceStatus([]openapiclient.StatusValue{*openapiclient.NewStatusValue("Name_example", "Description_example", "Value_example")})) // DevicePublishesStatusRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -407,7 +407,7 @@ No authorization required
 
 ## DeviceSubscribesToCertificateRotation
 
-> DeviceSubscribesToCertificateRotation(ctx).DeviceSubscribesToCertificateRotationRequestContent(deviceSubscribesToCertificateRotationRequestContent).Execute()
+> DeviceSubscribesToCertificateRotationResponseContent DeviceSubscribesToCertificateRotation(ctx).Execute()
 
 
 
@@ -426,34 +426,31 @@ import (
 )
 
 func main() {
-	deviceSubscribesToCertificateRotationRequestContent := *openapiclient.NewDeviceSubscribesToCertificateRotationRequestContent("MqttUri_example", "DeviceCertificate_example") // DeviceSubscribesToCertificateRotationRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.DeviceSubscribesToCertificateRotation(context.Background()).DeviceSubscribesToCertificateRotationRequestContent(deviceSubscribesToCertificateRotationRequestContent).Execute()
+	resp, r, err := apiClient.DefaultAPI.DeviceSubscribesToCertificateRotation(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToCertificateRotation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeviceSubscribesToCertificateRotation`: DeviceSubscribesToCertificateRotationResponseContent
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.DeviceSubscribesToCertificateRotation`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeviceSubscribesToCertificateRotationRequest struct via the builder pattern
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceSubscribesToCertificateRotationRequestContent** | [**DeviceSubscribesToCertificateRotationRequestContent**](DeviceSubscribesToCertificateRotationRequestContent.md) |  | 
-
 ### Return type
 
- (empty response body)
+[**DeviceSubscribesToCertificateRotationResponseContent**](DeviceSubscribesToCertificateRotationResponseContent.md)
 
 ### Authorization
 
@@ -461,8 +458,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -471,7 +468,7 @@ No authorization required
 
 ## DeviceSubscribesToDeprovision
 
-> DeviceSubscribesToDeprovision(ctx).DeviceSubscribesToDeprovisionRequestContent(deviceSubscribesToDeprovisionRequestContent).Execute()
+> DeviceSubscribesToDeprovisionResponseContent DeviceSubscribesToDeprovision(ctx).Execute()
 
 
 
@@ -486,39 +483,35 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-	deviceSubscribesToDeprovisionRequestContent := *openapiclient.NewDeviceSubscribesToDeprovisionRequestContent(time.Now()) // DeviceSubscribesToDeprovisionRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.DeviceSubscribesToDeprovision(context.Background()).DeviceSubscribesToDeprovisionRequestContent(deviceSubscribesToDeprovisionRequestContent).Execute()
+	resp, r, err := apiClient.DefaultAPI.DeviceSubscribesToDeprovision(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToDeprovision``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeviceSubscribesToDeprovision`: DeviceSubscribesToDeprovisionResponseContent
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.DeviceSubscribesToDeprovision`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeviceSubscribesToDeprovisionRequest struct via the builder pattern
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceSubscribesToDeprovisionRequestContent** | [**DeviceSubscribesToDeprovisionRequestContent**](DeviceSubscribesToDeprovisionRequestContent.md) |  | 
-
 ### Return type
 
- (empty response body)
+[**DeviceSubscribesToDeprovisionResponseContent**](DeviceSubscribesToDeprovisionResponseContent.md)
 
 ### Authorization
 
@@ -526,8 +519,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -536,7 +529,7 @@ No authorization required
 
 ## DeviceSubscribesToDesiredConfiguration
 
-> DeviceSubscribesToDesiredConfiguration(ctx).DeviceSubscribesToDesiredConfigurationRequestContent(deviceSubscribesToDesiredConfigurationRequestContent).Execute()
+> DeviceSubscribesToDesiredConfigurationResponseContent DeviceSubscribesToDesiredConfiguration(ctx).Execute()
 
 
 
@@ -555,34 +548,31 @@ import (
 )
 
 func main() {
-	deviceSubscribesToDesiredConfigurationRequestContent := *openapiclient.NewDeviceSubscribesToDesiredConfigurationRequestContent("Version_example", []openapiclient.DesiredChannelConfiguration{*openapiclient.NewDesiredChannelConfiguration("Id_example", "Version_example", openapiclient.ChannelState("ACTIVE"))}) // DeviceSubscribesToDesiredConfigurationRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.DeviceSubscribesToDesiredConfiguration(context.Background()).DeviceSubscribesToDesiredConfigurationRequestContent(deviceSubscribesToDesiredConfigurationRequestContent).Execute()
+	resp, r, err := apiClient.DefaultAPI.DeviceSubscribesToDesiredConfiguration(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToDesiredConfiguration``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeviceSubscribesToDesiredConfiguration`: DeviceSubscribesToDesiredConfigurationResponseContent
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.DeviceSubscribesToDesiredConfiguration`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeviceSubscribesToDesiredConfigurationRequest struct via the builder pattern
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceSubscribesToDesiredConfigurationRequestContent** | [**DeviceSubscribesToDesiredConfigurationRequestContent**](DeviceSubscribesToDesiredConfigurationRequestContent.md) |  | 
-
 ### Return type
 
- (empty response body)
+[**DeviceSubscribesToDesiredConfigurationResponseContent**](DeviceSubscribesToDesiredConfigurationResponseContent.md)
 
 ### Authorization
 
@@ -590,8 +580,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -600,7 +590,7 @@ No authorization required
 
 ## DeviceSubscribesToLogSubscription
 
-> DeviceSubscribesToLogSubscription(ctx).DeviceSubscribesToLogSubscriptionRequestContent(deviceSubscribesToLogSubscriptionRequestContent).Execute()
+> DeviceSubscribesToLogSubscriptionResponseContent DeviceSubscribesToLogSubscription(ctx).Execute()
 
 
 
@@ -619,34 +609,31 @@ import (
 )
 
 func main() {
-	deviceSubscribesToLogSubscriptionRequestContent := *openapiclient.NewDeviceSubscribesToLogSubscriptionRequestContent() // DeviceSubscribesToLogSubscriptionRequestContent |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.DeviceSubscribesToLogSubscription(context.Background()).DeviceSubscribesToLogSubscriptionRequestContent(deviceSubscribesToLogSubscriptionRequestContent).Execute()
+	resp, r, err := apiClient.DefaultAPI.DeviceSubscribesToLogSubscription(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToLogSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeviceSubscribesToLogSubscription`: DeviceSubscribesToLogSubscriptionResponseContent
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.DeviceSubscribesToLogSubscription`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeviceSubscribesToLogSubscriptionRequest struct via the builder pattern
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceSubscribesToLogSubscriptionRequestContent** | [**DeviceSubscribesToLogSubscriptionRequestContent**](DeviceSubscribesToLogSubscriptionRequestContent.md) |  | 
-
 ### Return type
 
- (empty response body)
+[**DeviceSubscribesToLogSubscriptionResponseContent**](DeviceSubscribesToLogSubscriptionResponseContent.md)
 
 ### Authorization
 
@@ -654,8 +641,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -664,7 +651,7 @@ No authorization required
 
 ## DeviceSubscribesToThumbnailSubscription
 
-> DeviceSubscribesToThumbnailSubscription(ctx).DeviceSubscribesToThumbnailSubscriptionRequestContent(deviceSubscribesToThumbnailSubscriptionRequestContent).Execute()
+> DeviceSubscribesToThumbnailSubscriptionResponseContent DeviceSubscribesToThumbnailSubscription(ctx).Execute()
 
 
 
@@ -683,34 +670,31 @@ import (
 )
 
 func main() {
-	deviceSubscribesToThumbnailSubscriptionRequestContent := *openapiclient.NewDeviceSubscribesToThumbnailSubscriptionRequestContent(map[string]ThumbnailRequest{"key": *openapiclient.NewThumbnailRequest()}) // DeviceSubscribesToThumbnailSubscriptionRequestContent | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DefaultAPI.DeviceSubscribesToThumbnailSubscription(context.Background()).DeviceSubscribesToThumbnailSubscriptionRequestContent(deviceSubscribesToThumbnailSubscriptionRequestContent).Execute()
+	resp, r, err := apiClient.DefaultAPI.DeviceSubscribesToThumbnailSubscription(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeviceSubscribesToThumbnailSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeviceSubscribesToThumbnailSubscription`: DeviceSubscribesToThumbnailSubscriptionResponseContent
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.DeviceSubscribesToThumbnailSubscription`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeviceSubscribesToThumbnailSubscriptionRequest struct via the builder pattern
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceSubscribesToThumbnailSubscriptionRequestContent** | [**DeviceSubscribesToThumbnailSubscriptionRequestContent**](DeviceSubscribesToThumbnailSubscriptionRequestContent.md) |  | 
-
 ### Return type
 
- (empty response body)
+[**DeviceSubscribesToThumbnailSubscriptionResponseContent**](DeviceSubscribesToThumbnailSubscriptionResponseContent.md)
 
 ### Authorization
 
@@ -718,8 +702,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

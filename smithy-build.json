@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "sources": ["smithy"],
+  "sources": ["model"],
   "maven": {
     "dependencies": [
       "software.amazon.smithy.python.codegen.plugins:types:0.1.0",
@@ -10,7 +10,7 @@
   },
   "plugins": {
     "openapi": {
-      "service": "com.cdd.internal#HostServiceApi",
+      "service": "com.tr12.internal#HostServiceApi",
       "protocol": "aws.protocols#restJson1",
       "version": "3.0.2",
       "tags": true,

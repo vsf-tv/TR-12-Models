@@ -21,8 +21,7 @@ var _ MappedNullable = &DevicePublishesRegistrationRequestContent{}
 
 // DevicePublishesRegistrationRequestContent struct for DevicePublishesRegistrationRequestContent
 type DevicePublishesRegistrationRequestContent struct {
-	Channels []Channel `json:"channels"`
-	DeviceRegistrationSettings []Setting `json:"deviceRegistrationSettings,omitempty"`
+	DeviceRegistration DeviceRegistration `json:"deviceRegistration"`
 }
 
 type _DevicePublishesRegistrationRequestContent DevicePublishesRegistrationRequestContent
@@ -31,9 +30,9 @@ type _DevicePublishesRegistrationRequestContent DevicePublishesRegistrationReque
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePublishesRegistrationRequestContent(channels []Channel) *DevicePublishesRegistrationRequestContent {
+func NewDevicePublishesRegistrationRequestContent(deviceRegistration DeviceRegistration) *DevicePublishesRegistrationRequestContent {
 	this := DevicePublishesRegistrationRequestContent{}
-	this.Channels = channels
+	this.DeviceRegistration = deviceRegistration
 	return &this
 }
 
@@ -45,60 +44,28 @@ func NewDevicePublishesRegistrationRequestContentWithDefaults() *DevicePublishes
 	return &this
 }
 
-// GetChannels returns the Channels field value
-func (o *DevicePublishesRegistrationRequestContent) GetChannels() []Channel {
+// GetDeviceRegistration returns the DeviceRegistration field value
+func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistration() DeviceRegistration {
 	if o == nil {
-		var ret []Channel
+		var ret DeviceRegistration
 		return ret
 	}
 
-	return o.Channels
+	return o.DeviceRegistration
 }
 
-// GetChannelsOk returns a tuple with the Channels field value
+// GetDeviceRegistrationOk returns a tuple with the DeviceRegistration field value
 // and a boolean to check if the value has been set.
-func (o *DevicePublishesRegistrationRequestContent) GetChannelsOk() ([]Channel, bool) {
+func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistrationOk() (*DeviceRegistration, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Channels, true
+	return &o.DeviceRegistration, true
 }
 
-// SetChannels sets field value
-func (o *DevicePublishesRegistrationRequestContent) SetChannels(v []Channel) {
-	o.Channels = v
-}
-
-// GetDeviceRegistrationSettings returns the DeviceRegistrationSettings field value if set, zero value otherwise.
-func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistrationSettings() []Setting {
-	if o == nil || IsNil(o.DeviceRegistrationSettings) {
-		var ret []Setting
-		return ret
-	}
-	return o.DeviceRegistrationSettings
-}
-
-// GetDeviceRegistrationSettingsOk returns a tuple with the DeviceRegistrationSettings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistrationSettingsOk() ([]Setting, bool) {
-	if o == nil || IsNil(o.DeviceRegistrationSettings) {
-		return nil, false
-	}
-	return o.DeviceRegistrationSettings, true
-}
-
-// HasDeviceRegistrationSettings returns a boolean if a field has been set.
-func (o *DevicePublishesRegistrationRequestContent) HasDeviceRegistrationSettings() bool {
-	if o != nil && !IsNil(o.DeviceRegistrationSettings) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeviceRegistrationSettings gets a reference to the given []Setting and assigns it to the DeviceRegistrationSettings field.
-func (o *DevicePublishesRegistrationRequestContent) SetDeviceRegistrationSettings(v []Setting) {
-	o.DeviceRegistrationSettings = v
+// SetDeviceRegistration sets field value
+func (o *DevicePublishesRegistrationRequestContent) SetDeviceRegistration(v DeviceRegistration) {
+	o.DeviceRegistration = v
 }
 
 func (o DevicePublishesRegistrationRequestContent) MarshalJSON() ([]byte, error) {
@@ -111,10 +78,7 @@ func (o DevicePublishesRegistrationRequestContent) MarshalJSON() ([]byte, error)
 
 func (o DevicePublishesRegistrationRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["channels"] = o.Channels
-	if !IsNil(o.DeviceRegistrationSettings) {
-		toSerialize["deviceRegistrationSettings"] = o.DeviceRegistrationSettings
-	}
+	toSerialize["deviceRegistration"] = o.DeviceRegistration
 	return toSerialize, nil
 }
 
@@ -123,7 +87,7 @@ func (o *DevicePublishesRegistrationRequestContent) UnmarshalJSON(data []byte) (
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"channels",
+		"deviceRegistration",
 	}
 
 	allProperties := make(map[string]interface{})

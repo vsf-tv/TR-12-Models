@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | [**[]StatusValue**](StatusValue.md) |  | 
-**Channels** | Pointer to [**[]ChannelStatus**](ChannelStatus.md) |  | [optional] 
+**DeviceStatus** | [**DeviceStatus**](DeviceStatus.md) |  | 
 
 ## Methods
 
 ### NewDevicePublishesStatusRequestContent
 
-`func NewDevicePublishesStatusRequestContent(status []StatusValue, ) *DevicePublishesStatusRequestContent`
+`func NewDevicePublishesStatusRequestContent(deviceStatus DeviceStatus, ) *DevicePublishesStatusRequestContent`
 
 NewDevicePublishesStatusRequestContent instantiates a new DevicePublishesStatusRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -26,50 +25,25 @@ NewDevicePublishesStatusRequestContentWithDefaults instantiates a new DevicePubl
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetStatus
+### GetDeviceStatus
 
-`func (o *DevicePublishesStatusRequestContent) GetStatus() []StatusValue`
+`func (o *DevicePublishesStatusRequestContent) GetDeviceStatus() DeviceStatus`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetDeviceStatus returns the DeviceStatus field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetDeviceStatusOk
 
-`func (o *DevicePublishesStatusRequestContent) GetStatusOk() (*[]StatusValue, bool)`
+`func (o *DevicePublishesStatusRequestContent) GetDeviceStatusOk() (*DeviceStatus, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetDeviceStatusOk returns a tuple with the DeviceStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetDeviceStatus
 
-`func (o *DevicePublishesStatusRequestContent) SetStatus(v []StatusValue)`
+`func (o *DevicePublishesStatusRequestContent) SetDeviceStatus(v DeviceStatus)`
 
-SetStatus sets Status field to given value.
+SetDeviceStatus sets DeviceStatus field to given value.
 
-
-### GetChannels
-
-`func (o *DevicePublishesStatusRequestContent) GetChannels() []ChannelStatus`
-
-GetChannels returns the Channels field if non-nil, zero value otherwise.
-
-### GetChannelsOk
-
-`func (o *DevicePublishesStatusRequestContent) GetChannelsOk() (*[]ChannelStatus, bool)`
-
-GetChannelsOk returns a tuple with the Channels field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetChannels
-
-`func (o *DevicePublishesStatusRequestContent) SetChannels(v []ChannelStatus)`
-
-SetChannels sets Channels field to given value.
-
-### HasChannels
-
-`func (o *DevicePublishesStatusRequestContent) HasChannels() bool`
-
-HasChannels returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

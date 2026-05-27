@@ -21,8 +21,7 @@ var _ MappedNullable = &DevicePublishesStatusRequestContent{}
 
 // DevicePublishesStatusRequestContent struct for DevicePublishesStatusRequestContent
 type DevicePublishesStatusRequestContent struct {
-	Status []StatusValue `json:"status"`
-	Channels []ChannelStatus `json:"channels,omitempty"`
+	DeviceStatus DeviceStatus `json:"deviceStatus"`
 }
 
 type _DevicePublishesStatusRequestContent DevicePublishesStatusRequestContent
@@ -31,9 +30,9 @@ type _DevicePublishesStatusRequestContent DevicePublishesStatusRequestContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePublishesStatusRequestContent(status []StatusValue) *DevicePublishesStatusRequestContent {
+func NewDevicePublishesStatusRequestContent(deviceStatus DeviceStatus) *DevicePublishesStatusRequestContent {
 	this := DevicePublishesStatusRequestContent{}
-	this.Status = status
+	this.DeviceStatus = deviceStatus
 	return &this
 }
 
@@ -45,60 +44,28 @@ func NewDevicePublishesStatusRequestContentWithDefaults() *DevicePublishesStatus
 	return &this
 }
 
-// GetStatus returns the Status field value
-func (o *DevicePublishesStatusRequestContent) GetStatus() []StatusValue {
+// GetDeviceStatus returns the DeviceStatus field value
+func (o *DevicePublishesStatusRequestContent) GetDeviceStatus() DeviceStatus {
 	if o == nil {
-		var ret []StatusValue
+		var ret DeviceStatus
 		return ret
 	}
 
-	return o.Status
+	return o.DeviceStatus
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetDeviceStatusOk returns a tuple with the DeviceStatus field value
 // and a boolean to check if the value has been set.
-func (o *DevicePublishesStatusRequestContent) GetStatusOk() ([]StatusValue, bool) {
+func (o *DevicePublishesStatusRequestContent) GetDeviceStatusOk() (*DeviceStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.DeviceStatus, true
 }
 
-// SetStatus sets field value
-func (o *DevicePublishesStatusRequestContent) SetStatus(v []StatusValue) {
-	o.Status = v
-}
-
-// GetChannels returns the Channels field value if set, zero value otherwise.
-func (o *DevicePublishesStatusRequestContent) GetChannels() []ChannelStatus {
-	if o == nil || IsNil(o.Channels) {
-		var ret []ChannelStatus
-		return ret
-	}
-	return o.Channels
-}
-
-// GetChannelsOk returns a tuple with the Channels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DevicePublishesStatusRequestContent) GetChannelsOk() ([]ChannelStatus, bool) {
-	if o == nil || IsNil(o.Channels) {
-		return nil, false
-	}
-	return o.Channels, true
-}
-
-// HasChannels returns a boolean if a field has been set.
-func (o *DevicePublishesStatusRequestContent) HasChannels() bool {
-	if o != nil && !IsNil(o.Channels) {
-		return true
-	}
-
-	return false
-}
-
-// SetChannels gets a reference to the given []ChannelStatus and assigns it to the Channels field.
-func (o *DevicePublishesStatusRequestContent) SetChannels(v []ChannelStatus) {
-	o.Channels = v
+// SetDeviceStatus sets field value
+func (o *DevicePublishesStatusRequestContent) SetDeviceStatus(v DeviceStatus) {
+	o.DeviceStatus = v
 }
 
 func (o DevicePublishesStatusRequestContent) MarshalJSON() ([]byte, error) {
@@ -111,10 +78,7 @@ func (o DevicePublishesStatusRequestContent) MarshalJSON() ([]byte, error) {
 
 func (o DevicePublishesStatusRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["status"] = o.Status
-	if !IsNil(o.Channels) {
-		toSerialize["channels"] = o.Channels
-	}
+	toSerialize["deviceStatus"] = o.DeviceStatus
 	return toSerialize, nil
 }
 
@@ -123,7 +87,7 @@ func (o *DevicePublishesStatusRequestContent) UnmarshalJSON(data []byte) (err er
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"status",
+		"deviceStatus",
 	}
 
 	allProperties := make(map[string]interface{})

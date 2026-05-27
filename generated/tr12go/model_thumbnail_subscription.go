@@ -15,11 +15,11 @@ import (
 	"time"
 )
 
-// checks if the ThumbnailRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ThumbnailRequest{}
+// checks if the ThumbnailSubscription type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ThumbnailSubscription{}
 
-// ThumbnailRequest struct for ThumbnailRequest
-type ThumbnailRequest struct {
+// ThumbnailSubscription struct for ThumbnailSubscription
+type ThumbnailSubscription struct {
 	PeriodSeconds *float32 `json:"periodSeconds,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	MaxSizeKB *float32 `json:"maxSizeKB,omitempty"`
@@ -27,25 +27,25 @@ type ThumbnailRequest struct {
 	Headers *map[string]string `json:"headers,omitempty"`
 }
 
-// NewThumbnailRequest instantiates a new ThumbnailRequest object
+// NewThumbnailSubscription instantiates a new ThumbnailSubscription object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewThumbnailRequest() *ThumbnailRequest {
-	this := ThumbnailRequest{}
+func NewThumbnailSubscription() *ThumbnailSubscription {
+	this := ThumbnailSubscription{}
 	return &this
 }
 
-// NewThumbnailRequestWithDefaults instantiates a new ThumbnailRequest object
+// NewThumbnailSubscriptionWithDefaults instantiates a new ThumbnailSubscription object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewThumbnailRequestWithDefaults() *ThumbnailRequest {
-	this := ThumbnailRequest{}
+func NewThumbnailSubscriptionWithDefaults() *ThumbnailSubscription {
+	this := ThumbnailSubscription{}
 	return &this
 }
 
 // GetPeriodSeconds returns the PeriodSeconds field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetPeriodSeconds() float32 {
+func (o *ThumbnailSubscription) GetPeriodSeconds() float32 {
 	if o == nil || IsNil(o.PeriodSeconds) {
 		var ret float32
 		return ret
@@ -55,7 +55,7 @@ func (o *ThumbnailRequest) GetPeriodSeconds() float32 {
 
 // GetPeriodSecondsOk returns a tuple with the PeriodSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetPeriodSecondsOk() (*float32, bool) {
+func (o *ThumbnailSubscription) GetPeriodSecondsOk() (*float32, bool) {
 	if o == nil || IsNil(o.PeriodSeconds) {
 		return nil, false
 	}
@@ -63,7 +63,7 @@ func (o *ThumbnailRequest) GetPeriodSecondsOk() (*float32, bool) {
 }
 
 // HasPeriodSeconds returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasPeriodSeconds() bool {
+func (o *ThumbnailSubscription) HasPeriodSeconds() bool {
 	if o != nil && !IsNil(o.PeriodSeconds) {
 		return true
 	}
@@ -72,12 +72,12 @@ func (o *ThumbnailRequest) HasPeriodSeconds() bool {
 }
 
 // SetPeriodSeconds gets a reference to the given float32 and assigns it to the PeriodSeconds field.
-func (o *ThumbnailRequest) SetPeriodSeconds(v float32) {
+func (o *ThumbnailSubscription) SetPeriodSeconds(v float32) {
 	o.PeriodSeconds = &v
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetExpiresAt() time.Time {
+func (o *ThumbnailSubscription) GetExpiresAt() time.Time {
 	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
@@ -87,7 +87,7 @@ func (o *ThumbnailRequest) GetExpiresAt() time.Time {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetExpiresAtOk() (*time.Time, bool) {
+func (o *ThumbnailSubscription) GetExpiresAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *ThumbnailRequest) GetExpiresAtOk() (*time.Time, bool) {
 }
 
 // HasExpiresAt returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasExpiresAt() bool {
+func (o *ThumbnailSubscription) HasExpiresAt() bool {
 	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
@@ -104,12 +104,12 @@ func (o *ThumbnailRequest) HasExpiresAt() bool {
 }
 
 // SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
-func (o *ThumbnailRequest) SetExpiresAt(v time.Time) {
+func (o *ThumbnailSubscription) SetExpiresAt(v time.Time) {
 	o.ExpiresAt = &v
 }
 
 // GetMaxSizeKB returns the MaxSizeKB field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetMaxSizeKB() float32 {
+func (o *ThumbnailSubscription) GetMaxSizeKB() float32 {
 	if o == nil || IsNil(o.MaxSizeKB) {
 		var ret float32
 		return ret
@@ -119,7 +119,7 @@ func (o *ThumbnailRequest) GetMaxSizeKB() float32 {
 
 // GetMaxSizeKBOk returns a tuple with the MaxSizeKB field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetMaxSizeKBOk() (*float32, bool) {
+func (o *ThumbnailSubscription) GetMaxSizeKBOk() (*float32, bool) {
 	if o == nil || IsNil(o.MaxSizeKB) {
 		return nil, false
 	}
@@ -127,7 +127,7 @@ func (o *ThumbnailRequest) GetMaxSizeKBOk() (*float32, bool) {
 }
 
 // HasMaxSizeKB returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasMaxSizeKB() bool {
+func (o *ThumbnailSubscription) HasMaxSizeKB() bool {
 	if o != nil && !IsNil(o.MaxSizeKB) {
 		return true
 	}
@@ -136,12 +136,12 @@ func (o *ThumbnailRequest) HasMaxSizeKB() bool {
 }
 
 // SetMaxSizeKB gets a reference to the given float32 and assigns it to the MaxSizeKB field.
-func (o *ThumbnailRequest) SetMaxSizeKB(v float32) {
+func (o *ThumbnailSubscription) SetMaxSizeKB(v float32) {
 	o.MaxSizeKB = &v
 }
 
 // GetRemotePath returns the RemotePath field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetRemotePath() string {
+func (o *ThumbnailSubscription) GetRemotePath() string {
 	if o == nil || IsNil(o.RemotePath) {
 		var ret string
 		return ret
@@ -151,7 +151,7 @@ func (o *ThumbnailRequest) GetRemotePath() string {
 
 // GetRemotePathOk returns a tuple with the RemotePath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetRemotePathOk() (*string, bool) {
+func (o *ThumbnailSubscription) GetRemotePathOk() (*string, bool) {
 	if o == nil || IsNil(o.RemotePath) {
 		return nil, false
 	}
@@ -159,7 +159,7 @@ func (o *ThumbnailRequest) GetRemotePathOk() (*string, bool) {
 }
 
 // HasRemotePath returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasRemotePath() bool {
+func (o *ThumbnailSubscription) HasRemotePath() bool {
 	if o != nil && !IsNil(o.RemotePath) {
 		return true
 	}
@@ -168,12 +168,12 @@ func (o *ThumbnailRequest) HasRemotePath() bool {
 }
 
 // SetRemotePath gets a reference to the given string and assigns it to the RemotePath field.
-func (o *ThumbnailRequest) SetRemotePath(v string) {
+func (o *ThumbnailSubscription) SetRemotePath(v string) {
 	o.RemotePath = &v
 }
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
-func (o *ThumbnailRequest) GetHeaders() map[string]string {
+func (o *ThumbnailSubscription) GetHeaders() map[string]string {
 	if o == nil || IsNil(o.Headers) {
 		var ret map[string]string
 		return ret
@@ -183,7 +183,7 @@ func (o *ThumbnailRequest) GetHeaders() map[string]string {
 
 // GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ThumbnailRequest) GetHeadersOk() (*map[string]string, bool) {
+func (o *ThumbnailSubscription) GetHeadersOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.Headers) {
 		return nil, false
 	}
@@ -191,7 +191,7 @@ func (o *ThumbnailRequest) GetHeadersOk() (*map[string]string, bool) {
 }
 
 // HasHeaders returns a boolean if a field has been set.
-func (o *ThumbnailRequest) HasHeaders() bool {
+func (o *ThumbnailSubscription) HasHeaders() bool {
 	if o != nil && !IsNil(o.Headers) {
 		return true
 	}
@@ -200,11 +200,11 @@ func (o *ThumbnailRequest) HasHeaders() bool {
 }
 
 // SetHeaders gets a reference to the given map[string]string and assigns it to the Headers field.
-func (o *ThumbnailRequest) SetHeaders(v map[string]string) {
+func (o *ThumbnailSubscription) SetHeaders(v map[string]string) {
 	o.Headers = &v
 }
 
-func (o ThumbnailRequest) MarshalJSON() ([]byte, error) {
+func (o ThumbnailSubscription) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -212,7 +212,7 @@ func (o ThumbnailRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ThumbnailRequest) ToMap() (map[string]interface{}, error) {
+func (o ThumbnailSubscription) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.PeriodSeconds) {
 		toSerialize["periodSeconds"] = o.PeriodSeconds
@@ -232,38 +232,38 @@ func (o ThumbnailRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableThumbnailRequest struct {
-	value *ThumbnailRequest
+type NullableThumbnailSubscription struct {
+	value *ThumbnailSubscription
 	isSet bool
 }
 
-func (v NullableThumbnailRequest) Get() *ThumbnailRequest {
+func (v NullableThumbnailSubscription) Get() *ThumbnailSubscription {
 	return v.value
 }
 
-func (v *NullableThumbnailRequest) Set(val *ThumbnailRequest) {
+func (v *NullableThumbnailSubscription) Set(val *ThumbnailSubscription) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableThumbnailRequest) IsSet() bool {
+func (v NullableThumbnailSubscription) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableThumbnailRequest) Unset() {
+func (v *NullableThumbnailSubscription) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableThumbnailRequest(val *ThumbnailRequest) *NullableThumbnailRequest {
-	return &NullableThumbnailRequest{value: val, isSet: true}
+func NewNullableThumbnailSubscription(val *ThumbnailSubscription) *NullableThumbnailSubscription {
+	return &NullableThumbnailSubscription{value: val, isSet: true}
 }
 
-func (v NullableThumbnailRequest) MarshalJSON() ([]byte, error) {
+func (v NullableThumbnailSubscription) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableThumbnailRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableThumbnailSubscription) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

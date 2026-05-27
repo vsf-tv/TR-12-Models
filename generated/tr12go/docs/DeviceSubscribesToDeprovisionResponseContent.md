@@ -1,4 +1,4 @@
-# DeviceSubscribesToDeprovisionRequestContent
+# DeviceSubscribesToDeprovisionResponseContent
 
 ## Properties
 
@@ -9,64 +9,64 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewDeviceSubscribesToDeprovisionRequestContent
+### NewDeviceSubscribesToDeprovisionResponseContent
 
-`func NewDeviceSubscribesToDeprovisionRequestContent(timestamp time.Time, ) *DeviceSubscribesToDeprovisionRequestContent`
+`func NewDeviceSubscribesToDeprovisionResponseContent(timestamp time.Time, ) *DeviceSubscribesToDeprovisionResponseContent`
 
-NewDeviceSubscribesToDeprovisionRequestContent instantiates a new DeviceSubscribesToDeprovisionRequestContent object
+NewDeviceSubscribesToDeprovisionResponseContent instantiates a new DeviceSubscribesToDeprovisionResponseContent object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDeviceSubscribesToDeprovisionRequestContentWithDefaults
+### NewDeviceSubscribesToDeprovisionResponseContentWithDefaults
 
-`func NewDeviceSubscribesToDeprovisionRequestContentWithDefaults() *DeviceSubscribesToDeprovisionRequestContent`
+`func NewDeviceSubscribesToDeprovisionResponseContentWithDefaults() *DeviceSubscribesToDeprovisionResponseContent`
 
-NewDeviceSubscribesToDeprovisionRequestContentWithDefaults instantiates a new DeviceSubscribesToDeprovisionRequestContent object
+NewDeviceSubscribesToDeprovisionResponseContentWithDefaults instantiates a new DeviceSubscribesToDeprovisionResponseContent object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetReason
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) GetReason() DeprovisionReason`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) GetReason() DeprovisionReason`
 
 GetReason returns the Reason field if non-nil, zero value otherwise.
 
 ### GetReasonOk
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) GetReasonOk() (*DeprovisionReason, bool)`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) GetReasonOk() (*DeprovisionReason, bool)`
 
 GetReasonOk returns a tuple with the Reason field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReason
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) SetReason(v DeprovisionReason)`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) SetReason(v DeprovisionReason)`
 
 SetReason sets Reason field to given value.
 
 ### HasReason
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) HasReason() bool`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) HasReason() bool`
 
 HasReason returns a boolean if a field has been set.
 
 ### GetTimestamp
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) GetTimestamp() time.Time`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) GetTimestamp() time.Time`
 
 GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
 
 ### GetTimestampOk
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) GetTimestampOk() (*time.Time, bool)`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) GetTimestampOk() (*time.Time, bool)`
 
 GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimestamp
 
-`func (o *DeviceSubscribesToDeprovisionRequestContent) SetTimestamp(v time.Time)`
+`func (o *DeviceSubscribesToDeprovisionResponseContent) SetTimestamp(v time.Time)`
 
 SetTimestamp sets Timestamp field to given value.
 

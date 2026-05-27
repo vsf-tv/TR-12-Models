@@ -21,7 +21,10 @@ var _ MappedNullable = &CreatePairingCodeResponseContent{}
 
 // CreatePairingCodeResponseContent struct for CreatePairingCodeResponseContent
 type CreatePairingCodeResponseContent struct {
-	Result CreatePairingCodeResult `json:"result"`
+	DeviceId string `json:"deviceId"`
+	PairingCode string `json:"pairingCode"`
+	AccessCode string `json:"accessCode"`
+	PairingTimeoutSeconds float32 `json:"pairingTimeoutSeconds"`
 }
 
 type _CreatePairingCodeResponseContent CreatePairingCodeResponseContent
@@ -30,9 +33,12 @@ type _CreatePairingCodeResponseContent CreatePairingCodeResponseContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePairingCodeResponseContent(result CreatePairingCodeResult) *CreatePairingCodeResponseContent {
+func NewCreatePairingCodeResponseContent(deviceId string, pairingCode string, accessCode string, pairingTimeoutSeconds float32) *CreatePairingCodeResponseContent {
 	this := CreatePairingCodeResponseContent{}
-	this.Result = result
+	this.DeviceId = deviceId
+	this.PairingCode = pairingCode
+	this.AccessCode = accessCode
+	this.PairingTimeoutSeconds = pairingTimeoutSeconds
 	return &this
 }
 
@@ -44,28 +50,100 @@ func NewCreatePairingCodeResponseContentWithDefaults() *CreatePairingCodeRespons
 	return &this
 }
 
-// GetResult returns the Result field value
-func (o *CreatePairingCodeResponseContent) GetResult() CreatePairingCodeResult {
+// GetDeviceId returns the DeviceId field value
+func (o *CreatePairingCodeResponseContent) GetDeviceId() string {
 	if o == nil {
-		var ret CreatePairingCodeResult
+		var ret string
 		return ret
 	}
 
-	return o.Result
+	return o.DeviceId
 }
 
-// GetResultOk returns a tuple with the Result field value
+// GetDeviceIdOk returns a tuple with the DeviceId field value
 // and a boolean to check if the value has been set.
-func (o *CreatePairingCodeResponseContent) GetResultOk() (*CreatePairingCodeResult, bool) {
+func (o *CreatePairingCodeResponseContent) GetDeviceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Result, true
+	return &o.DeviceId, true
 }
 
-// SetResult sets field value
-func (o *CreatePairingCodeResponseContent) SetResult(v CreatePairingCodeResult) {
-	o.Result = v
+// SetDeviceId sets field value
+func (o *CreatePairingCodeResponseContent) SetDeviceId(v string) {
+	o.DeviceId = v
+}
+
+// GetPairingCode returns the PairingCode field value
+func (o *CreatePairingCodeResponseContent) GetPairingCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PairingCode
+}
+
+// GetPairingCodeOk returns a tuple with the PairingCode field value
+// and a boolean to check if the value has been set.
+func (o *CreatePairingCodeResponseContent) GetPairingCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PairingCode, true
+}
+
+// SetPairingCode sets field value
+func (o *CreatePairingCodeResponseContent) SetPairingCode(v string) {
+	o.PairingCode = v
+}
+
+// GetAccessCode returns the AccessCode field value
+func (o *CreatePairingCodeResponseContent) GetAccessCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AccessCode
+}
+
+// GetAccessCodeOk returns a tuple with the AccessCode field value
+// and a boolean to check if the value has been set.
+func (o *CreatePairingCodeResponseContent) GetAccessCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AccessCode, true
+}
+
+// SetAccessCode sets field value
+func (o *CreatePairingCodeResponseContent) SetAccessCode(v string) {
+	o.AccessCode = v
+}
+
+// GetPairingTimeoutSeconds returns the PairingTimeoutSeconds field value
+func (o *CreatePairingCodeResponseContent) GetPairingTimeoutSeconds() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.PairingTimeoutSeconds
+}
+
+// GetPairingTimeoutSecondsOk returns a tuple with the PairingTimeoutSeconds field value
+// and a boolean to check if the value has been set.
+func (o *CreatePairingCodeResponseContent) GetPairingTimeoutSecondsOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PairingTimeoutSeconds, true
+}
+
+// SetPairingTimeoutSeconds sets field value
+func (o *CreatePairingCodeResponseContent) SetPairingTimeoutSeconds(v float32) {
+	o.PairingTimeoutSeconds = v
 }
 
 func (o CreatePairingCodeResponseContent) MarshalJSON() ([]byte, error) {
@@ -78,7 +156,10 @@ func (o CreatePairingCodeResponseContent) MarshalJSON() ([]byte, error) {
 
 func (o CreatePairingCodeResponseContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["result"] = o.Result
+	toSerialize["deviceId"] = o.DeviceId
+	toSerialize["pairingCode"] = o.PairingCode
+	toSerialize["accessCode"] = o.AccessCode
+	toSerialize["pairingTimeoutSeconds"] = o.PairingTimeoutSeconds
 	return toSerialize, nil
 }
 
@@ -87,7 +168,10 @@ func (o *CreatePairingCodeResponseContent) UnmarshalJSON(data []byte) (err error
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"result",
+		"deviceId",
+		"pairingCode",
+		"accessCode",
+		"pairingTimeoutSeconds",
 	}
 
 	allProperties := make(map[string]interface{})

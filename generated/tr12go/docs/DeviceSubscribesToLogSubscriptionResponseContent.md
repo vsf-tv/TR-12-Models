@@ -1,4 +1,4 @@
-# DeviceSubscribesToLogSubscriptionRequestContent
+# DeviceSubscribesToLogSubscriptionResponseContent
 
 ## Properties
 
@@ -9,70 +9,70 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewDeviceSubscribesToLogSubscriptionRequestContent
+### NewDeviceSubscribesToLogSubscriptionResponseContent
 
-`func NewDeviceSubscribesToLogSubscriptionRequestContent() *DeviceSubscribesToLogSubscriptionRequestContent`
+`func NewDeviceSubscribesToLogSubscriptionResponseContent() *DeviceSubscribesToLogSubscriptionResponseContent`
 
-NewDeviceSubscribesToLogSubscriptionRequestContent instantiates a new DeviceSubscribesToLogSubscriptionRequestContent object
+NewDeviceSubscribesToLogSubscriptionResponseContent instantiates a new DeviceSubscribesToLogSubscriptionResponseContent object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewDeviceSubscribesToLogSubscriptionRequestContentWithDefaults
+### NewDeviceSubscribesToLogSubscriptionResponseContentWithDefaults
 
-`func NewDeviceSubscribesToLogSubscriptionRequestContentWithDefaults() *DeviceSubscribesToLogSubscriptionRequestContent`
+`func NewDeviceSubscribesToLogSubscriptionResponseContentWithDefaults() *DeviceSubscribesToLogSubscriptionResponseContent`
 
-NewDeviceSubscribesToLogSubscriptionRequestContentWithDefaults instantiates a new DeviceSubscribesToLogSubscriptionRequestContent object
+NewDeviceSubscribesToLogSubscriptionResponseContentWithDefaults instantiates a new DeviceSubscribesToLogSubscriptionResponseContent object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetExpiresAt
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) GetExpiresAt() time.Time`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) GetExpiresAt() time.Time`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) GetExpiresAtOk() (*time.Time, bool)`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) GetExpiresAtOk() (*time.Time, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) SetExpiresAt(v time.Time)`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) SetExpiresAt(v time.Time)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 
 ### HasExpiresAt
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) HasExpiresAt() bool`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) HasExpiresAt() bool`
 
 HasExpiresAt returns a boolean if a field has been set.
 
 ### GetRemotePath
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) GetRemotePath() string`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) GetRemotePath() string`
 
 GetRemotePath returns the RemotePath field if non-nil, zero value otherwise.
 
 ### GetRemotePathOk
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) GetRemotePathOk() (*string, bool)`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) GetRemotePathOk() (*string, bool)`
 
 GetRemotePathOk returns a tuple with the RemotePath field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemotePath
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) SetRemotePath(v string)`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) SetRemotePath(v string)`
 
 SetRemotePath sets RemotePath field to given value.
 
 ### HasRemotePath
 
-`func (o *DeviceSubscribesToLogSubscriptionRequestContent) HasRemotePath() bool`
+`func (o *DeviceSubscribesToLogSubscriptionResponseContent) HasRemotePath() bool`
 
 HasRemotePath returns a boolean if a field has been set.
 

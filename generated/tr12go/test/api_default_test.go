@@ -94,9 +94,10 @@ func Test_openapi_DefaultAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToCertificateRotation(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToCertificateRotation(context.Background()).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -105,9 +106,10 @@ func Test_openapi_DefaultAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToDeprovision(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToDeprovision(context.Background()).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -116,9 +118,10 @@ func Test_openapi_DefaultAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToDesiredConfiguration(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToDesiredConfiguration(context.Background()).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -127,9 +130,10 @@ func Test_openapi_DefaultAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToLogSubscription(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToLogSubscription(context.Background()).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -138,9 +142,10 @@ func Test_openapi_DefaultAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToThumbnailSubscription(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DefaultAPI.DeviceSubscribesToThumbnailSubscription(context.Background()).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})

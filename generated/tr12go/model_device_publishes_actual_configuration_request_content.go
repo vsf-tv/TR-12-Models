@@ -19,12 +19,9 @@ import (
 // checks if the DevicePublishesActualConfigurationRequestContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DevicePublishesActualConfigurationRequestContent{}
 
-// DevicePublishesActualConfigurationRequestContent Actual device configuration — reported by device to host. Extends desired fields with device-only reporting fields.
+// DevicePublishesActualConfigurationRequestContent struct for DevicePublishesActualConfigurationRequestContent
 type DevicePublishesActualConfigurationRequestContent struct {
-	Version string `json:"version"`
-	Channels []ActualChannelConfiguration `json:"channels"`
-	StandardSettings []IdAndValue `json:"standardSettings,omitempty"`
-	Health *Health `json:"health,omitempty"`
+	ActualDeviceConfiguration ActualDeviceConfiguration `json:"actualDeviceConfiguration"`
 }
 
 type _DevicePublishesActualConfigurationRequestContent DevicePublishesActualConfigurationRequestContent
@@ -33,10 +30,9 @@ type _DevicePublishesActualConfigurationRequestContent DevicePublishesActualConf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePublishesActualConfigurationRequestContent(version string, channels []ActualChannelConfiguration) *DevicePublishesActualConfigurationRequestContent {
+func NewDevicePublishesActualConfigurationRequestContent(actualDeviceConfiguration ActualDeviceConfiguration) *DevicePublishesActualConfigurationRequestContent {
 	this := DevicePublishesActualConfigurationRequestContent{}
-	this.Version = version
-	this.Channels = channels
+	this.ActualDeviceConfiguration = actualDeviceConfiguration
 	return &this
 }
 
@@ -48,116 +44,28 @@ func NewDevicePublishesActualConfigurationRequestContentWithDefaults() *DevicePu
 	return &this
 }
 
-// GetVersion returns the Version field value
-func (o *DevicePublishesActualConfigurationRequestContent) GetVersion() string {
+// GetActualDeviceConfiguration returns the ActualDeviceConfiguration field value
+func (o *DevicePublishesActualConfigurationRequestContent) GetActualDeviceConfiguration() ActualDeviceConfiguration {
 	if o == nil {
-		var ret string
+		var ret ActualDeviceConfiguration
 		return ret
 	}
 
-	return o.Version
+	return o.ActualDeviceConfiguration
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetActualDeviceConfigurationOk returns a tuple with the ActualDeviceConfiguration field value
 // and a boolean to check if the value has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) GetVersionOk() (*string, bool) {
+func (o *DevicePublishesActualConfigurationRequestContent) GetActualDeviceConfigurationOk() (*ActualDeviceConfiguration, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Version, true
+	return &o.ActualDeviceConfiguration, true
 }
 
-// SetVersion sets field value
-func (o *DevicePublishesActualConfigurationRequestContent) SetVersion(v string) {
-	o.Version = v
-}
-
-// GetChannels returns the Channels field value
-func (o *DevicePublishesActualConfigurationRequestContent) GetChannels() []ActualChannelConfiguration {
-	if o == nil {
-		var ret []ActualChannelConfiguration
-		return ret
-	}
-
-	return o.Channels
-}
-
-// GetChannelsOk returns a tuple with the Channels field value
-// and a boolean to check if the value has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) GetChannelsOk() ([]ActualChannelConfiguration, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Channels, true
-}
-
-// SetChannels sets field value
-func (o *DevicePublishesActualConfigurationRequestContent) SetChannels(v []ActualChannelConfiguration) {
-	o.Channels = v
-}
-
-// GetStandardSettings returns the StandardSettings field value if set, zero value otherwise.
-func (o *DevicePublishesActualConfigurationRequestContent) GetStandardSettings() []IdAndValue {
-	if o == nil || IsNil(o.StandardSettings) {
-		var ret []IdAndValue
-		return ret
-	}
-	return o.StandardSettings
-}
-
-// GetStandardSettingsOk returns a tuple with the StandardSettings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) GetStandardSettingsOk() ([]IdAndValue, bool) {
-	if o == nil || IsNil(o.StandardSettings) {
-		return nil, false
-	}
-	return o.StandardSettings, true
-}
-
-// HasStandardSettings returns a boolean if a field has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) HasStandardSettings() bool {
-	if o != nil && !IsNil(o.StandardSettings) {
-		return true
-	}
-
-	return false
-}
-
-// SetStandardSettings gets a reference to the given []IdAndValue and assigns it to the StandardSettings field.
-func (o *DevicePublishesActualConfigurationRequestContent) SetStandardSettings(v []IdAndValue) {
-	o.StandardSettings = v
-}
-
-// GetHealth returns the Health field value if set, zero value otherwise.
-func (o *DevicePublishesActualConfigurationRequestContent) GetHealth() Health {
-	if o == nil || IsNil(o.Health) {
-		var ret Health
-		return ret
-	}
-	return *o.Health
-}
-
-// GetHealthOk returns a tuple with the Health field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) GetHealthOk() (*Health, bool) {
-	if o == nil || IsNil(o.Health) {
-		return nil, false
-	}
-	return o.Health, true
-}
-
-// HasHealth returns a boolean if a field has been set.
-func (o *DevicePublishesActualConfigurationRequestContent) HasHealth() bool {
-	if o != nil && !IsNil(o.Health) {
-		return true
-	}
-
-	return false
-}
-
-// SetHealth gets a reference to the given Health and assigns it to the Health field.
-func (o *DevicePublishesActualConfigurationRequestContent) SetHealth(v Health) {
-	o.Health = &v
+// SetActualDeviceConfiguration sets field value
+func (o *DevicePublishesActualConfigurationRequestContent) SetActualDeviceConfiguration(v ActualDeviceConfiguration) {
+	o.ActualDeviceConfiguration = v
 }
 
 func (o DevicePublishesActualConfigurationRequestContent) MarshalJSON() ([]byte, error) {
@@ -170,14 +78,7 @@ func (o DevicePublishesActualConfigurationRequestContent) MarshalJSON() ([]byte,
 
 func (o DevicePublishesActualConfigurationRequestContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["version"] = o.Version
-	toSerialize["channels"] = o.Channels
-	if !IsNil(o.StandardSettings) {
-		toSerialize["standardSettings"] = o.StandardSettings
-	}
-	if !IsNil(o.Health) {
-		toSerialize["health"] = o.Health
-	}
+	toSerialize["actualDeviceConfiguration"] = o.ActualDeviceConfiguration
 	return toSerialize, nil
 }
 
@@ -186,8 +87,7 @@ func (o *DevicePublishesActualConfigurationRequestContent) UnmarshalJSON(data []
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"version",
-		"channels",
+		"actualDeviceConfiguration",
 	}
 
 	allProperties := make(map[string]interface{})

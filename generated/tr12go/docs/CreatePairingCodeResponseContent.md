@@ -4,13 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | [**CreatePairingCodeResult**](CreatePairingCodeResult.md) |  | 
+**DeviceId** | **string** |  | 
+**PairingCode** | **string** |  | 
+**AccessCode** | **string** |  | 
+**PairingTimeoutSeconds** | **float32** |  | 
 
 ## Methods
 
 ### NewCreatePairingCodeResponseContent
 
-`func NewCreatePairingCodeResponseContent(result CreatePairingCodeResult, ) *CreatePairingCodeResponseContent`
+`func NewCreatePairingCodeResponseContent(deviceId string, pairingCode string, accessCode string, pairingTimeoutSeconds float32, ) *CreatePairingCodeResponseContent`
 
 NewCreatePairingCodeResponseContent instantiates a new CreatePairingCodeResponseContent object
 This constructor will assign default values to properties that have it defined,
@@ -25,24 +28,84 @@ NewCreatePairingCodeResponseContentWithDefaults instantiates a new CreatePairing
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetResult
+### GetDeviceId
 
-`func (o *CreatePairingCodeResponseContent) GetResult() CreatePairingCodeResult`
+`func (o *CreatePairingCodeResponseContent) GetDeviceId() string`
 
-GetResult returns the Result field if non-nil, zero value otherwise.
+GetDeviceId returns the DeviceId field if non-nil, zero value otherwise.
 
-### GetResultOk
+### GetDeviceIdOk
 
-`func (o *CreatePairingCodeResponseContent) GetResultOk() (*CreatePairingCodeResult, bool)`
+`func (o *CreatePairingCodeResponseContent) GetDeviceIdOk() (*string, bool)`
 
-GetResultOk returns a tuple with the Result field if it's non-nil, zero value otherwise
+GetDeviceIdOk returns a tuple with the DeviceId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetResult
+### SetDeviceId
 
-`func (o *CreatePairingCodeResponseContent) SetResult(v CreatePairingCodeResult)`
+`func (o *CreatePairingCodeResponseContent) SetDeviceId(v string)`
 
-SetResult sets Result field to given value.
+SetDeviceId sets DeviceId field to given value.
+
+
+### GetPairingCode
+
+`func (o *CreatePairingCodeResponseContent) GetPairingCode() string`
+
+GetPairingCode returns the PairingCode field if non-nil, zero value otherwise.
+
+### GetPairingCodeOk
+
+`func (o *CreatePairingCodeResponseContent) GetPairingCodeOk() (*string, bool)`
+
+GetPairingCodeOk returns a tuple with the PairingCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPairingCode
+
+`func (o *CreatePairingCodeResponseContent) SetPairingCode(v string)`
+
+SetPairingCode sets PairingCode field to given value.
+
+
+### GetAccessCode
+
+`func (o *CreatePairingCodeResponseContent) GetAccessCode() string`
+
+GetAccessCode returns the AccessCode field if non-nil, zero value otherwise.
+
+### GetAccessCodeOk
+
+`func (o *CreatePairingCodeResponseContent) GetAccessCodeOk() (*string, bool)`
+
+GetAccessCodeOk returns a tuple with the AccessCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessCode
+
+`func (o *CreatePairingCodeResponseContent) SetAccessCode(v string)`
+
+SetAccessCode sets AccessCode field to given value.
+
+
+### GetPairingTimeoutSeconds
+
+`func (o *CreatePairingCodeResponseContent) GetPairingTimeoutSeconds() float32`
+
+GetPairingTimeoutSeconds returns the PairingTimeoutSeconds field if non-nil, zero value otherwise.
+
+### GetPairingTimeoutSecondsOk
+
+`func (o *CreatePairingCodeResponseContent) GetPairingTimeoutSecondsOk() (*float32, bool)`
+
+GetPairingTimeoutSecondsOk returns a tuple with the PairingTimeoutSeconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPairingTimeoutSeconds
+
+`func (o *CreatePairingCodeResponseContent) SetPairingTimeoutSeconds(v float32)`
+
+SetPairingTimeoutSeconds sets PairingTimeoutSeconds field to given value.
 
 
 

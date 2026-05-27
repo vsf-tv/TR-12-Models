@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Channels** | [**[]Channel**](Channel.md) |  | 
-**DeviceRegistrationSettings** | Pointer to [**[]Setting**](Setting.md) |  | [optional] 
+**DeviceRegistration** | [**DeviceRegistration**](DeviceRegistration.md) |  | 
 
 ## Methods
 
 ### NewDevicePublishesRegistrationRequestContent
 
-`func NewDevicePublishesRegistrationRequestContent(channels []Channel, ) *DevicePublishesRegistrationRequestContent`
+`func NewDevicePublishesRegistrationRequestContent(deviceRegistration DeviceRegistration, ) *DevicePublishesRegistrationRequestContent`
 
 NewDevicePublishesRegistrationRequestContent instantiates a new DevicePublishesRegistrationRequestContent object
 This constructor will assign default values to properties that have it defined,
@@ -26,50 +25,25 @@ NewDevicePublishesRegistrationRequestContentWithDefaults instantiates a new Devi
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetChannels
+### GetDeviceRegistration
 
-`func (o *DevicePublishesRegistrationRequestContent) GetChannels() []Channel`
+`func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistration() DeviceRegistration`
 
-GetChannels returns the Channels field if non-nil, zero value otherwise.
+GetDeviceRegistration returns the DeviceRegistration field if non-nil, zero value otherwise.
 
-### GetChannelsOk
+### GetDeviceRegistrationOk
 
-`func (o *DevicePublishesRegistrationRequestContent) GetChannelsOk() (*[]Channel, bool)`
+`func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistrationOk() (*DeviceRegistration, bool)`
 
-GetChannelsOk returns a tuple with the Channels field if it's non-nil, zero value otherwise
+GetDeviceRegistrationOk returns a tuple with the DeviceRegistration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetChannels
+### SetDeviceRegistration
 
-`func (o *DevicePublishesRegistrationRequestContent) SetChannels(v []Channel)`
+`func (o *DevicePublishesRegistrationRequestContent) SetDeviceRegistration(v DeviceRegistration)`
 
-SetChannels sets Channels field to given value.
+SetDeviceRegistration sets DeviceRegistration field to given value.
 
-
-### GetDeviceRegistrationSettings
-
-`func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistrationSettings() []Setting`
-
-GetDeviceRegistrationSettings returns the DeviceRegistrationSettings field if non-nil, zero value otherwise.
-
-### GetDeviceRegistrationSettingsOk
-
-`func (o *DevicePublishesRegistrationRequestContent) GetDeviceRegistrationSettingsOk() (*[]Setting, bool)`
-
-GetDeviceRegistrationSettingsOk returns a tuple with the DeviceRegistrationSettings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeviceRegistrationSettings
-
-`func (o *DevicePublishesRegistrationRequestContent) SetDeviceRegistrationSettings(v []Setting)`
-
-SetDeviceRegistrationSettings sets DeviceRegistrationSettings field to given value.
-
-### HasDeviceRegistrationSettings
-
-`func (o *DevicePublishesRegistrationRequestContent) HasDeviceRegistrationSettings() bool`
-
-HasDeviceRegistrationSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
