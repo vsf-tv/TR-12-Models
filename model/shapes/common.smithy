@@ -13,7 +13,7 @@ namespace com.tr12.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("6.0.0")
+    @default("6.0.1")
     version: String
 }
 
@@ -271,9 +271,11 @@ union Health {
 /// Healthy state — no additional fields needed.
 structure Healthy {}
 
-/// Shared description for degraded and critical states.
+/// Maximum 128 characters. Messages exceeding this limit are truncated before transmission
+/// to prevent MQTT payload bloat on devices with many channels.
 structure HealthError {
     @required
+    @length(max: 128)
     message: String
     @required
     @timestampFormat("date-time")
