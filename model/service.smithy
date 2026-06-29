@@ -167,12 +167,14 @@ structure ActualConfigurationPayload {
 // -----------------------------------------------------------------------
 
 /// Host publishes host configuration to device on connect.
+@readonly
 @http(method: "GET", uri: "/internal/host-config")
 operation GetHostConfig {
     output: HostConfig
 }
 
 /// Host publishes protocol version to device.
+@readonly
 @http(method: "GET", uri: "/internal/version")
 operation GetVersion {
     output: VersionResponse
