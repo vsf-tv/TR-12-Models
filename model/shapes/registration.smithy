@@ -87,9 +87,9 @@ structure Setting {
 }
 
 structure EnumValues {
-    @required
     /// See limits.smithy: MAX_ENUM_VALUES
     @length(max: 10)
+    @required
     values: EnumValuesStringList
     @required
     defaultValue: String
