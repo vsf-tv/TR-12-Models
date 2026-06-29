@@ -28,6 +28,10 @@ Use `generate-tr12-models.sh` to generate client SDKs from the OpenAPI spec prod
 
 Supported languages: `go`, `python`, `typescript`, `typescript-fetch`, `cpp-restsdk`, `cpp-tiny`, `cpp-oatpp-client`
 
+## Dependencies
+- [smithy-cli](https://smithy.io/2.0/guides/smithy-cli/index.html)
+- [openapi-generator CLI](https://openapi-generator.tech/docs/installation)
+
 ## Reference
 - [TR-12 Client and Server SDK] (https://github.com/vsf-tv/TR-12-Client-and-Host-Go)
 

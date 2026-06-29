@@ -11,6 +11,7 @@ INTERNAL_SERVICE="HostServiceApi"
 INTERNAL_SPEC="build/smithy/source/openapi/${INTERNAL_SERVICE}.openapi.json"
 OUTPUT_DIR="./generated/tr12"
 LANGUAGES=("cpp-restsdk" "python" "typescript" "cpp-tiny" "cpp-oatpp-client" "go")
+DEPENDENCIES=("smithy" "openapi-generator")
 
 # Check arguments
 if [ $# -ne 1 ]; then
@@ -27,6 +28,15 @@ if [[ ! " ${LANGUAGES[*]} " =~ " ${LANG} " ]]; then
     echo "Supported languages: ${LANGUAGES[*]}"
     exit 1
 fi
+
+# check for dependencies
+for dep in ${DEPENDENCIES[*]}; do
+    if ! command -v $dep >/dev/null 2>&1
+    then
+        echo "❌ Error: Dependency $dep could not be found."
+        exit 1
+    fi
+done
 
 # 1. Build the Smithy TR12 models
 echo "🚀 Building Smithy TR12 model..."
