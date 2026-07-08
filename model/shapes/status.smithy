@@ -2,6 +2,7 @@ $version: "2"
 
 namespace com.tr12.status
 use com.tr12.common#ChannelState
+use com.tr12.common#IdString
 
 structure DeviceStatus {
     @required
@@ -17,7 +18,7 @@ list ChannelStatusList {
 
 structure ChannelStatus {
     @required
-    id: String
+    id: IdString
     @required
     state: ChannelState
     @required

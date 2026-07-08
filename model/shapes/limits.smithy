@@ -29,4 +29,7 @@ namespace com.tr12.registration
 /// MAX_PROTOCOLS_PER_TEMPLATE = 10   (transport protocols per channel template)
 /// MAX_CHANNEL_STATUS         = 50   (channels reporting status)
 /// MAX_STATUS_VALUES          = 50   (status entries per scope)
+/// MAX_ID_LENGTH              = 12   (max characters in any IdString: channelId, templateId,
+///                                    setting id, profile id, channel status id)
+///                                    Allowed characters: A–Z, a–z, 0–9 (no special characters)
 /// ─────────────────────────────────────────────────────────────────────────────

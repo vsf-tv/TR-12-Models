@@ -4,6 +4,7 @@ namespace com.tr12.configuration
 use com.tr12.common#ChannelState
 use com.tr12.common#Health
 use com.tr12.common#IdAndValueList
+use com.tr12.common#IdString
 
 /// Desired device configuration — sent from host to device.
 /// Contains only fields the host controls. No device-reported fields.
@@ -47,7 +48,7 @@ list ActualChannelConfigurationList {
 /// Contains only fields the host controls. No device-reported fields.
 structure DesiredChannelConfiguration {
     @required
-    id: String
+    id: IdString
     @required
     @length(max: 80)
     version: String
@@ -62,7 +63,7 @@ structure DesiredChannelConfiguration {
 /// Extends desired fields with device-only reporting fields.
 structure ActualChannelConfiguration {
     @required
-    id: String
+    id: IdString
     @required
     @length(max: 80)
     version: String
@@ -83,7 +84,7 @@ union ChannelSettings {
 
 structure ChannelProfile {
     @required
-    id: String
+    id: IdString
 }
 
 @sensitive

@@ -13,7 +13,7 @@ namespace com.tr12.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("6.0.1")
+    @default("7.0.0")
     version: String
 }
 
@@ -54,7 +54,7 @@ enum TransportProtocolName {
 
 structure IdAndValue {
     @required
-    id: String
+    id: IdString
     @required
     value: String
 }
@@ -229,7 +229,16 @@ structure ThumbnailSubscriptionPayload {
     requests: ThumbnailSubscriptionMap
 }
 
-/// Channel identifier (e.g. "CH01", "CH02").
+/// An identifier string: 1–12 alphanumeric characters (letters and digits only, no special characters).
+/// Used for channelId, templateId, setting id, profile id, and channel status id.
+/// See limits.smithy: MAX_ID_LENGTH
+@length(min: 1, max: 12)
+@pattern("^[a-zA-Z0-9]+$")
+string IdString
+
+/// Channel identifier (e.g. "CH01", "CH02"). Follows IdString constraints: 1–12 alphanumeric characters.
+@length(min: 1, max: 12)
+@pattern("^[a-zA-Z0-9]+$")
 string ChannelId
 
 /// Map of channelId to ThumbnailRequest. The host subscribes by channel.

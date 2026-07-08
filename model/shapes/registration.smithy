@@ -4,6 +4,7 @@ namespace com.tr12.registration
 use com.tr12.common#ChannelType
 use com.tr12.common#TransportProtocolName
 use com.tr12.common#EnumValuesStringList
+use com.tr12.common#IdString
 
 /// Device registration payload — advertises device capabilities to the host.
 ///
@@ -41,17 +42,17 @@ list ChannelAssignmentList {
 /// capabilities (settings, profiles, protocols) from the referenced template.
 structure ChannelAssignment {
     @required
-    channelId: String
+    channelId: IdString
     @required
     name: String
     @required
-    templateId: String
+    templateId: IdString
 }
 
 /// A channel template defines the capabilities shared by one or more channels.
 structure ChannelTemplate {
     @required
-    id: String
+    id: IdString
     @required
     channelType: ChannelType
     /// Settings this channel type supports.
@@ -77,7 +78,7 @@ union SettingConstraint {
 
 structure Setting {
     @required
-    id: String
+    id: IdString
     @required
     name: String
     @required
@@ -87,8 +88,8 @@ structure Setting {
 }
 
 structure EnumValues {
-    @required
     /// See limits.smithy: MAX_ENUM_VALUES
+    @required
     @length(max: 10)
     values: EnumValuesStringList
     @required
@@ -114,7 +115,7 @@ structure ProfileDefinition {
     @required
     name: String
     @required
-    id: String
+    id: IdString
     @required
     description: String
 }
