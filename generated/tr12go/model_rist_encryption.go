@@ -16,37 +16,37 @@ import (
 	"fmt"
 )
 
-// checks if the EncryptionAes128 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EncryptionAes128{}
+// checks if the RistEncryption type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RistEncryption{}
 
-// EncryptionAes128 struct for EncryptionAes128
-type EncryptionAes128 struct {
-	// A 32-character hexadecimal string.
-	Passphrase string `json:"passphrase" validate:"regexp=^[a-fA-F0-9]+$"`
+// RistEncryption RIST encryption configuration (Main Profile, DTLS-PSK).
+type RistEncryption struct {
+	// Encryption passphrase. Constraints are protocol-defined.
+	Passphrase string `json:"passphrase"`
 }
 
-type _EncryptionAes128 EncryptionAes128
+type _RistEncryption RistEncryption
 
-// NewEncryptionAes128 instantiates a new EncryptionAes128 object
+// NewRistEncryption instantiates a new RistEncryption object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEncryptionAes128(passphrase string) *EncryptionAes128 {
-	this := EncryptionAes128{}
+func NewRistEncryption(passphrase string) *RistEncryption {
+	this := RistEncryption{}
 	this.Passphrase = passphrase
 	return &this
 }
 
-// NewEncryptionAes128WithDefaults instantiates a new EncryptionAes128 object
+// NewRistEncryptionWithDefaults instantiates a new RistEncryption object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEncryptionAes128WithDefaults() *EncryptionAes128 {
-	this := EncryptionAes128{}
+func NewRistEncryptionWithDefaults() *RistEncryption {
+	this := RistEncryption{}
 	return &this
 }
 
 // GetPassphrase returns the Passphrase field value
-func (o *EncryptionAes128) GetPassphrase() string {
+func (o *RistEncryption) GetPassphrase() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -57,7 +57,7 @@ func (o *EncryptionAes128) GetPassphrase() string {
 
 // GetPassphraseOk returns a tuple with the Passphrase field value
 // and a boolean to check if the value has been set.
-func (o *EncryptionAes128) GetPassphraseOk() (*string, bool) {
+func (o *RistEncryption) GetPassphraseOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,11 +65,11 @@ func (o *EncryptionAes128) GetPassphraseOk() (*string, bool) {
 }
 
 // SetPassphrase sets field value
-func (o *EncryptionAes128) SetPassphrase(v string) {
+func (o *RistEncryption) SetPassphrase(v string) {
 	o.Passphrase = v
 }
 
-func (o EncryptionAes128) MarshalJSON() ([]byte, error) {
+func (o RistEncryption) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -77,13 +77,13 @@ func (o EncryptionAes128) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EncryptionAes128) ToMap() (map[string]interface{}, error) {
+func (o RistEncryption) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["passphrase"] = o.Passphrase
 	return toSerialize, nil
 }
 
-func (o *EncryptionAes128) UnmarshalJSON(data []byte) (err error) {
+func (o *RistEncryption) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -105,53 +105,53 @@ func (o *EncryptionAes128) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varEncryptionAes128 := _EncryptionAes128{}
+	varRistEncryption := _RistEncryption{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEncryptionAes128)
+	err = decoder.Decode(&varRistEncryption)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EncryptionAes128(varEncryptionAes128)
+	*o = RistEncryption(varRistEncryption)
 
 	return err
 }
 
-type NullableEncryptionAes128 struct {
-	value *EncryptionAes128
+type NullableRistEncryption struct {
+	value *RistEncryption
 	isSet bool
 }
 
-func (v NullableEncryptionAes128) Get() *EncryptionAes128 {
+func (v NullableRistEncryption) Get() *RistEncryption {
 	return v.value
 }
 
-func (v *NullableEncryptionAes128) Set(val *EncryptionAes128) {
+func (v *NullableRistEncryption) Set(val *RistEncryption) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEncryptionAes128) IsSet() bool {
+func (v NullableRistEncryption) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEncryptionAes128) Unset() {
+func (v *NullableRistEncryption) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEncryptionAes128(val *EncryptionAes128) *NullableEncryptionAes128 {
-	return &NullableEncryptionAes128{value: val, isSet: true}
+func NewNullableRistEncryption(val *RistEncryption) *NullableRistEncryption {
+	return &NullableRistEncryption{value: val, isSet: true}
 }
 
-func (v NullableEncryptionAes128) MarshalJSON() ([]byte, error) {
+func (v NullableRistEncryption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEncryptionAes128) UnmarshalJSON(src []byte) error {
+func (v *NullableRistEncryption) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

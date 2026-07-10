@@ -9,8 +9,7 @@ Name | Type | Description | Notes
 **State** | [**ChannelState**](ChannelState.md) |  | 
 **ChannelSettings** | Pointer to [**ChannelSettings**](ChannelSettings.md) |  | [optional] 
 **Protocol** | Pointer to [**TransportProtocol**](TransportProtocol.md) |  | [optional] 
-**Health** | Pointer to [**Health**](Health.md) |  | [optional] 
-**ThumbnailLocalPath** | Pointer to **string** | Informs the TR12 Client so it may service Thumbnail Subscriptions.  Host service can ignore. | [optional] 
+**ThumbnailLocalPath** | Pointer to **string** | Local filesystem path to the channel&#39;s current thumbnail image. | [optional] 
 
 ## Methods
 
@@ -140,31 +139,6 @@ SetProtocol sets Protocol field to given value.
 `func (o *ActualChannelConfiguration) HasProtocol() bool`
 
 HasProtocol returns a boolean if a field has been set.
-
-### GetHealth
-
-`func (o *ActualChannelConfiguration) GetHealth() Health`
-
-GetHealth returns the Health field if non-nil, zero value otherwise.
-
-### GetHealthOk
-
-`func (o *ActualChannelConfiguration) GetHealthOk() (*Health, bool)`
-
-GetHealthOk returns a tuple with the Health field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHealth
-
-`func (o *ActualChannelConfiguration) SetHealth(v Health)`
-
-SetHealth sets Health field to given value.
-
-### HasHealth
-
-`func (o *ActualChannelConfiguration) HasHealth() bool`
-
-HasHealth returns a boolean if a field has been set.
 
 ### GetThumbnailLocalPath
 

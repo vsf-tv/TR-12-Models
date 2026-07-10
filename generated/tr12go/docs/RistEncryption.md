@@ -1,46 +1,46 @@
-# EncryptionAes128
+# RistEncryption
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Passphrase** | **string** | A 32-character hexadecimal string. | 
+**Passphrase** | **string** | Encryption passphrase. Constraints are protocol-defined. | 
 
 ## Methods
 
-### NewEncryptionAes128
+### NewRistEncryption
 
-`func NewEncryptionAes128(passphrase string, ) *EncryptionAes128`
+`func NewRistEncryption(passphrase string, ) *RistEncryption`
 
-NewEncryptionAes128 instantiates a new EncryptionAes128 object
+NewRistEncryption instantiates a new RistEncryption object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewEncryptionAes128WithDefaults
+### NewRistEncryptionWithDefaults
 
-`func NewEncryptionAes128WithDefaults() *EncryptionAes128`
+`func NewRistEncryptionWithDefaults() *RistEncryption`
 
-NewEncryptionAes128WithDefaults instantiates a new EncryptionAes128 object
+NewRistEncryptionWithDefaults instantiates a new RistEncryption object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetPassphrase
 
-`func (o *EncryptionAes128) GetPassphrase() string`
+`func (o *RistEncryption) GetPassphrase() string`
 
 GetPassphrase returns the Passphrase field if non-nil, zero value otherwise.
 
 ### GetPassphraseOk
 
-`func (o *EncryptionAes128) GetPassphraseOk() (*string, bool)`
+`func (o *RistEncryption) GetPassphraseOk() (*string, bool)`
 
 GetPassphraseOk returns a tuple with the Passphrase field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPassphrase
 
-`func (o *EncryptionAes128) SetPassphrase(v string)`
+`func (o *RistEncryption) SetPassphrase(v string)`
 
 SetPassphrase sets Passphrase field to given value.
 

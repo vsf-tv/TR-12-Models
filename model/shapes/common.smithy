@@ -13,7 +13,7 @@ namespace com.tr12.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("7.0.0")
+    @default("8.0.0")
     version: String
 }
 
@@ -45,10 +45,12 @@ enum PairingCodeAuthorizedStatus {
 enum TransportProtocolName {
     SRT_LISTENER
     SRT_CALLER
-    ZIXI_PUSH
-    ZIXI_PULL
-    RIST_SIMPLE_CALLER
-    RIST_SIMPLE_LISTENER
+    ZIXI_PUSH_SENDER
+    ZIXI_PULL_SENDER
+    ZIXI_PUSH_RECEIVER
+    ZIXI_PULL_RECEIVER
+    RIST_SIMPLE_SENDER
+    RIST_SIMPLE_RECEIVER
     RTP
 }
 

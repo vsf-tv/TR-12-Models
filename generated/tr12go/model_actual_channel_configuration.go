@@ -27,8 +27,7 @@ type ActualChannelConfiguration struct {
 	State ChannelState `json:"state"`
 	ChannelSettings *ChannelSettings `json:"channelSettings,omitempty"`
 	Protocol *TransportProtocol `json:"protocol,omitempty"`
-	Health *Health `json:"health,omitempty"`
-	// Informs the TR12 Client so it may service Thumbnail Subscriptions.  Host service can ignore.
+	// Local filesystem path to the channel's current thumbnail image.
 	ThumbnailLocalPath *string `json:"thumbnailLocalPath,omitempty"`
 }
 
@@ -190,38 +189,6 @@ func (o *ActualChannelConfiguration) SetProtocol(v TransportProtocol) {
 	o.Protocol = &v
 }
 
-// GetHealth returns the Health field value if set, zero value otherwise.
-func (o *ActualChannelConfiguration) GetHealth() Health {
-	if o == nil || IsNil(o.Health) {
-		var ret Health
-		return ret
-	}
-	return *o.Health
-}
-
-// GetHealthOk returns a tuple with the Health field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ActualChannelConfiguration) GetHealthOk() (*Health, bool) {
-	if o == nil || IsNil(o.Health) {
-		return nil, false
-	}
-	return o.Health, true
-}
-
-// HasHealth returns a boolean if a field has been set.
-func (o *ActualChannelConfiguration) HasHealth() bool {
-	if o != nil && !IsNil(o.Health) {
-		return true
-	}
-
-	return false
-}
-
-// SetHealth gets a reference to the given Health and assigns it to the Health field.
-func (o *ActualChannelConfiguration) SetHealth(v Health) {
-	o.Health = &v
-}
-
 // GetThumbnailLocalPath returns the ThumbnailLocalPath field value if set, zero value otherwise.
 func (o *ActualChannelConfiguration) GetThumbnailLocalPath() string {
 	if o == nil || IsNil(o.ThumbnailLocalPath) {
@@ -272,9 +239,6 @@ func (o ActualChannelConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Protocol) {
 		toSerialize["protocol"] = o.Protocol
-	}
-	if !IsNil(o.Health) {
-		toSerialize["health"] = o.Health
 	}
 	if !IsNil(o.ThumbnailLocalPath) {
 		toSerialize["thumbnailLocalPath"] = o.ThumbnailLocalPath
