@@ -13,7 +13,7 @@ namespace com.tr12.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("8.0.0")
+    @default("9.0.0")
     version: String
 }
 
@@ -232,8 +232,6 @@ structure ThumbnailSubscriptionPayload {
 }
 
 /// An identifier string: 1–12 alphanumeric characters (letters and digits only, no special characters).
-/// Used for channelId, templateId, setting id, profile id, and channel status id.
-/// See limits.smithy: MAX_ID_LENGTH
 @length(min: 1, max: 12)
 @pattern("^[a-zA-Z0-9]+$")
 string IdString
@@ -282,8 +280,7 @@ union Health {
 /// Healthy state — no additional fields needed.
 structure Healthy {}
 
-/// Maximum 128 characters. Messages exceeding this limit are truncated before transmission
-/// to prevent MQTT payload bloat on devices with many channels.
+/// Maximum 128 characters.
 structure HealthError {
     @required
     @length(max: 128)

@@ -6,7 +6,6 @@ use com.tr12.common#IdAndValueList
 use com.tr12.common#IdString
 
 /// Desired device configuration — sent from host to device.
-/// Contains only fields the host controls. No device-reported fields.
 structure DesiredDeviceConfiguration {
     @required
     @length(max: 80)
@@ -42,7 +41,6 @@ list ActualChannelConfigurationList {
 }
 
 /// Desired channel configuration — sent from host to device.
-/// Contains only fields the host controls. No device-reported fields.
 structure DesiredChannelConfiguration {
     @required
     id: IdString
@@ -89,7 +87,6 @@ structure ChannelProfile {
 // The key length (AES-128/192/256) is a separate configuration that controls
 // the strength of the encryption, independent of passphrase length.
 
-/// Encryption passphrase. Constraints are protocol-defined.
 @sensitive
 string Passphrase
 
@@ -99,7 +96,6 @@ string Passphrase
 string SrtPassphrase
 
 /// SRT encryption configuration.
-/// All SRT versions support all three key lengths.
 structure SrtEncryption {
     @required
     passphrase: SrtPassphrase
@@ -130,16 +126,11 @@ enum ZixiEncryptionKeyLength {
 }
 
 /// RIST encryption configuration (Main Profile, DTLS-PSK).
-structure RistEncryption {
-    @required
-    passphrase: Passphrase
-}
-
 union TransportProtocol {
     srtListener: SrtListenerTransportProtocol
     srtCaller: SrtCallerTransportProtocol
-    ristSimpleListener: RistSimpleListenerTransportProtocol
-    ristSimpleCaller: RistSimpleCallerTransportProtocol
+    ristSimpleReceiver: RistSimpleReceiverTransportProtocol
+    ristSimpleSender: RistSimpleSenderTransportProtocol
     /// Zixi Push Sender: device is the sender, initiates connection to the receiver.
     zixiPushSender: ZixiPushSenderTransportProtocol
     /// Zixi Push Receiver: device is the receiver, initiates connection to the sender.
@@ -177,31 +168,25 @@ structure SrtCallerTransportProtocol {
     encryption: SrtEncryption
 }
 
-/// RIST Simple Profile (VSF TR-06-1) listener — binds a local UDP port and waits for the sender.
-/// Stream identification uses the RTP SSRC in the packet header; no streamId needed.
-structure RistSimpleListenerTransportProtocol {
-    // Ports 0-1023 are reserved system ports requiring elevated privileges to bind.
+/// RIST Simple Profile (VSF TR-06-1) receiver — binds a local UDP port and waits for the sender.
+structure RistSimpleReceiverTransportProtocol {
     @required
     @range(min: 1024, max: 65535)
     port: Integer
     @default(1000)
     minimumLatencyMilliseconds: Integer
-    encryption: RistEncryption
     interface: String
 }
 
-/// RIST Simple Profile (VSF TR-06-1) caller — initiates connection to a remote listener.
-/// Stream identification uses the RTP SSRC in the packet header; no streamId needed.
-structure RistSimpleCallerTransportProtocol {
+/// RIST Simple Profile (VSF TR-06-1) sender — initiates connection to a remote receiver.
+structure RistSimpleSenderTransportProtocol {
     @required
     address: String
-    // No lower bound restriction — connecting to a remote port, not binding locally.
     @required
     @range(min: 1, max: 65535)
     port: Integer
     @default(1000)
     minimumLatencyMilliseconds: Integer
-    encryption: RistEncryption
 }
 
 // ─── Zixi Transport Protocol ────────────────────────────────────────────────
