@@ -88,6 +88,7 @@ structure ChannelProfile {
 // the strength of the encryption, independent of passphrase length.
 
 @sensitive
+@length(min: 1, max: 80)
 string Passphrase
 
 /// SRT encryption passphrase. 10-80 characters per the SRT protocol specification.
@@ -125,7 +126,7 @@ enum ZixiEncryptionKeyLength {
     AES_256
 }
 
-/// RIST encryption configuration (Main Profile, DTLS-PSK).
+/// Available transport protocol configurations for a channel.
 union TransportProtocol {
     srtListener: SrtListenerTransportProtocol
     srtCaller: SrtCallerTransportProtocol
