@@ -207,8 +207,8 @@ structure ZixiCommonFields {
     encryption: ZixiEncryption
 }
 
-/// Zixi Push Sender — device has content, connects to receiver's address:port to deliver it.
-/// Example: encoder pushes to a Zixi Broadcaster or cloud ingest.
+/// Zixi Push Sender — device has content and connects OUT to deliver it.
+/// Push = sender initiates connection. Device needs remote address:port.
 structure ZixiPushSenderTransportProtocol with [ZixiCommonFields] {
     streamId: String
     @required
@@ -218,19 +218,18 @@ structure ZixiPushSenderTransportProtocol with [ZixiCommonFields] {
     port: Integer
 }
 
-/// Zixi Push Receiver — device wants content, connects to sender's address:port to receive it.
-/// Example: decoder connects to a Zixi Broadcaster output to receive a push.
+/// Zixi Push Receiver — device wants content and listens for the sender to connect IN.
+/// Push = sender initiates connection. Device listens on a local port.
 structure ZixiPushReceiverTransportProtocol with [ZixiCommonFields] {
     streamId: String
     @required
-    address: String
-    @default(2088)
-    @range(min: 1, max: 65535)
+    @range(min: 1024, max: 65535)
     port: Integer
+    interface: String
 }
 
-/// Zixi Pull Sender — device has content, listens on a port for receivers to connect and pull.
-/// Example: encoder listens; Zixi Broadcaster connects to pull the stream.
+/// Zixi Pull Sender — device has content and listens for receivers to connect IN and pull.
+/// Pull = receiver initiates connection. Device listens on a local port.
 structure ZixiPullSenderTransportProtocol with [ZixiCommonFields] {
     @required
     streamId: String
@@ -240,8 +239,8 @@ structure ZixiPullSenderTransportProtocol with [ZixiCommonFields] {
     interface: String
 }
 
-/// Zixi Pull Receiver — device wants content, connects to sender's address:port to pull a named stream.
-/// Example: decoder connects to a Zixi Broadcaster and requests a specific stream by ID.
+/// Zixi Pull Receiver — device wants content and connects OUT to pull from the sender.
+/// Pull = receiver initiates connection. Device needs remote address:port.
 structure ZixiPullReceiverTransportProtocol with [ZixiCommonFields] {
     @required
     streamId: String
