@@ -1,3 +1,6 @@
 build/
 __pycache__/
 *.pyc
+
+# Generated SDK output — produced by generate-tr12-models.sh, not tracked
+generated/
