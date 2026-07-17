@@ -13,7 +13,7 @@ namespace com.tr12.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("9.0.0")
+    @default("10.0.0")
     version: String
 }
 
@@ -25,6 +25,18 @@ enum ChannelState {
 enum ChannelType {
     SOURCE
     DESTINATION
+}
+
+enum TransportProtocolName {
+    SRT_LISTENER
+    SRT_CALLER
+    ZIXI_PUSH_SENDER
+    ZIXI_PULL_SENDER
+    ZIXI_PUSH_RECEIVER
+    ZIXI_PULL_RECEIVER
+    RIST_SIMPLE_CALLER
+    RIST_SIMPLE_LISTENER
+    RTP
 }
 
 enum DeviceType {
@@ -40,18 +52,6 @@ list DeviceTypeList {
 enum PairingCodeAuthorizedStatus {
     STANDBY
     CLAIMED
-}
-
-enum TransportProtocolName {
-    SRT_LISTENER
-    SRT_CALLER
-    ZIXI_PUSH_SENDER
-    ZIXI_PULL_SENDER
-    ZIXI_PUSH_RECEIVER
-    ZIXI_PULL_RECEIVER
-    RIST_SIMPLE_SENDER
-    RIST_SIMPLE_RECEIVER
-    RTP
 }
 
 structure IdAndValue {

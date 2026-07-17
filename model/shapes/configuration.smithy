@@ -82,14 +82,9 @@ structure ChannelProfile {
 }
 
 // ─── Encryption ─────────────────────────────────────────────────────────────
+// ─── Encryption ───────────────────────────────────────────────────────────────
 //
-// SRT, RIST, and Zixi use a plain-text passphrase (not a raw AES key).
-// The key length (AES-128/192/256) is a separate configuration that controls
-// the strength of the encryption, independent of passphrase length.
-
-@sensitive
-@length(min: 1, max: 80)
-string Passphrase
+// SRT uses a plain-text passphrase. Zixi uses a raw AES hex key.
 
 /// SRT encryption passphrase. 10-80 characters per the SRT protocol specification.
 @sensitive
@@ -100,7 +95,6 @@ string SrtPassphrase
 structure SrtEncryption {
     @required
     passphrase: SrtPassphrase
-
     /// Optional. If omitted, the device determines the key length.
     keyLength: SrtEncryptionKeyLength
 }
@@ -111,34 +105,59 @@ enum SrtEncryptionKeyLength {
     AES_256
 }
 
-/// Zixi encryption configuration.
-structure ZixiEncryption {
+/// AES-128 hex key: exactly 32 hexadecimal characters.
+@sensitive
+@length(min: 32, max: 32)
+@pattern("^[0-9a-fA-F]+$")
+string Hex32
+
+/// AES-192 hex key: exactly 48 hexadecimal characters.
+@sensitive
+@length(min: 48, max: 48)
+@pattern("^[0-9a-fA-F]+$")
+string Hex48
+
+/// AES-256 hex key: exactly 64 hexadecimal characters.
+@sensitive
+@length(min: 64, max: 64)
+@pattern("^[0-9a-fA-F]+$")
+string Hex64
+
+structure EncryptionAes128 {
     @required
-    passphrase: Passphrase
-
-    /// Optional. If omitted, the device uses its own default.
-    keyLength: ZixiEncryptionKeyLength
+    aesKey: Hex32
 }
 
-enum ZixiEncryptionKeyLength {
-    AES_128
-    AES_192
-    AES_256
+structure EncryptionAes192 {
+    @required
+    aesKey: Hex48
 }
 
+structure EncryptionAes256 {
+    @required
+    aesKey: Hex64
+}
+
+/// AES encryption configuration. The variant determines key strength.
+union EncryptionAes {
+    aes128: EncryptionAes128
+    aes192: EncryptionAes192
+    aes256: EncryptionAes256
+}
 /// Available transport protocol configurations for a channel.
 union TransportProtocol {
     srtListener: SrtListenerTransportProtocol
     srtCaller: SrtCallerTransportProtocol
-    ristSimpleReceiver: RistSimpleReceiverTransportProtocol
-    ristSimpleSender: RistSimpleSenderTransportProtocol
+    ristSimpleListener: RistSimpleListenerTransportProtocol
+    ristSimpleCaller: RistSimpleCallerTransportProtocol
     /// Zixi Push Sender: device is the sender, initiates connection to the receiver.
+    /// Zixi Push Sender: device has content, connects out to deliver it (needs remote address:port).
     zixiPushSender: ZixiPushSenderTransportProtocol
-    /// Zixi Push Receiver: device is the receiver, initiates connection to the sender.
+    /// Zixi Push Receiver: device wants content, listens for sender to connect in (needs local port).
     zixiPushReceiver: ZixiPushReceiverTransportProtocol
-    /// Zixi Pull Sender: device is the sender, listens for incoming pull requests.
+    /// Zixi Pull Sender: device has content, listens for receivers to connect in and pull (needs local port).
     zixiPullSender: ZixiPullSenderTransportProtocol
-    /// Zixi Pull Receiver: device is the receiver, initiates connection to pull from sender.
+    /// Zixi Pull Receiver: device wants content, connects out to pull from sender (needs remote address:port).
     zixiPullReceiver: ZixiPullReceiverTransportProtocol
     rtp: RtpTransportProtocol
 }
@@ -147,12 +166,11 @@ structure SrtListenerTransportProtocol {
     streamId: String
     // Ports 0-1023 are reserved system ports requiring elevated privileges to bind.
     @required
-    @range(min: 1024, max: 65535)
+    @range(min: 1024, max: 32767)
     port: Integer
     @default(1000)
     minimumLatencyMilliseconds: Integer
     encryption: SrtEncryption
-    interface: String
 }
 
 structure SrtCallerTransportProtocol {
@@ -169,18 +187,17 @@ structure SrtCallerTransportProtocol {
     encryption: SrtEncryption
 }
 
-/// RIST Simple Profile (VSF TR-06-1) receiver — binds a local UDP port and waits for the sender.
-structure RistSimpleReceiverTransportProtocol {
+/// RIST Simple Profile (VSF TR-06-1) listener — binds a local UDP port and waits for incoming connections.
+structure RistSimpleListenerTransportProtocol {
     @required
-    @range(min: 1024, max: 65535)
+    @range(min: 1024, max: 32767)
     port: Integer
     @default(1000)
     minimumLatencyMilliseconds: Integer
-    interface: String
 }
 
-/// RIST Simple Profile (VSF TR-06-1) sender — initiates connection to a remote receiver.
-structure RistSimpleSenderTransportProtocol {
+/// RIST Simple Profile (VSF TR-06-1) caller — initiates connection to a remote listener.
+structure RistSimpleCallerTransportProtocol {
     @required
     address: String
     @required
@@ -205,7 +222,7 @@ structure RistSimpleSenderTransportProtocol {
 structure ZixiCommonFields {
     @default(1000)
     maximumLatencyMilliseconds: Integer
-    encryption: ZixiEncryption
+    encryption: EncryptionAes
 }
 
 /// Zixi Push Sender — device has content and connects OUT to deliver it.
@@ -224,9 +241,8 @@ structure ZixiPushSenderTransportProtocol with [ZixiCommonFields] {
 structure ZixiPushReceiverTransportProtocol with [ZixiCommonFields] {
     streamId: String
     @required
-    @range(min: 1024, max: 65535)
+    @range(min: 1024, max: 32767)
     port: Integer
-    interface: String
 }
 
 /// Zixi Pull Sender — device has content and listens for receivers to connect IN and pull.
@@ -235,9 +251,8 @@ structure ZixiPullSenderTransportProtocol with [ZixiCommonFields] {
     @required
     streamId: String
     @required
-    @range(min: 1024, max: 65535)
+    @range(min: 1024, max: 32767)
     port: Integer
-    interface: String
 }
 
 /// Zixi Pull Receiver — device wants content and connects OUT to pull from the sender.
@@ -253,6 +268,11 @@ structure ZixiPullReceiverTransportProtocol with [ZixiCommonFields] {
 }
 
 /// RTP transport — unicast and multicast RTP streams including SMPTE ST 2022.
+enum Fec {
+    ENABLED
+    DISABLED
+}
+
 structure RtpTransportProtocol {
     /// Unicast or multicast IP address. Maps to the SDP 'c=' line (Connection Data).
     @required
@@ -260,8 +280,10 @@ structure RtpTransportProtocol {
     /// UDP port. Maps to the SDP 'm=' line (Media Description) port.
     /// 1024 is the floor — device binds this port locally to receive incoming media.
     @required
-    @range(min: 1024, max: 65535)
+    @range(min: 1024, max: 32767)
     port: Integer
     /// IGMPv3 SSM source-specific multicast filter. Maps to SDP 'a=source-filter'.
     sourceAddressFilter: String
+    @required
+    forwardErrorCorrection: Fec
 }
