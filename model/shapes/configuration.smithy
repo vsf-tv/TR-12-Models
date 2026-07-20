@@ -81,7 +81,6 @@ structure ChannelProfile {
     id: IdString
 }
 
-// ─── Encryption ─────────────────────────────────────────────────────────────
 // ─── Encryption ───────────────────────────────────────────────────────────────
 //
 // SRT uses a plain-text passphrase. Zixi uses a raw AES hex key.
@@ -146,19 +145,23 @@ union EncryptionAes {
 }
 /// Available transport protocol configurations for a channel.
 union TransportProtocol {
+    /// Device binds a local port, waits for SRT caller to connect.
     srtListener: SrtListenerTransportProtocol
+    /// Device initiates SRT connection to a remote listener.
     srtCaller: SrtCallerTransportProtocol
-    ristSimpleListener: RistSimpleListenerTransportProtocol
-    ristSimpleCaller: RistSimpleCallerTransportProtocol
-    /// Zixi Push Sender: device is the sender, initiates connection to the receiver.
-    /// Zixi Push Sender: device has content, connects out to deliver it (needs remote address:port).
+    /// Device sends content, initiates connection to receiver (needs remote address:port).
     zixiPushSender: ZixiPushSenderTransportProtocol
-    /// Zixi Push Receiver: device wants content, listens for sender to connect in (needs local port).
-    zixiPushReceiver: ZixiPushReceiverTransportProtocol
-    /// Zixi Pull Sender: device has content, listens for receivers to connect in and pull (needs local port).
+    /// Device sends content, listens for receivers to pull (needs local port).
     zixiPullSender: ZixiPullSenderTransportProtocol
-    /// Zixi Pull Receiver: device wants content, connects out to pull from sender (needs remote address:port).
+    /// Device receives content, listens for sender to push in (needs local port).
+    zixiPushReceiver: ZixiPushReceiverTransportProtocol
+    /// Device receives content, initiates connection to pull from sender (needs remote address:port).
     zixiPullReceiver: ZixiPullReceiverTransportProtocol
+    /// Device sends content, initiates RIST connection to receiver.
+    ristSimpleSender: RistSimpleSenderTransportProtocol
+    /// Device receives content, binds a local port for incoming RIST stream.
+    ristSimpleReceiver: RistSimpleReceiverTransportProtocol
+    /// RTP unicast or multicast stream (SMPTE ST 2022).
     rtp: RtpTransportProtocol
 }
 
@@ -187,8 +190,8 @@ structure SrtCallerTransportProtocol {
     encryption: SrtEncryption
 }
 
-/// RIST Simple Profile (VSF TR-06-1) listener — binds a local UDP port and waits for incoming connections.
-structure RistSimpleListenerTransportProtocol {
+/// RIST Simple Profile (VSF TR-06-1) receiver — binds a local UDP port and waits for sender to connect.
+structure RistSimpleReceiverTransportProtocol {
     @required
     @range(min: 1024, max: 32767)
     port: Integer
@@ -196,8 +199,8 @@ structure RistSimpleListenerTransportProtocol {
     minimumLatencyMilliseconds: Integer
 }
 
-/// RIST Simple Profile (VSF TR-06-1) caller — initiates connection to a remote listener.
-structure RistSimpleCallerTransportProtocol {
+/// RIST Simple Profile (VSF TR-06-1) sender — initiates connection to a remote receiver.
+structure RistSimpleSenderTransportProtocol {
     @required
     address: String
     @required
