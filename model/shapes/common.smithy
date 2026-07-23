@@ -13,7 +13,7 @@ namespace com.tr12.common
 // Locking the model at Final is the most important compatibility gate — every change
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
-    @default("10.0.0")
+    @default("10.1.0")
     version: String
 }
 
@@ -196,6 +196,7 @@ structure CertificateRotationPayload {
     mqttUri: String
     @required
     deviceCertificate: SensitiveString
+    caCertificate: SensitiveString
     regionName: String
 }
 
