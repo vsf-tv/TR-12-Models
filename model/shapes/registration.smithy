@@ -5,6 +5,7 @@ use com.tr12.common#ChannelType
 use com.tr12.common#TransportProtocolName
 use com.tr12.common#EnumValuesStringList
 use com.tr12.common#IdString
+use com.tr12.common#ProtocolVersion
 
 /// Device registration payload — advertises device capabilities to the host.
 ///
@@ -12,6 +13,9 @@ use com.tr12.common#IdString
 /// - channelTemplates: unique capability definitions (max 5)
 /// - channelAssignments: maps each channel ID to a template (max 50)
 structure DeviceRegistration {
+    /// Allows the host to accept/reject/handle any version changes since originally paired.
+    @required
+    version: ProtocolVersion
     @required
     channelTemplates: ChannelTemplateList
     @required
