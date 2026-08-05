@@ -92,7 +92,7 @@ structure Setting {
 structure EnumValues {
     /// See limits.smithy: MAX_ENUM_VALUES
     @required
-    @length(max: 10)
+    @length(max: 25)
     @required
     values: EnumValuesStringList
     @required
@@ -124,7 +124,7 @@ structure ProfileDefinition {
 }
 
 /// See limits.smithy: MAX_PROTOCOLS_PER_TEMPLATE
-@length(max: 10)
+@length(max: 25)
 list ProtocolList {
     member: TransportProtocolName
 }

@@ -14,7 +14,7 @@ namespace com.tr12.common
 // after that must be evaluated against the above rules before bumping the version.
 structure ProtocolVersion {
     @required
-    @default("11.0.0")
+    @default("11.1.0")
     @pattern("^\\d+\\.\\d+\\.\\d+$")
     version: String
 }
@@ -69,8 +69,9 @@ list IdAndValueList {
     member: IdAndValue
 }
 
-// These will likely be exposed in the TR12 host's UI as a pull-down
-@length(max: 15)
+// These will likely be exposed in the TR12 host's UI as a pull-down.
+// See limits.smithy: MAX_ENUM_VALUES
+@length(max: 25)
 list EnumValuesStringList {
     member: String
 }
