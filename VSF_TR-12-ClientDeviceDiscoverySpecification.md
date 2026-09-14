@@ -299,21 +299,25 @@ The *HostSettings* structure returned in *AuthenticatePairingCodeResponse* conta
 
 ### 7.3 Processing a Configuration Update
 
-Upon receipt of a *DesiredDeviceConfiguration* message on `deviceSubscribesToDesiredConfigurationTopic`, the client shall apply the requested configuration to all relevant parameters.
+Upon receipt of a *DesiredDeviceConfiguration* message on `deviceSubscribesToDesiredConfigurationTopic`, the client shall apply the configuration to all relevant parameters carried in the message.
 
 **Version field:** *DesiredDeviceConfiguration* and each *DesiredChannelConfiguration* include a `version` field (epoch nanoseconds string). The host shall update this field whenever any parameter within that scope changes. The client shall apply device-level and channel-level configuration only when the associated `version` has changed from the last applied value. By maintaining independent `version` values at the device level and per channel, configuration changes are applied only where needed, avoiding unnecessary device restarts.
 
-**Desired/Actual configuration:** The client shall report actual configuration by publishing an *ActualDeviceConfiguration* on `devicePublishesActualConfigurationTopic` immediately after applying any desired configuration. The client shall read back actual state from the underlying device — it shall not simply reflect the desired configuration. The client shall echo the `version` values from the desired configuration at the corresponding device-level and channel-level in the actual configuration.
+**Partial configuration:** A *DesiredDeviceConfiguration* is permitted to omit `standardSettings` at the device level and/or to include a subset of the registered channels in `channels`. The host should publish a complete configuration covering every registered channel and every applicable device-level setting; however, the host may publish a partial *DesiredDeviceConfiguration* when it is unable to determine or produce a full configuration for the device. Upon receipt of a partial payload the client shall apply only the entities that are present, and shall not modify state, settings, protocol, or channel state for any channel not present in the payload. The registered set of channels is defined by *DeviceRegistration*; a partial configuration shall not remove any channel from that set.
+
+**Desired/Actual configuration:** The client shall report actual configuration by publishing an *ActualDeviceConfiguration* on `devicePublishesActualConfigurationTopic` immediately after applying any desired configuration. The client shall read back actual state from the underlying device — it shall not simply reflect the desired configuration. The *ActualDeviceConfiguration* shall include every registered channel and any device-level state the client can report, independent of whether a desired configuration has been received for those entities. For any scope (device-level or a specific channel) for which the client has applied a desired configuration, the client shall echo the applied `version` in the corresponding actual field. For any scope for which the client has not yet applied a desired configuration, the client shall set the `version` to the reserved string `"initial"`. This allows the client to report a complete picture of on-device state at any time, including immediately after connect and while operating under a partial configuration.
+
+**Initial connect:** Upon completing the MQTT connection and publishing its *DeviceRegistration*, the client shall publish an *ActualDeviceConfiguration* that reports the complete set of registered channels along with any device-level state the client is able to determine. Entities that have not yet been configured by a desired payload shall carry `version` set to `"initial"` as described above.
 
 **Health:** *ActualDeviceConfiguration* and *ActualChannelConfiguration* include an optional `health` field. The client should report `healthy` unless a problem exists. When a problem exists, the client shall set `health` to `degraded` or `critical` with a descriptive `message` and `timestamp`. This allows the host to surface device-side issues to cloud operators.
 
 **Processing flow:**
 
 1. Receive *DesiredDeviceConfiguration* on `deviceSubscribesToDesiredConfigurationTopic`
-2. Walk the configuration model; check `version` at device level and per channel
-3. Apply changed entities to the device
-4. Read back actual device state
-5. Publish *ActualDeviceConfiguration* on `devicePublishesActualConfigurationTopic`, reflecting applied `version` values and current health
+2. Walk the configuration model; check `version` at device level and for each channel present in the payload
+3. Apply changed entities to the device; leave entities not present in the payload unchanged
+4. Read back actual device state for every registered channel and for device-level scope
+5. Publish *ActualDeviceConfiguration* on `devicePublishesActualConfigurationTopic`, echoing applied `version` values where a desired has been applied, reporting `"initial"` for entities that have never been configured, and reflecting current health
 
 ### 7.4 Registration
 
