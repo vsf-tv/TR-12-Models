@@ -224,7 +224,7 @@ The *CreatePairingCodeException* `reason` field shall be one of:
 
 **AuthenticatePairingCode:** The client shall poll *AuthenticatePairingCode* at no more than the throttle rate (see Section 6.2) until the response `status` is `CLAIMED`.
 
-On a successful *AuthenticatePairingCodeResponse* with `status: CLAIMED`, the client shall persist the response payload, which includes the X.509 credentials, *HostSettings*, and MQTT URI needed to connect to the host service. The client shall immediately establish an MQTT connection and publish its registration to inform the host that pairing is complete.
+On a successful *AuthenticatePairingCodeResponse* with `status: CLAIMED`, the client shall persist the response payload, which includes the X.509 credentials, *HostSettings*, and MQTT URI needed to connect to the host service. The client shall immediately establish an MQTT connection and publish its *RegistrationPayload* to inform the host that pairing is complete.
 
 **Pairing Security Features (Informative)**
 
@@ -271,6 +271,34 @@ MQTT is a lightweight, publish-subscribe messaging protocol designed for secure,
 
 All MQTT messages published by the host to a device shall use the **retained** flag. This ensures that a device that was offline when a message was published receives it immediately upon reconnecting, without requiring the host to republish.
 
+**MQTT payload envelopes:** Every MQTT message — both device-to-host and host-to-device — shall be serialized as a JSON envelope structure defined by the Smithy `operation` `input` type in the service model (Appendix A). The envelope wraps the core data type in a named field. Clients shall not publish the raw inner type directly — the envelope is required.
+
+For example, a device publishing its registration shall serialize a *RegistrationPayload*, not a raw *DeviceRegistration*:
+
+```json
+// CORRECT — RegistrationPayload envelope:
+{ "deviceRegistration": { "version": { "version": "6.0.0" }, "channelTemplates": [...], ... } }
+
+// WRONG — raw DeviceRegistration without envelope:
+{ "version": { "version": "6.0.0" }, "channelTemplates": [...], ... }
+```
+
+The same pattern applies to all MQTT topics:
+
+| Direction | Envelope Type | Inner Field | Inner Type |
+|-----------|--------------|-------------|-----------|
+| Device → Host | *RegistrationPayload* | `deviceRegistration` | *DeviceRegistration* |
+| Device → Host | *StatusPayload* | `deviceStatus` | *DeviceStatus* |
+| Device → Host | *ActualConfigurationPayload* | `actualDeviceConfiguration` | *ActualDeviceConfiguration* |
+| Device → Host | *DeprovisionPayload* | (direct — no inner wrapper) | — |
+| Host → Device | *DesiredConfigurationPayload* | `desiredDeviceConfiguration` | *DesiredDeviceConfiguration* |
+| Host → Device | *CertificateRotationPayload* | (direct — no inner wrapper) | — |
+| Host → Device | *ThumbnailSubscriptionPayload* | (direct — no inner wrapper) | — |
+| Host → Device | *DeprovisionPayload* | (direct — no inner wrapper) | — |
+| Host → Device | *LogSubscriptionPayload* | (direct — no inner wrapper) | — |
+
+Implementers should use the Smithy-generated classes for serialization to ensure the correct envelope structure.
+
 ### 7.2 MQTT Settings
 
 The client and host shall use **MQTT v5.0** encrypted via TLS, using the credentials obtained during the pairing process.
@@ -305,9 +333,9 @@ Upon receipt of a *DesiredDeviceConfiguration* message on `deviceSubscribesToDes
 
 **Partial configuration:** A *DesiredDeviceConfiguration* is permitted to omit `standardSettings` at the device level and/or to include a subset of the registered channels in `channels`. The host should publish a complete configuration covering every registered channel and every applicable device-level setting; however, the host may publish a partial *DesiredDeviceConfiguration* when it is unable to determine or produce a full configuration for the device. Upon receipt of a partial payload the client shall apply only the entities that are present, and shall not modify state, settings, protocol, or channel state for any channel not present in the payload. The registered set of channels is defined by *DeviceRegistration*; a partial configuration shall not remove any channel from that set.
 
-**Desired/Actual configuration:** The client shall report actual configuration by publishing an *ActualDeviceConfiguration* on `devicePublishesActualConfigurationTopic` immediately after applying any desired configuration. The client shall read back actual state from the underlying device — it shall not simply reflect the desired configuration. The *ActualDeviceConfiguration* shall include every registered channel and any device-level state the client can report, independent of whether a desired configuration has been received for those entities. For any scope (device-level or a specific channel) for which the client has applied a desired configuration, the client shall echo the applied `version` in the corresponding actual field. For any scope for which the client has not yet applied a desired configuration, the client shall set the `version` to the reserved string `"initial"`. This allows the client to report a complete picture of on-device state at any time, including immediately after connect and while operating under a partial configuration.
+**Desired/Actual configuration:** The client shall report actual configuration by publishing an *ActualConfigurationPayload* (containing an *ActualDeviceConfiguration*) on `devicePublishesActualConfigurationTopic` immediately after applying any desired configuration. The client shall read back actual state from the underlying device — it shall not simply reflect the desired configuration. The *ActualDeviceConfiguration* shall include every registered channel and any device-level state the client can report, independent of whether a desired configuration has been received for those entities. For any scope (device-level or a specific channel) for which the client has applied a desired configuration, the client shall echo the applied `version` in the corresponding actual field. For any scope for which the client has not yet applied a desired configuration, the client shall set the `version` to the reserved string `"initial"`. This allows the client to report a complete picture of on-device state at any time, including immediately after connect and while operating under a partial configuration.
 
-**Initial connect:** Upon completing the MQTT connection and publishing its *DeviceRegistration*, the client shall publish an *ActualDeviceConfiguration* that reports the complete set of registered channels along with any device-level state the client is able to determine. Entities that have not yet been configured by a desired payload shall carry `version` set to `"initial"` as described above.
+**Initial connect:** Upon completing the MQTT connection and publishing its *RegistrationPayload*, the client shall publish an *ActualConfigurationPayload* containing an *ActualDeviceConfiguration* that reports the complete set of registered channels along with any device-level state the client is able to determine. Entities that have not yet been configured by a desired payload shall carry `version` set to `"initial"` as described above.
 
 **Health:** *ActualDeviceConfiguration* and *ActualChannelConfiguration* include an optional `health` field. The client should report `healthy` unless a problem exists. When a problem exists, the client shall set `health` to `degraded` or `critical` with a descriptive `message` and `timestamp`. This allows the host to surface device-side issues to cloud operators.
 
@@ -317,13 +345,13 @@ Upon receipt of a *DesiredDeviceConfiguration* message on `deviceSubscribesToDes
 2. Walk the configuration model; check `version` at device level and for each channel present in the payload
 3. Apply changed entities to the device; leave entities not present in the payload unchanged
 4. Read back actual device state for every registered channel and for device-level scope
-5. Publish *ActualDeviceConfiguration* on `devicePublishesActualConfigurationTopic`, echoing applied `version` values where a desired has been applied, reporting `"initial"` for entities that have never been configured, and reflecting current health
+5. Publish *ActualConfigurationPayload* (wrapping the *ActualDeviceConfiguration*) on `devicePublishesActualConfigurationTopic`, echoing applied `version` values where a desired has been applied, reporting `"initial"` for entities that have never been configured, and reflecting current health
 
 ### 7.4 Registration
 
-**On connect:** The client shall publish a *DeviceRegistration* payload on `devicePublishesRegistrationTopic` immediately upon connecting to the MQTT broker, including on every reconnect.
+**On connect:** The client shall publish a *RegistrationPayload* (containing the *DeviceRegistration*) on `devicePublishesRegistrationTopic` immediately upon connecting to the MQTT broker, including on every reconnect.
 
-**Host behavior:** The host service shall ignore all other MQTT publications from the client until the *DeviceRegistration* payload has been successfully received and processed.
+**Host behavior:** The host service shall ignore all other MQTT publications from the client until the *RegistrationPayload* has been successfully received and processed.
 
 **Re-registration:** The client may publish an updated *DeviceRegistration* at any time while connected, provided the only change is to `channelTemplates[].profiles`. This allows the host to be informed of profile changes made by the device user since the device connected. The host shall detect and apply only changes to `profiles`. The host may update the active channel configuration profile if needed to reflect changes to the registered profiles.
 
@@ -336,7 +364,7 @@ This pattern keeps registration payloads compact for devices with many identical
 
 ### 7.5 Reporting Status
 
-Once connected and after publishing a registration payload, the client may publish telemetry to the host via a *DeviceStatus* payload on `devicePublishesStatusTopic`.
+Once connected and after publishing a registration payload, the client may publish telemetry to the host via a *StatusPayload* (containing a *DeviceStatus*) on `devicePublishesStatusTopic`.
 
 The client shall not publish status more frequently than `minimumIntervalPublishSeconds` from *HostSettings*.
 
@@ -418,7 +446,9 @@ Host                    Client                  Storage
 
 **Size limit:** The client shall not upload images exceeding `maxSizeKB` kilobytes. The host's maximum accepted size is advertised in the Host Configuration `thumbnailMaximumSizeKB` field.
 
-**Subscription replacement:** A new *ThumbnailSubscriptionPayload* replaces any existing subscription. The client shall not accumulate subscriptions.
+**Subscription semantics:** Each entry in `requests` is a per-channel upsert. Channels absent from the payload keep running unchanged. To cancel a channel, publish a subscription for it with `expiresAt` in the past. Because MQTT retains only the last-published message, hosts SHOULD periodically re-publish the full active set so a reconnecting device recovers all subscriptions from one retained payload.
+
+**Subscription duration:** Thumbnails are large payloads and are intended to be requested only while a viewer needs them — one step above a single on-demand fetch, and explicitly not a permanent stream. Hosts SHOULD publish short subscriptions on the order of 60 seconds and re-publish while the viewer is still active. When the viewer disengages, the subscription expires on its own.
 
 The *ThumbnailSubscription* fields per channel:
 
@@ -448,9 +478,9 @@ Client                          Host
   |  (repeat)                    |
 ```
 
-After completing pairing, the client establishes an MQTT connection and immediately publishes its *DeviceRegistration*. While connected, the client periodically publishes *DeviceStatus*. When the host operator pushes a new desired configuration, the client receives it, applies the changes to the device, reads back the actual state, and publishes *ActualDeviceConfiguration*. This cycle continues until the device disconnects or is deprovisioned.
+After completing pairing, the client establishes an MQTT connection and immediately publishes its *RegistrationPayload*. While connected, the client periodically publishes *StatusPayload*. When the host operator pushes a new desired configuration, the client receives a *DesiredConfigurationPayload*, applies the changes to the device, reads back the actual state, and publishes an *ActualConfigurationPayload*. This cycle continues until the device disconnects or is deprovisioned.
 
-The client should implement an automatic reconnect loop with exponential backoff. On each reconnect, the client shall re-publish its *DeviceRegistration* before any other publications.
+The client should implement an automatic reconnect loop with exponential backoff. On each reconnect, the client shall re-publish its *RegistrationPayload* before any other publications.
 
 Because all host-to-device MQTT messages are retained, a device that was offline when a configuration update, certificate rotation, thumbnail subscription, or deprovision command was published will receive it immediately upon reconnecting — without requiring the host to republish.
 
