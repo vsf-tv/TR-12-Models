@@ -337,15 +337,13 @@ Upon receipt of a *DesiredDeviceConfiguration* message on `deviceSubscribesToDes
 
 **Initial connect:** Upon completing the MQTT connection and publishing its *RegistrationPayload*, the client shall publish an *ActualConfigurationPayload* containing an *ActualDeviceConfiguration* that reports the complete set of registered channels along with any device-level state the client is able to determine. Entities that have not yet been configured by a desired payload shall carry `version` set to `"initial"` as described above.
 
-**Health:** *ActualDeviceConfiguration* and *ActualChannelConfiguration* include an optional `health` field. The client should report `healthy` unless a problem exists. When a problem exists, the client shall set `health` to `degraded` or `critical` with a descriptive `message` and `timestamp`. This allows the host to surface device-side issues to cloud operators.
-
 **Processing flow:**
 
 1. Receive *DesiredDeviceConfiguration* on `deviceSubscribesToDesiredConfigurationTopic`
 2. Walk the configuration model; check `version` at device level and for each channel present in the payload
 3. Apply changed entities to the device; leave entities not present in the payload unchanged
 4. Read back actual device state for every registered channel and for device-level scope
-5. Publish *ActualConfigurationPayload* (wrapping the *ActualDeviceConfiguration*) on `devicePublishesActualConfigurationTopic`, echoing applied `version` values where a desired has been applied, reporting `"initial"` for entities that have never been configured, and reflecting current health
+5. Publish *ActualConfigurationPayload* (wrapping the *ActualDeviceConfiguration*) on `devicePublishesActualConfigurationTopic`, echoing applied `version` values where a desired has been applied, and reporting `"initial"` for entities that have never been configured
 
 ### 7.4 Registration
 
@@ -634,7 +632,7 @@ The host uses the registration to auto-generate a management console UI with typ
 The configuration model has two variants:
 
 - *DesiredDeviceConfiguration*: Sent from host to device. Contains only fields the host controls.
-- *ActualDeviceConfiguration*: Reported from device to host. Extends the desired fields with device-reported fields (`health`, `thumbnailLocalPath`).
+- *ActualDeviceConfiguration*: Reported from device to host. Extends the desired fields with device-reported fields (`thumbnailLocalPath`). Health is reported separately via *DeviceStatus* / *ChannelStatus* (see Section 7.5).
 
 Both carry a `version` string at the device level and per channel. The host shall stamp a new `version` (epoch nanoseconds) on any entity whose content changes. The client shall apply only entities whose `version` has changed.
 
@@ -647,7 +645,6 @@ Each *DesiredChannelConfiguration* / *ActualChannelConfiguration* contains:
 | `state` | `ACTIVE` or `IDLE`. |
 | `channelSettings` | Either `standardSettings` (list of `{id, value}` pairs) or `profile` (`{id}`). Mutually exclusive. |
 | `protocol` | Optional *TransportProtocol* union. One of: `srtListener`, `srtCaller`, `ristSimpleListener`, `ristSimpleCaller`, `zixiPush`, `zixiPull`, `rtp`. |
-| `health` | (Actual only) *Health* union: `healthy`, `degraded`, or `critical`. |
 | `thumbnailLocalPath` | (Actual only) Local filesystem path to the channel's thumbnail image. Used by the client to service thumbnail subscriptions. The host may ignore this field. |
 
 The host shall validate configuration payloads against the device's registration before publishing:
